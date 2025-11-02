@@ -7,13 +7,29 @@
 <body>
 <h1>알라딘 베스트 셀러 모음</h1>
 
-<div id="category-buttons">
-    <button th:onclick="'loadCategory(\'국베\')'">국베</button>
-    <button th:onclick="'loadCategory(\'신간\')'">신간</button>
-    <button th:onclick="'loadCategory(\'외베\')'">외베</button>
+<div th:fragment="bookList">
+    <ul>
+        <li th:each="book : ${books}">
+            <hr>
+            <img th:src="${book.bookImage}" width="100" /><br>
+            <strong th:text="${book.title}"></strong> -
+            <span th:text="${book.author}"></span>
+            <p th:text="${book.category}"></p>
+            <p><strong>가격:</strong> <span th:text="${book.price}"></span></p><br>
+        </li>
+    </ul>
 </div>
 
-<div id="book-list"></div>
+
+
+
+
+
+
+
+
+
+
 
 
 
