@@ -12,6 +12,18 @@
     <button th:onclick="'loadCategory(\'신간\')'">신간</button>
     <button th:onclick="'loadCategory(\'외베\')'">외베</button>
 </div>
+<div>
+    <input type="text" id="titleInput" name="title" placeholder="책 제목" />
+    <input type="text" id="authorInput" name="author" placeholder="저자" />
+    <input type="text" id="publisherInput" name="price" placeholder="출판사" />
+</div>
+<div>
+    <form th:action="@{/view}" method="post">
+    <input type="text" name="message" placeholder="메시지를 입력하세요" />
+    <button type="submit">전송</button>
+    </form>
+</div>
+<div th:if="${selbooks}" th:replace="BookSelect :: bookSelect"></div>
 
 <div id="book-list"></div>
 
@@ -37,6 +49,12 @@
                 document.getElementById('book-list').innerHTML = html;
             });
     }
+    function setBookInfo(title, author, publisher) {
+        document.getElementById("titleInput").value = title;
+        document.getElementById("authorInput").value = author;
+        document.getElementById("publisherInput").value = publisher;
+    }
+
 </script>
 
 </html>

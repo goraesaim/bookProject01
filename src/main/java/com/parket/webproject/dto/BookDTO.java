@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookDTO {
-    private Long bno;
+    private String imgUrl;
     private String title;
     private String author;
+    private String publisher;
     private String price;
-    private String imageUrl;
 
 }

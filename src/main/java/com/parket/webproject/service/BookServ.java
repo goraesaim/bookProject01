@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface BookServ {
     void CrawlBooks() throws IOException;
+    List<BookDTO> CrawlSelectBook(String selectText) throws IOException;
+
 }

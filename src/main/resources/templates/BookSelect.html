@@ -5,22 +5,27 @@
     <title>Title</title>
 </head>
 <body>
-<h1>알라딘 베스트 셀러 모음</h1>
-
-<div th:fragment="bookList">
+<h1>알라딘  모음</h1>
+<div th:fragment="bookSelect">
     <ul>
-        <li th:each="book : ${books}">
+        <li th:each="book : ${selbooks}">
             <hr>
-            <img th:src="${book.bookImage}" width="100" /><br>
-            <strong th:text="${book.title}"></strong> -
-            <span th:text="${book.author}"></span><br>
-            <p><strong>출판사:</strong> <span th:text="${book.publisher}"></span></p>
-            <p><strong>출판사:</strong> <span th:text="${book.category}"></span></p>
-            <p><strong>가격:</strong> <span th:text="${book.price}"></span></p><br>
+            <form action="/select" method="post">
+                <img th:src="${book.imgUrl}" width="100" /><br>
+                <strong th:text="${book.title}"></strong> -
+                <span th:text="${book.author}"></span>
+                <p><strong>출판사:</strong> <span th:text="${book.publisher}"></span></p><br>
+                <p><strong>가격:</strong> <span th:text="${book.price}"></span></p><br>
+                <button type="button"
+                        th:attr="data-title=${book.title}, data-author=${book.author}, data-price=${book.publisher}"
+                        onclick="setBookInfo(this.dataset.title, this.dataset.author, this.dataset.price)">
+                선택
+                </button>
+
+            </form>
         </li>
     </ul>
 </div>
-
 
 
 

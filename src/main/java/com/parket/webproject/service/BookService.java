@@ -2,6 +2,7 @@ package com.parket.webproject.service;
 
 
 import com.parket.webproject.domain.CrawlBook;
+import com.parket.webproject.dto.BookDTO;
 import com.parket.webproject.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
@@ -12,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -24,17 +22,52 @@ public class BookService implements BookServ{
     @Autowired
     private BookRepository bookRepository;
 
+
+
+
     @Override
     public void CrawlBooks() throws IOException{
         try{
-            crawlAladin("https://www.aladin.co.kr/shop/common/wbest.aspx?BestType=Bestseller", "국베");
+            crawlAladin("https://www.aladin.co.kr/search/wsearchresult.aspx?SearchTarget=All&SearchWord=%EC%9E%90%EB%B0%94", "국베");
+
+//            crawlAladin("https://www.aladin.co.kr/shop/common/wbest.aspx?BestType=Bestseller", "국베");
             Thread.sleep(1000);
-            crawlAladin("https://www.aladin.co.kr/shop/common/wnew.aspx?BranchType=1", "신간");
-            Thread.sleep(1000);
-            crawlAladin("https://www.aladin.co.kr/shop/common/wbest.aspx?BranchType=7", "외베");
+//            crawlAladin("https://www.aladin.co.kr/shop/common/wnew.aspx?ViewRowsCount=50&ViewType=Detail&SortOrder=6&page=1&BranchType=1&PublishDay=84&CustReviewRankStart=&CustReviewRankEnd=&CustReviewCountStart=&CustReviewCountEnd=&PriceFilterMin=&PriceFilterMax=&SearchOption=", "신간");
+//            Thread.sleep(1000);
+//            crawlAladin("https://www.aladin.co.kr/shop/common/wbest.aspx?BranchType=7", "외베");
+//            Thread.sleep(1000);
+//            crawlAladin("https://www.aladin.co.kr/shop/book/wHotSale.aspx?ViewRowsCount=50&ViewType=Detail&SortOrder=2&page=1&PublishDay=84&CustReviewRankStart=&CustReviewRankEnd=&CustReviewCountStart=&CustReviewCountEnd=&PriceFilterMin=&PriceFilterMax=&SearchOption=", "재정가");
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public List<BookDTO> CrawlSelectBook(String selectText) throws IOException {
+        String url="https://www.aladin.co.kr/search/wsearchresult.aspx?SearchTarget=All&SearchWord="+selectText;
+        System.out.println("사용자 메시지: " + selectText);
+        List<BookDTO> books = new ArrayList<>();
+        Document doc = Jsoup.connect(url)
+                .userAgent("Mozilla/5.0")
+                .get();
+        Elements bookElements = doc.select(".ss_book_box");
+        System.out.println(bookElements.size());
+        for (Element book : bookElements) {
+            Element img = book.selectFirst(".front_cover, .i_cover");
+            if(img ==  null){
+                img = book.selectFirst(".cover_area_other>a>img");
+            }
+            String imageUrl = img != null ? img.attr("src") : null;
+            String title = book.select(".bo3").text();
+            String[] result=TakeAuthor(book);
+            String author = result[0];
+            String publisher = result[1];
+            String price = book.select(".ss_p2").text();
+
+            books.add(new BookDTO(imageUrl,title, author,publisher, price));
+        }
+        return books;
+
     }
 
     public void crawlAladin(String url, String cate) throws IOException {
@@ -45,6 +78,9 @@ public class BookService implements BookServ{
         System.out.println(bookElements.size());
         for (Element book : bookElements) {
             Element img = book.selectFirst(".front_cover, .i_cover");
+            if(img ==  null){
+                img = book.selectFirst(".cover_area_other>a>img");
+            }
             String imageUrl = img != null ? img.attr("src") : null;
             String title = book.select(".bo3").text();
             String[] result=TakeAuthor(book);
@@ -52,6 +88,7 @@ public class BookService implements BookServ{
             String publisher = result[1];
             String category = cate;
             String price = book.select(".ss_p2").text();
+            if (price.equals("0원")){price="무료";}
             if (!title.isEmpty()) {
                 CrawlBook crawlBook = new CrawlBook(null, title, author, price, publisher,category,imageUrl);
                 bookRepository.count();
@@ -62,10 +99,10 @@ public class BookService implements BookServ{
     public static String[] TakeAuthor(Element book){
         String author="";
         Elements authors=null;
-        Elements liList = book.select("ul");
+        Elements liList = book.select(".ss_book_list > ul");
         boolean hasTrash = false;
         for (Element li : liList) {
-            if (!li.select(".ss_ht1").isEmpty()) {
+            if (!li.select(".ss_ht1").isEmpty() || !li.select(".book_label_wrap").isEmpty()) {
                 hasTrash = true;
                 break;
             }
