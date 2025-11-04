@@ -16,5 +16,6 @@ public class BookDTO {
     private String author;
     private String publisher;
     private String price;
+    private String productUrl;
 
 }

@@ -7,7 +7,7 @@
                 <h3>국내 도서</h3>
             </div>
             <div class="board_search">
-                <form action="">
+                <form th:action="@{/domestic/search}" method="get">
                     <div class="search_con">
                         <div class="select_box">
                             <select>
@@ -16,7 +16,7 @@
                                 <option>저자</option>
                             </select>
                         </div>
-                        <input type="text" value="키워드를 입력해주세요.">
+                        <input type="text" name="keyword" th:value="${keyword}" placeholder="키워드를 입력해주세요">
                         <input type="submit" value="">
                     </div>
                 </form>
@@ -33,16 +33,15 @@
             <div class="product_wrap">
                 <ul class="product_list">
                     <li class="itm" th:each="book : ${books}">
-                        <a href="/domestic/detail">
+                        <a th:href="@{/domestic/detail(bno=${book.bno})}">
                             <div class="img">
                                 <img th:src="${book.bookImage}"  alt="">
                             </div>
                             <p class="title" th:text="${book.title}"></p>
-                            <span class="author" th:text="${book.title}"></span>
+                            <span class="author" th:text="${book.author}"></span>
                             <p class="price" th:text="${book.price}"></p>
                         </a>
                     </li>
-
 <!--                    <li >-->
 <!--                        <hr>-->
 <!--                        <img th:src="${book.bookImage}" width="100" /><br>-->
@@ -62,56 +61,7 @@
 <!--                            <p class="price">1,500 <span>원</span></p>-->
 <!--                        </a>-->
 <!--                    </li>-->
-<!--                    <li class="itm">-->
-<!--                        <a href="">-->
-<!--                            <div class="img">-->
-<!--                                <img src="../img/main/sample.jpg" alt="">-->
-<!--                            </div>-->
-<!--                            <p class="title">책제목책제목책제목</p>-->
-<!--                            <span class="author">책저자</span>-->
-<!--                            <p class="price">1,500 <span>원</span></p>-->
-<!--                        </a>-->
-<!--                    </li>-->
-<!--                    <li class="itm">-->
-<!--                        <a href="">-->
-<!--                            <div class="img">-->
-<!--                                <img src="../img/main/sample.jpg" alt="">-->
-<!--                            </div>-->
-<!--                            <p class="title">책제목책제목책제목</p>-->
-<!--                            <span class="author">책저자</span>-->
-<!--                            <p class="price">1,500 <span>원</span></p>-->
-<!--                        </a>-->
-<!--                    </li>-->
-<!--                    <li class="itm">-->
-<!--                        <a href="">-->
-<!--                            <div class="img">-->
-<!--                                <img src="../img/main/sample.jpg" alt="">-->
-<!--                            </div>-->
-<!--                            <p class="title">책제목책제목책제목</p>-->
-<!--                            <span class="author">책저자</span>-->
-<!--                            <p class="price">1,500 <span>원</span></p>-->
-<!--                        </a>-->
-<!--                    </li>-->
-<!--                    <li class="itm">-->
-<!--                        <a href="">-->
-<!--                            <div class="img">-->
-<!--                                <img src="../img/main/sample.jpg" alt="">-->
-<!--                            </div>-->
-<!--                            <p class="title">책제목책제목책제목</p>-->
-<!--                            <span class="author">책저자</span>-->
-<!--                            <p class="price">1,500 <span>원</span></p>-->
-<!--                        </a>-->
-<!--                    </li>-->
-<!--                    <li class="itm">-->
-<!--                        <a href="">-->
-<!--                            <div class="img">-->
-<!--                                <img src="../img/main/sample.jpg" alt="">-->
-<!--                            </div>-->
-<!--                            <p class="title">책제목책제목책제목</p>-->
-<!--                            <span class="author">책저자</span>-->
-<!--                            <p class="price">1,500 <span>원</span></p>-->
-<!--                        </a>-->
-<!--                    </li>-->
+
                 </ul>
             </div>
             <div class="pagenation_wrap">

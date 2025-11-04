@@ -5,13 +5,13 @@
         <div class="inner">
             <div class="product_info">
                 <div class="img">
-                    <img src="../img/main/sample.jpg" alt="">
+                    <img th:src="${book.imgUrl}" alt="">
                 </div>
                 <div class="info">
-                    <p class="title">책제목</p>
-                    <p class="author">저자저자저자</p>
-                    <p class="price">12,000 원</p>
-                    <a href="#">알라딘 바로가기</a>
+                    <p class="title" th:text="${book.title}"></p>
+                    <p class="author" th:text="${book.author}"></p>
+                    <p class="price" th:text="${book.price}" ></p>
+                    <a th:href="${book.productUrl}">알라딘 바로가기</a>
                 </div>
             </div>
 
