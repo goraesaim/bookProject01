@@ -1,0 +1,109 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout.html}">
+<div layout:fragment="content">
+    <div class="sub_page cart_page">
+        <div class="inner">
+            <div class="sub_top_ttl">
+                <h3>장바구니</h3>
+            </div>
+            <div class="cart_wrap">
+                <form class="flex__form">
+                    <div class="cart_detail">
+                        <!--
+                      <div class="alert_box">
+                        <img src="../img/sub/alert.svg" />
+                        <p>
+                          장바구니에 담긴 상품이 없습니다.<br />
+                          다양한 중고서적을 담아보세요.
+                        </p>
+                      </div>-->
+                        <table class="cart__list">
+                            <thead>
+                            <tr>
+                                <td><input type="checkbox" /></td>
+                                <td colspan="2">상품정보</td>
+                                <td>상품금액</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="cart__list__detail">
+                                <td><input type="checkbox" /></td>
+                                <td class="img">
+                                    <img src="../img/main/sample.jpg" alt="magic keyboard" />
+                                </td>
+                                <td>
+                                    <a href="#" class="title"
+                                    >아주오래 앉아있는 사람을 위한책</a
+                                    >
+                                    <p class="author">저자저자저자</p>
+                                    <span class="price">3,000원</span><span>119,000</span>
+                                </td>
+                                <td>
+                                    <span class="price">3,300원</span><br />
+                                    <button class="cart__list__orderbtn">주문하기</button>
+                                </td>
+                            </tr>
+                            <tr class="cart__list__detail">
+                                <td><input type="checkbox" /></td>
+                                <td class="img">
+                                    <img src="../img/main/sample.jpg" alt="magic keyboard" />
+                                </td>
+                                <td>
+                                    <a href="#" class="title"
+                                    >아주오래 앉아있는 사람을 위한책</a
+                                    >
+                                    <p class="author">저자저자저자</p>
+                                    <span class="price">3,000원</span><span>119,000</span>
+                                </td>
+                                <td>
+                                    <span class="price">3,300원</span><br />
+                                    <button class="cart__list__orderbtn">주문하기</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="3">
+                                    <input type="checkbox" />
+                                    <button class="cart__list__optionbtn">
+                                        선택상품 삭제
+                                    </button>
+                                    <button class="cart__list__optionbtn">전체삭제</button>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="cart_info_wrap">
+                        <div class="cart_info">
+                            <h3>결제 예상금액</h3>
+                            <div>
+                                <span>상품금액</span>
+                                <p>10,000 <span>원</span></p>
+                            </div>
+                            <div>
+                                <span>상품 수량</span>
+                                <p>2 <span>개</span></p>
+                            </div>
+                            <div class="total">
+                                <span>총 <span>1</span> 개</span>
+                                <p>30,000 <span>원</span></p>
+                            </div>
+                            <button onclick="location.href='/order/pay'"
+                                    type="button"
+                                    name="orderItem"
+                                    value="상품ID"
+                                    class="cart__list__orderbtn"
+                            >
+                                주문하기
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout.html}">
+<div layout:fragment="content">
+    <div class="sub_page member_page">
+        <div class="inner">
+            <div class="sub_top_ttl">
+                <h3>회원가입</h3>
+            </div>
+            <div class="form_box">
+                <form action="" class="member_form">
+                    <div>
+                        <span>아이디</span>
+                        <div class="flex_box">
+                            <input type="text" placeholder="아이디를 입력해주세요" class="input_id">
+                            <button type="button">아이디 중복체크</button>
+                        </div>
+                    </div>
+                    <div>
+                        <span>비밀번호</span>
+                        <input type="password" placeholder="아이디를 입력해주세요" class="input_pw">
+                    </div>
+                    <div>
+                        <span>비밀번호 확인</span>
+                        <input type="password" placeholder="아이디를 입력해주세요" class="input_pw">
+                    </div>
+                    <div>
+                        <span>주소</span>
+                        <input type="text" placeholder="아이디를 입력해주세요">
+                    </div>
+                    <input type="submit" value="회원가입" class="submit_btn">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
