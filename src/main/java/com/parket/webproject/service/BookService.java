@@ -76,11 +76,7 @@ public class BookService implements BookServ{
     }
 
 
-
-
-
-
-
+// 내부 사용 함수
     public void crawlAladin(String url, String cate) throws IOException {
         Document doc = Jsoup.connect(url)
                 .userAgent("Mozilla/5.0")

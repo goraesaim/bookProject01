@@ -29,7 +29,7 @@ public interface BookRepository extends JpaRepository<CrawlBook, Long> {
     @Query("SELECT b FROM CrawlBook b WHERE b.category LIKE '%신간%' AND b.title LIKE :keyword ORDER BY b.bno ASC")
     List<CrawlBook> findBySearchBookNewAll(String keyword);
 
+
     @Query("SELECT b FROM CrawlBook b WHERE b.category LIKE :keyword ORDER BY b.bno ASC")
     List<CrawlBook> findByCategoryContaining(@Param("keyword") String keyword);
-
 }
