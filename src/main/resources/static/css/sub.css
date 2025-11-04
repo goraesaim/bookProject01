@@ -18,7 +18,7 @@ input:focus{outline: 1px solid var(--point-color);}
     transform: translateY(0);
   }
 }
-.itm .label{padding: 4px 8px; font-size: 13px; margin-bottom: 12px; display: inline-block; }
+.itm .label{padding: 4px 8px; font-size: 13px; margin-bottom: 12px; display: inline-block; position: absolute; top: 0; left: 0}
 .itm .label01{background: var(--label01-bg-color); color: var(--label01-text-color);}
 .itm .label02{background: var(--label02-bg-color); color: var(--label02-text-color);}
 
