@@ -31,7 +31,7 @@ public class Cart {
     @JoinColumn(name = "productId")
 
     // !!!!!! 나중에 진짜 domain으로 바꿔야함..
-    private Pd_test product;
+    private Product product;
 
     public Cart(int userId, int quantity) {
         this.userId = userId;
