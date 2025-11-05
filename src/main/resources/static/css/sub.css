@@ -91,12 +91,13 @@ appearance: none; -webkit-appearance: none;-moz-appearance: none; background: #f
 .alert_box.type3 a{display: block; padding: 12px 20px; background: var(--point-color); color: #fff; font-family: 'GmarketSans'; font-size: 16px;}
 
 /*popup*/
-.pop_wrap{display: flex; top: 0; left: 0; background:rgba(0,0,0,.6); position: fixed; width: 100%; height: 100vh; z-index: 3;
+.pop_wrap{display: none; top: 0; left: 0; background:rgba(0,0,0,.6); position: fixed; width: 100%; height: 100vh; z-index: 3;
 align-items: center; justify-content: center;}
-.pop_wrap .popup{padding: 40px; background: #fff; min-width: 400px; text-align: center;}
+.pop_wrap .popup{position: relative; padding: 40px; background: #fff; min-width: 400px; text-align: center;}
 .pop_wrap .popup h3{font-size: 17px; font-family: 'GmarketSans'; color: var(--point-color); margin: 12px 0 4px;}
 .pop_wrap .popup p{font-size: 16px; font-size: 16px; margin-bottom: 20px;}
-
+.pop_wrap .popup a{padding: 0 20px; font-size: 15px; line-height: 47px;}
+.pop_wrap .popup .close_btn{position: absolute; top: -30px; right: -30px; background: none; border: none;}
 
 /* 국내 / 국외 도서 > 리스트 */
 .product_list{display: flex; gap: 30px; flex-wrap: wrap;}

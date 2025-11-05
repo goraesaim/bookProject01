@@ -10,12 +10,18 @@ public class UseController {
 
     @GetMapping("/list")
     public String list() {
-        return "use/list"; // templates/use/list.html 파일을 렌더링
+        return "use/list";
+
+    }
+
+    @GetMapping("/list2")
+    public String list2() {
+        return "use/list2";
     }
 
     @GetMapping("/write")
     public String write() {
-        return "use/write"; // templates/use/list.html 파일을 렌더링
+        return "use/write";
     }
 
 }
