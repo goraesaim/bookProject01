@@ -19,17 +19,17 @@ public class ProductDTO {
 //    private String username;
     @NotEmpty
     private String title;
-    @NotEmpty
     private String content;
     @NotEmpty
     private Long price;
     @NotEmpty
     private String author;
-//    @NotEmpty
+    @NotEmpty
     private String publisher;
     // 제품 상태
     private String conditions;
     // 판매 여부
+    @NotEmpty
     private Boolean isSold;
     private int readcount;
     private LocalDateTime createdAt;

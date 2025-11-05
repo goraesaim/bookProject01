@@ -53,10 +53,7 @@
                         <a href="/foreign/list" class="a_link">해외 도서</a>
                     </li>
                     <li>
-                        <a href="/bookNew/list" class="a_link">신간 도서</a>
-                    </li>
-                    <li>
-                        <a href="/use/list" class="a_link">중고장터</a>
+                        <a href="/product/list" class="a_link">중고장터</a>
                     </li>
                     <li>
                         <a href="/noti/list" class="a_link">공지사항</a>
@@ -67,17 +64,16 @@
         <div class="header__right">
             <ul class="member_box">
                 <!-- 로그인 전 -->
-<!--                <li><a href="/check">확인</a></li>-->
-                <li sec:authorize="!isAuthenticated()">
-                    <a href="/member/join">회원가입</a>
-                    <a href="/member/login">로그인</a>
-                </li>
+                <!-- <li>
+                              <a href="#">회원가입</a>
+                              <a href="#">로그인</a>
+                          </li> -->
                 <!-- 로그인 후 -->
-                <li sec:authorize="isAuthenticated()" class="">
-                    <a href="/logout">로그아웃</a>
+                <li class="">
+                    <a href="#">로그아웃</a>
                     <a href="/mypage/info">마이페이지</a>
                 </li>
-                <li sec:authorize="hasAnyAuthority('ADMIN')">
+                <li>
                     <a href="#" class="admin">관리자 페이지</a>
                 </li>
             </ul>
