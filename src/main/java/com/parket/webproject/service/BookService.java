@@ -28,13 +28,11 @@ public class BookService implements BookServ{
     @Override
     public void CrawlBooks() throws IOException{
         try{
-            crawlAladin("https://www.aladin.co.kr/search/wsearchresult.aspx?SearchTarget=All&SearchWord=%EC%9E%90%EB%B0%94", "국베");
-
-//            crawlAladin("https://www.aladin.co.kr/shop/common/wbest.aspx?BestType=Bestseller", "국베");
+            crawlAladin("https://www.aladin.co.kr/shop/common/wbest.aspx?BestType=Bestseller", "국베");
             Thread.sleep(1000);
-//            crawlAladin("https://www.aladin.co.kr/shop/common/wnew.aspx?ViewRowsCount=50&ViewType=Detail&SortOrder=6&page=1&BranchType=1&PublishDay=84&CustReviewRankStart=&CustReviewRankEnd=&CustReviewCountStart=&CustReviewCountEnd=&PriceFilterMin=&PriceFilterMax=&SearchOption=", "신간");
-//            Thread.sleep(1000);
-//            crawlAladin("https://www.aladin.co.kr/shop/common/wbest.aspx?BranchType=7", "외베");
+            crawlAladin("https://www.aladin.co.kr/shop/common/wnew.aspx?ViewRowsCount=50&ViewType=Detail&SortOrder=6&page=1&BranchType=1&PublishDay=84&CustReviewRankStart=&CustReviewRankEnd=&CustReviewCountStart=&CustReviewCountEnd=&PriceFilterMin=&PriceFilterMax=&SearchOption=", "신간");
+            Thread.sleep(1000);
+            crawlAladin("https://www.aladin.co.kr/shop/common/wbest.aspx?BranchType=7", "외베");
 //            Thread.sleep(1000);
 //            crawlAladin("https://www.aladin.co.kr/shop/book/wHotSale.aspx?ViewRowsCount=50&ViewType=Detail&SortOrder=2&page=1&PublishDay=84&CustReviewRankStart=&CustReviewRankEnd=&CustReviewCountStart=&CustReviewCountEnd=&PriceFilterMin=&PriceFilterMax=&SearchOption=", "재정가");
         } catch (InterruptedException e) {
@@ -63,13 +61,22 @@ public class BookService implements BookServ{
             String author = result[0];
             String publisher = result[1];
             String price = book.select(".ss_p2").text();
-
-            books.add(new BookDTO(imageUrl,title, author,publisher, price));
+            String productUrl = book.select(".bo3").attr("href");
+            books.add(new BookDTO(imageUrl,title, author,publisher, price,productUrl));
         }
         return books;
 
     }
 
+    @Override
+    public BookDTO findBookById(Long bno) {
+        CrawlBook book=bookRepository.findById(bno).orElse(null);
+        BookDTO bookDTO=entityToDTO(book);
+        return bookDTO;
+    }
+
+
+// 내부 사용 함수
     public void crawlAladin(String url, String cate) throws IOException {
         Document doc = Jsoup.connect(url)
                 .userAgent("Mozilla/5.0")
@@ -89,8 +96,9 @@ public class BookService implements BookServ{
             String category = cate;
             String price = book.select(".ss_p2").text();
             if (price.equals("0원")){price="무료";}
+            String productUrl = book.select(".bo3").attr("href");
             if (!title.isEmpty()) {
-                CrawlBook crawlBook = new CrawlBook(null, title, author, price, publisher,category,imageUrl);
+                CrawlBook crawlBook = new CrawlBook(null, title, author, price, publisher,category,imageUrl,productUrl);
                 bookRepository.count();
                 saveOrUpdateBook(crawlBook);
             }

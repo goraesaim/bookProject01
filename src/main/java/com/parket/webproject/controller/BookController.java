@@ -30,7 +30,7 @@ public class BookController {
     public String getBooksByCategory(@RequestParam String keyword, Model model) {
         List<CrawlBook> books = bookRepository.findByCategoryContaining("%" + keyword + "%");
         model.addAttribute("books", books);
-        return "BookList :: bookList";
+        return "domestic/list :: bookList";
     }
     @PostMapping("/view")
     public String submitMessage(@RequestParam("message") String message, Model model) throws IOException {
