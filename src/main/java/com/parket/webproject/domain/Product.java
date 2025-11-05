@@ -27,12 +27,13 @@ public class Product extends BaseEntity {
 
     @Column(nullable = false, length = 500)
     private String title;
+    @Column(nullable = false, length = 500)
     private String content;
     @Column(nullable = false)
     private Long price;
     @Column(nullable = false, length = 100)
     private String author;
-    @Column(nullable = false, length = 100)
+//    @Column(nullable = false, length = 100)
     private String publisher;
 //    제품 상태 필드
     @Column(columnDefinition = "JSON")

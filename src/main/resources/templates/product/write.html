@@ -1,4 +1,4 @@
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout.html}">
 <div layout:fragment="content">
 
@@ -43,47 +43,24 @@
                                     <td><input type="text" name="author" placeholder="저자를 입력해주세요"></td>
                                 </tr>
                                 <tr>
-                                    <td>출판사</td>
-                                    <td><input type="text" name="publisher" placeholder="출판사를 입력해주세요"></td>
-                                </tr>
-                                <tr>
                                     <td>가격</td>
-                                    <td><input type="text" name="price" placeholder="가격을 입력해주세요"></td>
-                                </tr>
-                                <tr>
-                                    <td>내용</td>
-                                    <td><input type="text" name="content" placeholder="내용을 입력해주세요"></td>
+                                    <td><input type="text" name="price" placeholder="저자를 입력해주세요"></td>
                                 </tr>
                                 <tr>
                                     <td>도서 상태</td>
                                     <td class="state">
-                                        <label>
+                                        <div>
                                             <input type='checkbox' name='conditions' value='겉표지 손상'/>겉표지 손상
-                                        </label>
-                                        <label>
-                                            <input type='checkbox' name='conditions' value='밑줄,표지있음'/>밑줄$표지있음
-                                        </label>
-                                        <label>
+                                        </div>
+                                        <div>
+                                            <input type='checkbox' name='conditions' value='밑줄,표지있음'/>밑줄,표지있음
+                                        </div>
+                                        <div>
                                             <input type='checkbox' name='conditions' value='제본상태불량'/>제본상태불량
-                                        </label>
-                                        <label>
+                                        </div>
+                                        <div>
                                             <input type='checkbox' name='conditions' value='색바램'/>색바램
-                                        </label>
-                                        <label>
-                                            <input type='checkbox' name='conditions' value='교사용'/>교사용
-                                        </label>
-                                        <label>
-                                            <input type='checkbox' name='conditions' value='물기&얼룩'/>물기&얼룩
-                                        </label>
-                                        <label>
-                                            <input type='checkbox' name='conditions' value='세로읽기'/>세로읽기
-                                        </label>
-                                        <label>
-                                            <input type='checkbox' name='conditions' value='CD/부록없음'/>CD/부록없음
-                                        </label>
-                                        <label>
-                                            <input type='checkbox' name='conditions' value='스템플러 자국'/>스템플러 자국
-                                        </label>
+                                        </div>
                                     </td>
                                 </tr>
                             </table>

@@ -21,7 +21,6 @@ public interface ProductService {
                 .author(productDTO.getAuthor())
                 .publisher(productDTO.getPublisher())
                 .conditions(productDTO.getConditions())
-                .isSold(productDTO.getIsSold() != null ? productDTO.getIsSold() : false)
                 .build();
         return product;
     }
@@ -30,13 +29,12 @@ public interface ProductService {
         ProductDTO productDTO = ProductDTO.builder()
                 .productId(product.getProductId())
                 .title(product.getTitle())
-                .content(product.getContent())
+//                .content(product.getContent())
                 .price(product.getPrice())
                 .author(product.getAuthor())
-                .publisher(product.getPublisher())
+//                .publisher(product.getPublisher())
                 .conditions(product.getConditions())
-                .isSold(product.getIsSold())
-                .readcount(product.getReadcount())
+//                .readcount(product.getReadcount())
                 .createdAt(product.getCreatedAt())
                 .updatedAt(product.getUpdatedAt())
                 .build();
