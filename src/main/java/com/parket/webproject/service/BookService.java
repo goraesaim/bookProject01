@@ -31,8 +31,8 @@ public class BookService implements BookServ{
             crawlAladin("https://www.aladin.co.kr/shop/common/wbest.aspx?BestType=Bestseller", "국베");
             Thread.sleep(1000);
             crawlAladin("https://www.aladin.co.kr/shop/common/wnew.aspx?ViewRowsCount=50&ViewType=Detail&SortOrder=6&page=1&BranchType=1&PublishDay=84&CustReviewRankStart=&CustReviewRankEnd=&CustReviewCountStart=&CustReviewCountEnd=&PriceFilterMin=&PriceFilterMax=&SearchOption=", "신간");
-            Thread.sleep(1000);
-            crawlAladin("https://www.aladin.co.kr/shop/common/wbest.aspx?BranchType=7", "외베");
+//            Thread.sleep(1000);
+//            crawlAladin("https://www.aladin.co.kr/shop/common/wbest.aspx?BranchType=7", "외베");
 //            Thread.sleep(1000);
 //            crawlAladin("https://www.aladin.co.kr/shop/book/wHotSale.aspx?ViewRowsCount=50&ViewType=Detail&SortOrder=2&page=1&PublishDay=84&CustReviewRankStart=&CustReviewRankEnd=&CustReviewCountStart=&CustReviewCountEnd=&PriceFilterMin=&PriceFilterMax=&SearchOption=", "재정가");
         } catch (InterruptedException e) {

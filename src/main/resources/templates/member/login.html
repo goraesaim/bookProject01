@@ -7,14 +7,14 @@
                 <h3>로그인</h3>
             </div>
             <div class="form_box">
-                <form action="" class="member_form">
+                <form action="/loginProcess" method="post" class="member_form">
                     <div>
                         <span>아이디</span>
-                        <input type="text" placeholder="아이디를 입력해주세요" class="input_id">
+                        <input type="text" name="username" placeholder="아이디를 입력해주세요" class="input_id">
                     </div>
                     <div>
                         <span>비밀번호</span>
-                        <input type="password" placeholder="아이디를 입력해주세요" class="input_pw">
+                        <input type="password" name="password" placeholder="아이디를 입력해주세요" class="input_pw">
                     </div>
                     <input type="submit" value="로그인" class="submit_btn">
                     <div class="bottom">
