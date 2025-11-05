@@ -1,7 +1,7 @@
 package com.parket.webproject.service.Cart;
 
 import com.parket.webproject.domain.Cart;
-import com.parket.webproject.domain.Pd_test;
+import com.parket.webproject.domain.Product;
 import com.parket.webproject.dto.CartDTO;
 import com.parket.webproject.repository.cart.CartRepository;
 import jakarta.transaction.Transactional;
@@ -24,7 +24,7 @@ public class CartServiceImpl implements CartService {
     public void addToCart(CartDTO cartDTO) {
         Cart cart = Cart.builder()
                 .userId(cartDTO.getUserId())
-                .product(Pd_test.builder().productId(cartDTO.getProductId()).build())  // data-num으로 넘어온 값
+                .product(Product.builder().productId(cartDTO.getProductId()).build())  // data-num으로 넘어온 값
                 .quantity(cartDTO.getQuantity())
                 .addedAt(LocalDateTime.now())
                 .build();

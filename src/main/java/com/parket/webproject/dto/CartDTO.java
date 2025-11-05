@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 public class CartDTO {
     private int cartId;
     private int userId;
-    private int productId;
+    private long productId;
     private int quantity;
     private Timestamp addedAt;
 }
