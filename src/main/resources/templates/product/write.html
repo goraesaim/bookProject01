@@ -9,7 +9,7 @@
             </div>
             <div class="wfrm">
                 <div class="frm-box">
-                    <form name="writeFrm" method="post" action="/board/register" enctype="multipart/form-data"
+                    <form name="writeFrm" method="post" action="/product/write" enctype="multipart/form-data"
                           onsubmit="validateForm(this)" class="wfrm">
                         <div class="frm_wrap">
                             <div class="info">
@@ -44,22 +44,22 @@
                                 </tr>
                                 <tr>
                                     <td>가격</td>
-                                    <td><input type="text" name="author" placeholder="저자를 입력해주세요"></td>
+                                    <td><input type="text" name="price" placeholder="저자를 입력해주세요"></td>
                                 </tr>
                                 <tr>
                                     <td>도서 상태</td>
                                     <td class="state">
                                         <div>
-                                            <input type='checkbox' name='state' value='겉표지 손상'/>겉표지 손상
+                                            <input type='checkbox' name='conditions' value='겉표지 손상'/>겉표지 손상
                                         </div>
                                         <div>
-                                            <input type='checkbox' name='state' value='밑줄,표지있음'/>밑줄,표지있음
+                                            <input type='checkbox' name='conditions' value='밑줄,표지있음'/>밑줄,표지있음
                                         </div>
                                         <div>
-                                            <input type='checkbox' name='state' value='제본상태불량'/>제본상태불량
+                                            <input type='checkbox' name='conditions' value='제본상태불량'/>제본상태불량
                                         </div>
                                         <div>
-                                            <input type='checkbox' name='state' value='색바램'/>색바램
+                                            <input type='checkbox' name='conditions' value='색바램'/>색바램
                                         </div>
                                     </td>
                                 </tr>
