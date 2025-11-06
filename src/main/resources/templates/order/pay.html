@@ -8,7 +8,7 @@
             </div>
             <div class="cart_wrap">
                 <form class="flex__form" action="/order/complete" method="post">
-                    <input type="hidden" name="userId" th:value="${member.userId}"/>
+                     <input type="hidden" name="userId" th:value="${member.id}" />
                     <div class="cart_detail">
                         <div class="cart__itm__list">
                             <div th:each="item : ${orderItems}" class="cart__list__itm">
@@ -19,7 +19,8 @@
                                     <p th:text="${item.product.title}" class="title"></p>
                                     <p class="author">저자저자저자</p>
                                     <span class="price"
-                                          data-th-text="${#numbers.formatInteger(item.product.price, 3, 'COMMA') + '원'}"></span><span>119,000</span>
+                                          th:text="${#numbers.formatInteger(item.product.price, 3, 'COMMA')} + '원'"></span>
+                                    <span>119,000</span>
                                 </div>
                             </div>
                         </div>
@@ -28,11 +29,11 @@
                             <div>
                                 <div>
                                     <span>이름</span>
-                                    <input type="text" readonly th:value="${member.name}" />
+                                    <input type="text" readonly th:value="${member.username}"/>
                                 </div>
                                 <div>
                                     <span>주소</span>
-                                    <input type="text" th:value="${member.address}"  />
+                                <input type="text" th:value="${member.address}"/>
                                 </div>
                             </div>
                         </div>

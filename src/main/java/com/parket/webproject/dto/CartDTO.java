@@ -12,8 +12,8 @@ import java.sql.Timestamp;
 @Setter
 public class CartDTO {
     private int cartId;
-    private int userId;
+    private long userId;
     private long productId;
-    private int quantity;
+    private Integer quantity;
     private Timestamp addedAt;
 }

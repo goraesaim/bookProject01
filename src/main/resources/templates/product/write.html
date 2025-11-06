@@ -36,7 +36,9 @@
                             <table class="">
                                 <tr>
                                     <td>제목</td>
-                                    <td><input type="text" name="title" placeholder="제목을 입력해주세요"></td>
+                                    <td class="flex"><input type="text" name="title" placeholder="제목을 입력해주세요">
+                                        <input id="openBtn"  type="button" name="title" value="검색">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>저자</td>
@@ -101,4 +103,76 @@
             </div>
         </div>
     </div>
+    <div class="pop_wrap type2" id="searchPopup">
+        <div class="popup">
+            <h3>검색하기</h3>
+            <div class="search_list_wrap">
+                <ul class="search_list">
+                    <li>
+                        <button type="button">
+                            <div class="img">
+                                <img src="../img/main/sample.jpg">
+                            </div>
+                            <div class="text">
+                                <p class="title">책이름</p>
+                                <p class="desc">책저자책저자책저자</p>
+                            </div>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button">
+                            <div class="img">
+                                <img src="../img/main/sample.jpg">
+                            </div>
+                            <div class="text">
+                                <p class="title">어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름</p>
+                                <p class="desc">책저자책저자책저자</p>
+                            </div>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button">
+                            <div class="img">
+                                <img src="../img/main/sample.jpg">
+                            </div>
+                            <div class="text">
+                                <p class="title">어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름</p>
+                                <p class="desc">책저자책저자책저자</p>
+                            </div>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button">
+                            <div class="img">
+                                <img src="../img/main/sample.jpg">
+                            </div>
+                            <div class="text">
+                                <p class="title">어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름</p>
+                                <p class="desc">책저자책저자책저자</p>
+                            </div>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="closeBtn" id="closeBtn" type="button"><img src="../img/sub/close.png">닫기</button>
+                    </li>
+                </ul>
+            </div>
+            <button class="close_btn" id="closeBtn1" type="button"><img src="../img/sub/close.png">닫기</button>
+        </div>
+    </div>
+</div>
+<div layout:fragment="script">
+    <script>
+        const popup = document.getElementById("searchPopup");
+        const openBtn = document.getElementById("openBtn");
+        const closeBtn = document.getElementById("closeBtn");
+
+        openBtn.addEventListener("click", () => {
+            popup.style.display = "block"; // 팝업 보이기
+        });
+
+        closeBtn.addEventListener("click", () => {
+            popup.style.display = "none"; // 팝업 숨기기
+        });
+    </script>
 </div>
