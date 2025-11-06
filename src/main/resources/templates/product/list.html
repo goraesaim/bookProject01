@@ -37,9 +37,8 @@
                 <ul class="use_product_list animation active">
                     <li class="itm" th:each="product : ${products}" th:attr="data-num=${product.productId}">
                         <div class="img_wrap">
-                            <span class="label label01">국내 도서</span>
                             <div class="img">
-                                <img src="/img/main/sample.jpg" alt=""> <!-- 이미지 경로는 추후 product에 맞게 수정 -->
+                                <img th:src="${product.bookImageUrl != null} ? ${product.bookImageUrl} : '/img/main/sample.jpg'" alt="도서 이미지">
                             </div>
                         </div>
                         <div class="txt">

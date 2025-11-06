@@ -1,4 +1,4 @@
-package com.parket.webproject.repository;
+package com.parket.webproject.repository.product;
 
 import com.parket.webproject.domain.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
