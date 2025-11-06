@@ -22,8 +22,16 @@ public class DomesticController {
         return "domestic/list";  // templates/domestic/list.html
     }
     @GetMapping("/search")
-    public String searchDomesticList(String keyword,Model model) {
-        model.addAttribute("books", bookRepository.findBySearchDomesticAll("%" + keyword + "%"));
+    public String searchDomesticList(String type,String bookType,String keyword,Model model) {
+
+        if ("ta".equals(type)) {
+            model.addAttribute("books", bookRepository.findByALLSearchAll("%" + bookType + "%","%" + keyword + "%"));
+        } else if ("t".equals(type)) {
+            model.addAttribute("books", bookRepository.findByTitleSearchAll("%" + bookType + "%","%" + keyword + "%"));
+        } else if ("a".equals(type)) {
+            model.addAttribute("books", bookRepository.findByAuthorSearchAll("%" + bookType + "%","%" + keyword + "%"));
+        }
+
         model.addAttribute("keyword", keyword);
         return "domestic/list";  // templates/domestic/list.html
     }
