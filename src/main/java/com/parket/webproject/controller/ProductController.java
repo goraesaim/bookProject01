@@ -45,8 +45,31 @@ public class ProductController {
         return "redirect:/product/list";
     }
 
+    @PostMapping("/write2")
+    public String registerPost2(@RequestParam(required = false) List<String> conditions, ProductDTO productDTO) {
+        if (conditions != null && !conditions.isEmpty()) {
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                String json = objectMapper.writeValueAsString(conditions); // JSON 배열로 변환
+                productDTO.setConditions(json);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        Long productId = productService.insertProduct(productDTO);
+        log.info("상품 등록 완료: productId=" + productId);
+        return "redirect:/product/list2";
+    }
+
     @GetMapping("/list")
     public void list(Model model) {
+        List<ProductDTO> products = productService.findAllProducts();
+        model.addAttribute("products", products);
+    }
+
+    @GetMapping("/list2")
+    public void list2(Model model) {
         List<ProductDTO> products = productService.findAllProducts();
         model.addAttribute("products", products);
     }

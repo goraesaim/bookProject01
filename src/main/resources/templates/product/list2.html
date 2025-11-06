@@ -1,3 +1,4 @@
+<!--유빈 장바구니 테스트 중고장터-->
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout.html}">
 <div layout:fragment="content">
@@ -31,48 +32,33 @@
                 </div>
             </div>
             <!--로그인시에만-->
-            <a href="/use/write" class="btn01 writebtn">글쓰기</a>
+            <a href="/product/write" class="btn01 writebtn">글쓰기</a>
             <div class="use_product_wrap">
                 <ul class="use_product_list animation active">
-                    <li class="itm" data-num="1">
-                        <div class="img_wrap">
-                            <span class="label label01">국내 도서</span>
-                            <div class="img">
-                                <img src="../img/main/sample.jpg" alt="">
+                    <li class="itm" th:each="product : ${products}" data-num="1">
+                            <div class="img_wrap">
+                                <span class="label label01">국내 도서</span>
+                                <div class="img">
+                                    <img src="/img/main/sample.jpg" alt=""> <!-- 이미지 경로는 추후 product에 맞게 수정 -->
+                                </div>
                             </div>
-                        </div>
-                        <div class="txt">
-                            <p class="title"><span>[중고] </span>여름의 비행운</p>
-                            <p class="price">7,000원 <span>3,000원</span></p>
-                            <div class="btn_box">
-                                <button type="button" class="goCart">장바구니</button>
-                                <button>구매하기</button>
+                            <div class="txt">
+                                <p class="title">
+                                    <span>[중고] </span><span th:text="${product.title}">제목</span>
+                                </p>
+                                <p class="price">
+                                    <span th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + '원'">7,000원</span>
+                                    <span th:if="${product.isSold}" class="sold">판매 완료</span>
+                                </p>
+                                <div class="btn_box">
+                                    <button class="on goCart" type="button">장바구니</button>
+                                    <button>구매하기</button>
+                                </div>
+                                <div class="info_box" th:if="${product.conditions != null}">
+                                    <i>?</i>
+                                    <div th:text="${product.conditions}">찢어짐, 표지없음</div>
+                                </div>
                             </div>
-                            <div class="info_box">
-                                <i>?</i>
-                                <div>찢어짐, 표지없음</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="itm" data-num="2">
-                        <div class="img_wrap">
-                            <span class="label label01">국내 도서</span>
-                            <div class="img">
-                                <img src="../img/main/sample.jpg" alt="">
-                            </div>
-                        </div>
-                        <div class="txt">
-                            <p class="title"><span>[중고] </span>여름의 비행운</p>
-                            <p class="price">7,000원 <span>3,000원</span></p>
-                            <div class="btn_box">
-                                <button type="button" class="goCart">장바구니</button>
-                                <button>구매하기</button>
-                            </div>
-                            <div class="info_box">
-                                <i>?</i>
-                                <div>찢어짐, 표지없음</div>
-                            </div>
-                        </div>
                     </li>
                 </ul>
             </div>
@@ -126,7 +112,7 @@
                 장바구니 페이지로 이동하시겠습니까?
             </p>
             <div class="btn_wrap">
-                <a class="btn01" href="/cart/list">장바구니 바로가기</a>
+                <button class="btn01">장바구니 바로가기</button>
                 <button class="btn02 cancle_btn">취소</button>
             </div>
             <button class="close_btn" type="button"><img src="../img/sub/close.png"></button>
@@ -186,6 +172,7 @@
             cancelBtn.addEventListener('click', () => {
                 popup.style.display = 'none';
             });
+
         });
     </script>
 
