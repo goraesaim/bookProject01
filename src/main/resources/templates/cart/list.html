@@ -8,6 +8,7 @@
             </div>
             <div class="cart_wrap">
                 <form class="flex__form" action="/order/pay" method="post">
+                    <input type="hidden" name="cartIdsJson" value="">
                     <div class="cart_detail">
                         <!-- 장바구니가 비었을 때 -->
                         <div class="alert_box" th:if="${#lists.isEmpty(cartItems)}">
@@ -78,8 +79,6 @@
                                 <p id="checkedPrice">0 <span>원</span></p>
                             </div>
                             <button
-                                    onclick="location.href='/order/pay'"
-                                    type="button"
                                     class="cart__list__orderbtn"
                                     id="orderSelectedBtn">
                                 주문하기
@@ -166,9 +165,12 @@
             /* 여러 상품 주문 (체크박수로 선택된)*/
             function handleMultiOrder(e) {
                 e.preventDefault();
+                e.stopPropagation();
                 const selected = getSelectedIds();
-                if (selected.length === 0) return alert('주문할 상품을 선택하세요!');
-
+                if (selected.length === 0){
+                    alert('주문할 상품을 선택하세요!');
+                    return;
+                }
                 submitOrder(selected);
             }
 

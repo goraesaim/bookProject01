@@ -93,13 +93,30 @@ appearance: none; -webkit-appearance: none;-moz-appearance: none; background: #f
 /*popup*/
 .pop_wrap{display: none; top: 0; left: 0; background:rgba(0,0,0,.6); position: fixed; width: 100%; height: 100vh; z-index: 3;
 align-items: center; justify-content: center;}
-.pop_wrap .popup{position: relative; padding: 40px; background: #fff; min-width: 400px; text-align: center;}
+.pop_wrap .popup{position: relative; padding: 40px; background: #fff; width: 100%; max-width: 500px; text-align: center;}
 .pop_wrap .popup h3{font-size: 17px; font-family: 'GmarketSans'; color: var(--point-color); margin: 12px 0 4px;}
 .pop_wrap .popup p{font-size: 16px; font-size: 16px; margin-bottom: 20px;}
 .pop_wrap .popup a{padding: 0 20px; font-size: 15px; line-height: 47px;}
 .pop_wrap .popup .close_btn{position: absolute; top: -30px; right: -30px; background: none; border: none;}
 
-/* 국내 / 국외 도서 > 리스트 */
+/*검색팝업*/
+.pop_wrap.type2 .popup{max-width: 600px;}
+.pop_wrap.type2 .search_list_wrap{max-width: 600px; max-height: 450px; overflow-y: scroll}
+/* 스크롤바의 폭 너비 */
+.pop_wrap.type2 .search_list_wrap::-webkit-scrollbar {width: 3px;}
+.pop_wrap.type2 .search_list_wrap::-webkit-scrollbar-thumb {background: var(--point-color); /* 스크롤바 색상 */border-radius: 10px; /* 스크롤바 둥근 테두리 */
+}
+.pop_wrap.type2::-webkit-scrollbar-track {background: rgba(220, 20, 60, .1);  /*스크롤바 뒷 배경 색상*/}
+.pop_wrap.type2 .search_list{display: flex; flex-direction: column; gap: 10px; margin-top:20px}
+.pop_wrap.type2 .search_list li{padding: 20px; border:1px solid #ddd; }
+.pop_wrap.type2 .search_list li > button{cursor: pointer; display: flex; align-items: center; gap: 20px; background: none; border: none; outline: none}
+.pop_wrap.type2 .search_list .img{width: 60px; height: 80px;}
+.pop_wrap.type2 .search_list .img img{width: 100%; height: 100%; object-fit: cover}
+.pop_wrap.type2 .search_list .text{text-align: left;flex: 1;}
+.pop_wrap.type2 .search_list .text .title{font-size: 15px; margin-bottom: 10px;}
+.pop_wrap.type2 .search_list .text .desc{font-size: 12px; color: #999}
+
+    /* 국내 / 국외 도서 > 리스트 */
 .product_list{display: flex; gap: 30px; flex-wrap: wrap;}
 .product_list .itm{width: calc((100% - 120px) / 5);}
 .product_list .itm .img{height: 300px; overflow: hidden;}
@@ -130,7 +147,7 @@ font-size: 16px; background: #fff; color: var(--point-color); margin-top: 20px; 
 .use_product_list .itm .img img{width: 100%; height: 100%; object-fit: conver;}
 .use_product_list .itm .txt{position: relative;}
 .use_product_list .itm .title{font-size: 15px; margin-top: 20px; padding-right: 30px; color: #555;}
-.use_product_list .itm .price{font-size: 22px; margin-top: 6px;}
+.use_product_list .itm .price{font-size: 22px; margin-top: 6px; display: flex; align-items: end;}
 .use_product_list .itm .price span{font-size: 15px; color: #999; margin-left: 4px; vertical-align: middle; position: relative;}
 .use_product_list .itm .price span::after{content: ""; display: block; width: 100%; height: 1px; position: absolute; left: 0; top: 50%; transform: translateY(-50%); background: #999;}
 .use_product_list .itm .btn_box{display: flex; gap: 10px; margin-top: 20px;}
@@ -245,6 +262,11 @@ text-decoration: none; color:#111; background:url(../img/sub/file.svg) #f8f8f8 n
 .noti_page .frm_wrap{background:#fff; padding: 50px; width:100%; box-sizing: border-box;}
 .noti_page .wfrm table{width:100%;}
 .noti_page .wfrm table tr{padding: 10px 0; display: flex; align-items: center;}
+.noti_page .wfrm table td.flex{display: flex; gap: 10px}
+.noti_page .wfrm table td.flex input[type="text"]{flex: 1;}
+.noti_page .wfrm table td.flex input[type="button"]{line-height: 44px; padding: 0 12px;
+border:1px solid var(--point-color); color: var(--point-color); background:none; border-radius: 4px}
+
 .noti_page .wfrm table tr td:first-child{width:100px;}
 .noti_page .wfrm table tr td{width:calc(100% - 100px) ; font-size: 16px;}
 .noti_page .wfrm table tr td input[type="text"]{width:100%; padding:12px; border:1px solid #b8b8b8; border-radius:4px;}
@@ -252,7 +274,7 @@ text-decoration: none; color:#111; background:url(../img/sub/file.svg) #f8f8f8 n
 height:200px; resize:none;}
 .noti_page .wfrm table tr td input[readonly]{background:#f4f4f4; border:none;}
 .noti_page .wfrm table tr td input[readonly]:focus{border:none; outline: none;}
-.noti_page .wfrm table tr td.state {display: flex; gap: 10px;}
+.noti_page .wfrm table tr td.state {display: flex; gap: 10px; flex-wrap: wrap;}
 .frm_wrap .info{margin-bottom: 30px;}
 .frm_wrap .info img{width: 100px;}
 .frm_wrap .info .top{text-align: center; margin-bottom: 30px; margin-bottom: 30px;}

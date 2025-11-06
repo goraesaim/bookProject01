@@ -6,32 +6,33 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "cart")
+@Table(name = "payHistory")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Cart {
-
+public class PayHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int cartId;
+    private Long purchseId;
+
+    // 나중에 join 수정해야함!!!!!!!!!!!
+    // 나중에 join 수정해야함!!!!!!!!!!!
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
+    private User user;
 
     // 나중에 join 수정해야함!!!!!!!!!!!
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productId")
     private Product product;
 
-    // 나중에 join 수정해야함!!!!!!!!!!!
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
-    private User user;
+    @JoinColumn(name = "paymentId")
+    private PayMethod payMethod;
 
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime addedAt;
-
-    @Column(nullable = false)
-    private int quantity = 1;
+    private LocalDateTime created_at;
 
 }
