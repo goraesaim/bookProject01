@@ -36,25 +36,23 @@
                             <table class="">
                                 <tr>
                                     <td>제목</td>
-                                    <td class="flex"><input type="text" name="title" placeholder="제목을 입력해주세요">
-                                        <input type="button" name="title" value="검색">
+                                    <td class="flex"><input type="text" name="title" id="titleInput" placeholder="제목을 입력해주세요">
+                                        <input id="openBtn"  type="button" name="title" value="검색">
+                                        <input type="hidden" id="imgUrlInput" name="imgUrl">
+                                        <input type="hidden" id="priceInput" name="realPrice">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>이미지 url</td>
-                                    <td><input type="text" name="bookImageUrl" id="bookImageUrl" placeholder="이미지 url 임시"></td>
-                                </tr>
-                                <tr>
                                     <td>저자</td>
-                                    <td><input type="text" name="author" placeholder="저자를 입력해주세요"></td>
+                                    <td><input type="text" name="author" id="authorInput" placeholder="저자를 입력해주세요"></td>
                                 </tr>
                                 <tr>
                                     <td>출판사</td>
-                                    <td><input type="text" name="publisher" placeholder="출판사를 입력해주세요"></td>
+                                    <td><input type="text" name="publisher" id="publisherInput" placeholder="출판사를 입력해주세요"></td>
                                 </tr>
                                 <tr>
                                     <td>가격</td>
-                                    <td><input type="text" name="price" placeholder="가격을 입력해주세요"></td>
+                                    <td><input type="text" name="price" id="priceInput1" placeholder="가격을 입력해주세요"></td>
                                 </tr>
                                 <tr>
                                     <td>도서 상태</td>
@@ -107,54 +105,90 @@
         <div class="popup">
             <h3>검색하기</h3>
             <div class="search_list_wrap">
-                <ul class="search_list">
+                <ul class="search">
                     <li>
-                        <button type="button">
-                            <div class="img">
-                                <img src="../img/main/sample.jpg">
-                            </div>
-                            <div class="text">
-                                <p class="title">책이름</p>
-                                <p class="desc">책저자책저자책저자</p>
-                            </div>
-                        </button>
+                        <input type="text" name="message" id="searchKeyword" placeholder="책 이름을 검색해주세요">
+                        <button type="button" onclick="searchBooks()">검색</button>
                     </li>
-                    <li>
-                        <button type="button">
-                            <div class="img">
-                                <img src="../img/main/sample.jpg">
-                            </div>
-                            <div class="text">
-                                <p class="title">어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름</p>
-                                <p class="desc">책저자책저자책저자</p>
-                            </div>
-                        </button>
-                    </li>
-                    <li>
-                        <button type="button">
-                            <div class="img">
-                                <img src="../img/main/sample.jpg">
-                            </div>
-                            <div class="text">
-                                <p class="title">어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름</p>
-                                <p class="desc">책저자책저자책저자</p>
-                            </div>
-                        </button>
-                    </li>
-                    <li>
-                        <button type="button">
-                            <div class="img">
-                                <img src="../img/main/sample.jpg">
-                            </div>
-                            <div class="text">
-                                <p class="title">어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름어쩌고책이름책이름책이름</p>
-                                <p class="desc">책저자책저자책저자</p>
-                            </div>
-                        </button>
+                </ul>
+                <ul class="select_list" id="searchResults">
+                    <li id="closeBtn2">
+                        <button class="closeBtn" id="closeBtn" type="button"><img src="../img/sub/close.png">닫기</button>
                     </li>
                 </ul>
             </div>
-            <button class="close_btn" type="button"><img src="../img/sub/close.png"></button>
+            <button class="close_btn" id="closeBtn1" type="button"><img src="../img/sub/close.png">닫기</button>
         </div>
     </div>
+</div>
+<div layout:fragment="script">
+    <script>
+        const popup = document.getElementById("searchPopup");
+        const openBtn = document.getElementById("openBtn");
+        const closeBtn = document.getElementById("closeBtn");
+
+        openBtn.addEventListener("click", () => {
+            popup.style.display = "block"; // 팝업 보이기
+        });
+
+        closeBtn.addEventListener("click", () => {
+            popup.style.display = "none"; // 팝업 숨기기
+        });
+
+        function searchBooks() {
+            const keyword = document.getElementById("searchKeyword").value;
+
+            fetch("/product/select?message=" + encodeURIComponent(keyword))
+                .then(response => response.json())
+                .then(data => {
+                    const resultsContainer = document.getElementById("searchResults");
+                    [...resultsContainer.querySelectorAll("li")].forEach(li => {
+                        if (li.id !== "closeBtn2") li.remove();
+                    });
+
+                    data.slice(0, 10).forEach(book => {
+                        const li = document.createElement("li");
+                        li.innerHTML = `
+                          <button type="button"
+                                  data-imgurl="${book.imgUrl}"
+                                  data-title="${book.title}"
+                                  data-author="${book.author}"
+                                  data-publisher="${book.publisher}"
+                                  data-price="${book.price}"
+                                  onclick="setBookInfo(this.dataset.imgurl, this.dataset.title, this.dataset.author, this.dataset.publisher, this.dataset.price)">
+                            <div class="img">
+                              <img src="${book.imgUrl}" />
+                            </div>
+                            <div class="text">
+                              <p class="title">${book.title}</p>
+                              <p class="desc">${book.author}</p>
+                              <p class="publi">${book.publisher}</p>
+                              <p class="pric">${book.price}</p>
+                            </div>
+                          </button>
+                        `;
+                        resultsContainer.appendChild(li);
+                    });
+                })
+                .catch(error => {
+                    console.error("검색 오류:", error);
+                });
+        }
+        function setBookInfo(imgUrl,title, author, publisher,price) {
+            console.log("📌 setBookInfo 실행됨");
+            console.log("imgUrl:", imgUrl);
+            console.log("title:", title);
+            console.log("author:", author);
+            console.log("publisher:", publisher);
+            console.log("price:", price);
+            document.getElementById("imgUrlInput").value = imgUrl;
+            document.getElementById("titleInput").value = title;
+            document.getElementById("authorInput").value = author;
+            document.getElementById("publisherInput").value = publisher;
+            document.getElementById("priceInput").value = price;
+            document.getElementById("priceInput1").value = price;
+            popup.style.display = "none";
+        }
+
+    </script>
 </div>
