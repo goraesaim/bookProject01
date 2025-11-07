@@ -1,6 +1,8 @@
 package com.parket.webproject.controller.controller.mypage;
 
+import com.parket.webproject.domain.PayMethod;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -27,8 +29,10 @@ public class MyPageController {
         return "mypage/orderList";
     }
 
+    //마이페이지 - 결제수단 등록
     @GetMapping("/payManagement")
-    public String payManagement() {
+    public String payManagement(Model model) {
+        model.addAttribute("payMethod", new PayMethod());
         return "mypage/payManagement";
     }
 }
