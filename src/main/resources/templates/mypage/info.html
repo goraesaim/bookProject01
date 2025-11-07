@@ -11,7 +11,7 @@
                     <div class="sub__nav">
                         <div class="top">
                             <p>반갑습니다. <br>
-                                <span>홍길동 </span> 님
+                                <span th:text="${user.username + '님'}"></span>
                             </p>
                         </div>
                         <ul class="sub__nav__list">
@@ -33,33 +33,31 @@
                 </div>
                 <div class="con">
                     <h3 class="mypage__sub__tit">회원정보</h3>
-                    <form action="">
-                        <table class="info__table">
-                            <tr>
-                                <td>이름</td>
-                                <td><input type="text" value="이름"></td>
-                            </tr>
-                            <tr>
-                                <td>아이디</td>
-                                <td><input type="text" value="이름" readonly></td>
-                            </tr>
-                            <tr>
-                                <td>비밀번호 변경</td>
-                                <td><input type="text" value="이름"></td>
-                            </tr>
-                            <tr>
-                                <td>비밀번호 변경 확인</td>
-                                <td><input type="text" value="이름"></td>
-                            </tr>
-                            <tr>
-                                <td>주소</td>
-                                <td><input type="text" value="이름"></td>
-                            </tr>
-                        </table>
+                    <table class="info__table">
+                        <tr>
+                            <td>이름</td>
+                            <td th:text="${user.name}"></td>
+                        </tr>
+                        <tr>
+                            <td>아이디</td>
+                            <td th:text="${user.username}"></td>
+                        </tr>
+                        <tr>
+                            <td>주소</td>
+                            <td th:text="${user.address}"></td>
+                        </tr>
+                        <tr>
+                            <td>아이디 생성 날짜</td>
+                            <td th:text="${#temporals.format(user.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                        </tr>
+                        <tr>
+                            <td>아이디 수정 날짜</td>
+                            <td th:text="${#temporals.format(user.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                        </tr>
+                    </table>
+                    <form action="/mypage/infoModify" method="get" class="btn_wrap">
+                        <button type="submit" class="btn_wrap btn01">회원정보수정</button>
                     </form>
-                    <div class="btn_wrap">
-                        <button type="submit" class="btn01">회원정보수정</button>
-                    </div>
                 </div>
             </div>
         </div>
