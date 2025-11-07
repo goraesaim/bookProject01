@@ -1,12 +1,11 @@
 package com.parket.webproject.service;
 
-import com.parket.webproject.domain.CrawlBook;
 import com.parket.webproject.domain.Product;
 import com.parket.webproject.domain.User;
 import com.parket.webproject.dto.ProductDTO;
 import com.parket.webproject.repository.BookRepository;
 import com.parket.webproject.repository.member.MemberRepository;
-import com.parket.webproject.repository.product.ProductRepository;
+import com.parket.webproject.repository.ProductRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

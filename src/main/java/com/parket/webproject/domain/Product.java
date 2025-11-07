@@ -26,7 +26,7 @@ public class Product extends BaseEntity {
     @Column(nullable = false)
     private Long price;
     @Column(nullable = false)
-    private Long realPrice;
+    private String realPrice;
     @Column(nullable = false, length = 100)
     private String author;
     private String publisher;

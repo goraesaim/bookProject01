@@ -23,7 +23,7 @@ public class ProductDTO {
     @NotNull
     private Long price;
     @NotNull
-    private Long realPrice;
+    private String realPrice;
     @NotEmpty
     private String author;
     private String publisher;
