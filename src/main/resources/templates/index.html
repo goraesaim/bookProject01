@@ -36,115 +36,133 @@
                             <button type="button">전체</button>
                         </li>
                         <li>
-                            <button type="button">국내도서</button>
+                            <button type="button" onclick="loadCategory('국내')">국내 도서</button>
                         </li>
                         <li>
-                            <button type="button">해외도서</button>
+                            <button type="button" onclick="loadCategory('해외')">해외 도서</button>
                         </li>
                     </ul>
                 </div>
                 <div class="new_book_swiper swiper-container animation">
-                    <ul class="new_book_list swiper-wrapper">
-                        <li class="itm active swiper-slide">
+                    <ul class="new_book_list swiper-wrapper" id="bookListContainer">
+<!--                        <li class="itm active swiper-slide">-->
+<!--                            <a href="#">-->
+<!--                                <div class="img">-->
+<!--                                    <img src="img/main/sample.jpg" alt="샘플 책 이미지"/>-->
+<!--                                </div>-->
+<!--                                <div class="txt">-->
+<!--                                    <span class="label label01">국내 도서</span>-->
+<!--                                    <h1 class="tit">-->
+<!--                                        아주 오래 앉아있는 사람을 위한 책아주 오래 앉아있는 사람을-->
+<!--                                        위한 책아주 오래 앉아있는 사람을 위한 책-->
+<!--                                    </h1>-->
+<!--                                    <p class="author">-->
+<!--                                        사이드웨이, 사이드웨이, 사이드웨이, 사이드웨이,-->
+<!--                                        사이드웨이,사이드웨이, 사이드웨이, 사이드웨이-->
+<!--                                    </p>-->
+<!--                                    <p class="price">14,400 원</p>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                        </li>-->
+
+                        <li class="itm swiper-slide"
+                            th:classappend="${iter.index == 0} ? ' active' : ''"
+                            th:each="book, iter : ${books}">
                             <a href="#">
                                 <div class="img">
-                                    <img src="img/main/sample.jpg" alt="샘플 책 이미지"/>
+                                    <img th:src="${book.bookImage}" alt="샘플 책 이미지"/>
                                 </div>
                                 <div class="txt">
-                                    <span class="label label01">국내 도서</span>
-                                    <h1 class="tit">
-                                        아주 오래 앉아있는 사람을 위한 책아주 오래 앉아있는 사람을
-                                        위한 책아주 오래 앉아있는 사람을 위한 책
-                                    </h1>
-                                    <p class="author">
-                                        사이드웨이, 사이드웨이, 사이드웨이, 사이드웨이,
-                                        사이드웨이,사이드웨이, 사이드웨이, 사이드웨이
-                                    </p>
-                                    <p class="price">14,400 원</p>
+                                    <span th:text="${book.category == '국베' ? '국내 도서' : '해외 도서'}"
+                                          th:class="${book.category == '국베' ? 'label label01' : 'label label02 label'}"></span>
+                                    <h1 class="tit" th:text="${book.title}"></h1>
+                                    <p class="author" th:text="${book.author}"></p>
+                                    <p class="price" th:text="${book.price}"></p>
                                 </div>
                             </a>
                         </li>
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt="샘플 책 이미지"/>
-                                </div>
-                                <div class="txt">
-                                    <span class="label02 label">해외 도서</span>
-                                    <h1 class="tit">
-                                        아주 오래 앉아있는 사람을 위한 책 아주 오래 앉아있는
-                                        사람을 위한 책 아주 오래 앉아있는 사람을 위한 책
-                                    </h1>
-                                    <p class="author">사이드웨이</p>
-                                    <p class="price">14,400 원</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt="샘플 책 이미지"/>
-                                </div>
-                                <div class="txt">
-                                    <span class="label01 label">국내 도서</span>
-                                    <h1 class="tit">아주 오래 앉아있는 사람을 위한 책</h1>
-                                    <p class="author">사이드웨이</p>
-                                    <p class="price">14,400 원</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt="샘플 책 이미지"/>
-                                </div>
-                                <div class="txt">
-                                    <span class="label01 label">국내 도서</span>
-                                    <h1 class="tit">아주 오래 앉아있는 사람을 위한 책</h1>
-                                    <p class="author">사이드웨이</p>
-                                    <p class="price">14,400 원</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt="샘플 책 이미지"/>
-                                </div>
-                                <div class="txt">
-                                    <span class="label01 label">국내 도서</span>
-                                    <h1 class="tit">아주 오래 앉아있는 사람을 위한 책</h1>
-                                    <p class="author">사이드웨이</p>
-                                    <p class="price">14,400 원</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt="샘플 책 이미지"/>
-                                </div>
-                                <div class="txt">
-                                    <span class="label02 label">해외 도서</span>
-                                    <h1 class="tit">아주 오래 앉아있는 사람을 위한 책</h1>
-                                    <p class="author">사이드웨이</p>
-                                    <p class="price">14,400 원</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt="샘플 책 이미지"/>
-                                </div>
-                                <div class="txt">
-                                    <span class="label02 label">해외 도서</span>
-                                    <h1 class="tit">아주 오래 앉아있는 사람을 위한 책</h1>
-                                    <p class="author">사이드웨이</p>
-                                    <p class="price">14,400 원</p>
-                                </div>
-                            </a>
-                        </li>
+
+<!--                        <li class="itm swiper-slide">-->
+<!--                            <a href="#">-->
+<!--                                <div class="img">-->
+<!--                                    <img src="img/main/sample.jpg" alt="샘플 책 이미지"/>-->
+<!--                                </div>-->
+<!--                                <div class="txt">-->
+<!--                                    <span class="label02 label">해외 도서</span>-->
+<!--                                    <h1 class="tit">-->
+<!--                                        아주 오래 앉아있는 사람을 위한 책 아주 오래 앉아있는-->
+<!--                                        사람을 위한 책 아주 오래 앉아있는 사람을 위한 책-->
+<!--                                    </h1>-->
+<!--                                    <p class="author">사이드웨이</p>-->
+<!--                                    <p class="price">14,400 원</p>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                        <li class="itm swiper-slide">-->
+<!--                            <a href="#">-->
+<!--                                <div class="img">-->
+<!--                                    <img src="img/main/sample.jpg" alt="샘플 책 이미지"/>-->
+<!--                                </div>-->
+<!--                                <div class="txt">-->
+<!--                                    <span class="label01 label">국내 도서</span>-->
+<!--                                    <h1 class="tit">아주 오래 앉아있는 사람을 위한 책</h1>-->
+<!--                                    <p class="author">사이드웨이</p>-->
+<!--                                    <p class="price">14,400 원</p>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                        <li class="itm swiper-slide">-->
+<!--                            <a href="#">-->
+<!--                                <div class="img">-->
+<!--                                    <img src="img/main/sample.jpg" alt="샘플 책 이미지"/>-->
+<!--                                </div>-->
+<!--                                <div class="txt">-->
+<!--                                    <span class="label01 label">국내 도서</span>-->
+<!--                                    <h1 class="tit">아주 오래 앉아있는 사람을 위한 책</h1>-->
+<!--                                    <p class="author">사이드웨이</p>-->
+<!--                                    <p class="price">14,400 원</p>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                        <li class="itm swiper-slide">-->
+<!--                            <a href="#">-->
+<!--                                <div class="img">-->
+<!--                                    <img src="img/main/sample.jpg" alt="샘플 책 이미지"/>-->
+<!--                                </div>-->
+<!--                                <div class="txt">-->
+<!--                                    <span class="label01 label">국내 도서</span>-->
+<!--                                    <h1 class="tit">아주 오래 앉아있는 사람을 위한 책</h1>-->
+<!--                                    <p class="author">사이드웨이</p>-->
+<!--                                    <p class="price">14,400 원</p>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                        <li class="itm swiper-slide">-->
+<!--                            <a href="#">-->
+<!--                                <div class="img">-->
+<!--                                    <img src="img/main/sample.jpg" alt="샘플 책 이미지"/>-->
+<!--                                </div>-->
+<!--                                <div class="txt">-->
+<!--                                    <span class="label02 label">해외 도서</span>-->
+<!--                                    <h1 class="tit">아주 오래 앉아있는 사람을 위한 책</h1>-->
+<!--                                    <p class="author">사이드웨이</p>-->
+<!--                                    <p class="price">14,400 원</p>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                        <li class="itm swiper-slide">-->
+<!--                            <a href="#">-->
+<!--                                <div class="img">-->
+<!--                                    <img src="img/main/sample.jpg" alt="샘플 책 이미지"/>-->
+<!--                                </div>-->
+<!--                                <div class="txt">-->
+<!--                                    <span class="label02 label">해외 도서</span>-->
+<!--                                    <h1 class="tit">아주 오래 앉아있는 사람을 위한 책</h1>-->
+<!--                                    <p class="author">사이드웨이</p>-->
+<!--                                    <p class="price">14,400 원</p>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                        </li>-->
                     </ul>
                     <div class="swiper-util">
                         <div class="pager"></div>

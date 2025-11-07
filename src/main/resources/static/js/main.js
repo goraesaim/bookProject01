@@ -64,6 +64,34 @@
         },
         loop: true,
     });
+    //카테고리 선택 버튼 및 슬라이더 초기화
+    window.loadCategory = function (category) {
+        fetch("/index/category?category=" + encodeURIComponent(category))
+            .then(response => response.text())
+            .then(html => {
+                const container = document.querySelector(".new_book_swiper");
+                if (!container) return;
+
+                container.innerHTML = html;
+
+                if (window.newBookSwiper) {
+                    window.newBookSwiper.destroy(true, true);
+                }
+
+                window.newBookSwiper = createSwiper(".new_book_swiper", {
+                    slidesPerView: 5,
+                    spaceBetween: 30,
+                    slidesPerGroup: 1,
+                    autoplay: {
+                        delay: 3000,
+                    },
+                    loop: true,
+                });
+            })
+            .catch(error => {
+                console.error("카테고리 로딩 오류:", error);
+            });
+    }
 
     // 애니메이션
     const mainVisu = document.querySelector('.visu');
@@ -137,3 +165,4 @@ function random(min, max) {
     const delta = max - min;
     return (direction = 1) => (min + delta * Math.random()) * direction;
 }
+
