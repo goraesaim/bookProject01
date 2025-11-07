@@ -38,7 +38,7 @@ public class HomeController {
         }
         List<CrawlBook> limitedBooks = books.size() > 10 ? books.subList(0, 10) : books;
         model.addAttribute("books", limitedBooks);
-        return "index :: #bookListContainer";
+        return "index :: bookSlider";
     }
 
 }

@@ -121,75 +121,74 @@
         </div>
     </div>
 </div>
-<!--<div layout:fragment="script">-->
-<!--    <script>-->
-<!--        const popup = document.getElementById("searchPopup");-->
-<!--        const openBtn = document.getElementById("openBtn");-->
-<!--        const closeBtn = document.getElementById("closeBtn");-->
+<div layout:fragment="script">
+    <script>
+        const popup = document.getElementById("searchPopup");
+        const openBtn = document.getElementById("openBtn");
+        const closeBtn = document.getElementById("closeBtn");
 
-<!--        openBtn.addEventListener("click", () => {-->
-<!--            popup.style.display = "block"; // 팝업 보이기-->
-<!--        });-->
+        openBtn.addEventListener("click", () => {
+            popup.style.display = "block"; // 팝업 보이기
+        });
 
-<!--        closeBtn.addEventListener("click", () => {-->
-<!--            popup.style.display = "none"; // 팝업 숨기기-->
-<!--        });-->
+        closeBtn.addEventListener("click", () => {
+            popup.style.display = "none"; // 팝업 숨기기
+        });
 
-<!--        function searchBooks() {-->
-<!--            const keyword = document.getElementById("searchKeyword").value;-->
+        function searchBooks() {
+            const keyword = document.getElementById("searchKeyword").value;
 
-<!--            fetch("/product/select?message=" + encodeURIComponent(keyword))-->
-<!--                .then(response => response.json())-->
-<!--                .then(data => {-->
-<!--                    const resultsContainer = document.getElementById("searchResults");-->
-<!--                    [...resultsContainer.querySelectorAll("li")].forEach(li => {-->
-<!--                        if (li.id !== "closeBtn2") li.remove();-->
-<!--                    });-->
+            fetch("/product/select?message=" + encodeURIComponent(keyword))
+                .then(response => response.json())
+                .then(data => {
+                    const resultsContainer = document.getElementById("searchResults");
+                    [...resultsContainer.querySelectorAll("li")].forEach(li => {
+                        if (li.id !== "closeBtn2") li.remove();
+                    });
 
-<!--                    data.slice(0, 10).forEach(book => {-->
-<!--                        const li = document.createElement("li");-->
-<!--                        li.innerHTML = `-->
-<!--                          <button type="button"-->
-<!--                                  data-imgurl="${book.imgUrl}"-->
-<!--                                  data-title="${book.title}"-->
-<!--                                  data-author="${book.author}"-->
-<!--                                  data-publisher="${book.publisher}"-->
-<!--                                  data-price="${book.price}"-->
-<!--                                  onclick="setBookInfo(this.dataset.imgurl, this.dataset.title, this.dataset.author, this.dataset.publisher, this.dataset.price)">-->
-<!--                            <div class="img">-->
-<!--                              <img src="${book.imgUrl}" />-->
-<!--                            </div>-->
-<!--                            <div class="text">-->
-<!--                              <p class="title">${book.title}</p>-->
-<!--                              <p class="desc">${book.author}</p>-->
-<!--                              <p class="publi">${book.publisher}</p>-->
-<!--                              <p class="pric">${book.price}</p>-->
-<!--                            </div>-->
-<!--                          </button>-->
-<!--                        `;-->
-<!--                        resultsContainer.appendChild(li);-->
-<!--                    });-->
-<!--                })-->
-<!--                .catch(error => {-->
-<!--                    console.error("검색 오류:", error);-->
-<!--                });-->
-<!--        }-->
-<!--        function setBookInfo(imgUrl,title, author, publisher,price) {-->
-<!--            console.log("📌 setBookInfo 실행됨");-->
-<!--            console.log("imgUrl:", imgUrl);-->
-<!--            console.log("title:", title);-->
-<!--            console.log("author:", author);-->
-<!--            console.log("publisher:", publisher);-->
-<!--            console.log("price:", price);-->
-<!--            const cleanPrice = parseInt(price.replace(/\D/g, ""), 10);-->
-<!--            document.getElementById("imgUrlInput").value = imgUrl;-->
-<!--            document.getElementById("titleInput").value = title;-->
-<!--            document.getElementById("authorInput").value = author;-->
-<!--            document.getElementById("publisherInput").value = publisher;-->
-<!--            document.getElementById("priceInput").value = price;-->
-<!--            document.getElementById("priceInput1").value = cleanPrice;-->
-<!--            popup.style.display = "none";-->
-<!--        }-->
-
-<!--    </script>-->
-<!--</div>-->
+                    data.slice(0, 10).forEach(book => {
+                        const li = document.createElement("li");
+                        li.innerHTML = `
+                          <button type="button"
+                                  data-imgurl="${book.imgUrl}"
+                                  data-title="${book.title}"
+                                  data-author="${book.author}"
+                                  data-publisher="${book.publisher}"
+                                  data-price="${book.price}"
+                                  onclick="setBookInfo(this.dataset.imgurl, this.dataset.title, this.dataset.author, this.dataset.publisher, this.dataset.price)">
+                            <div class="img">
+                              <img src="${book.imgUrl}" />
+                            </div>
+                            <div class="text">
+                              <p class="title">${book.title}</p>
+                              <p class="desc">${book.author}</p>
+                              <p class="publi">${book.publisher}</p>
+                              <p class="pric">${book.price}</p>
+                            </div>
+                          </button>
+                        `;
+                        resultsContainer.appendChild(li);
+                    });
+                })
+                .catch(error => {
+                    console.error("검색 오류:", error);
+                });
+        }
+        function setBookInfo(imgUrl,title, author, publisher,price) {
+            console.log("📌 setBookInfo 실행됨");
+            console.log("imgUrl:", imgUrl);
+            console.log("title:", title);
+            console.log("author:", author);
+            console.log("publisher:", publisher);
+            console.log("price:", price);
+            const cleanPrice = parseInt(price.replace(/\D/g, ""), 10);
+            document.getElementById("imgUrlInput").value = imgUrl;
+            document.getElementById("titleInput").value = title;
+            document.getElementById("authorInput").value = author;
+            document.getElementById("publisherInput").value = publisher;
+            document.getElementById("priceInput").value = price;
+            document.getElementById("priceInput1").value = cleanPrice;
+            popup.style.display = "none";
+        }
+    </script>
+</div>

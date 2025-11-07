@@ -69,28 +69,39 @@
         fetch("/index/category?category=" + encodeURIComponent(category))
             .then(response => response.text())
             .then(html => {
-                const container = document.querySelector(".new_book_swiper");
-                if (!container) return;
-
-                container.innerHTML = html;
-
+                const wrapper = document.querySelector(".new_book_swiper");
+                if (!wrapper) return;
                 if (window.newBookSwiper) {
                     window.newBookSwiper.destroy(true, true);
                 }
-
-                window.newBookSwiper = createSwiper(".new_book_swiper", {
-                    slidesPerView: 5,
-                    spaceBetween: 30,
-                    slidesPerGroup: 1,
-                    autoplay: {
-                        delay: 3000,
-                    },
-                    loop: true,
+                wrapper.outerHTML = html;
+                requestAnimationFrame(() => {
+                    window.newBookSwiper = new Swiper(".new_book_swiper", {
+                        slidesPerView: 5,
+                        spaceBetween: 30,
+                        slidesPerGroup: 1,
+                        loop: true,
+                        autoplay: {
+                            delay: 3000,
+                        },
+                        navigation: {
+                            nextEl: ".next",
+                            prevEl: ".prev",
+                        },
+                        pagination: {
+                            el: ".pager",
+                            clickable: true,
+                        },
+                        observer: true,
+                        observeParents: true,
+                    });
+                    window.dispatchEvent(new Event('scroll'));
                 });
             })
             .catch(error => {
-                console.error("카테고리 로딩 오류:", error);
+                console.error("로딩 오류:", error);
             });
+
     }
 
     // 애니메이션
