@@ -5,15 +5,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.parket.webproject.cofig.author.PrincipalDetailService;
 import com.parket.webproject.cofig.author.PrincipalDetails;
-import com.parket.webproject.domain.Cart;
-import com.parket.webproject.domain.PayMethod;
-import com.parket.webproject.domain.User;
+import com.parket.webproject.domain.*;
+import com.parket.webproject.dto.OrderResultDTO;
+import com.parket.webproject.repository.PayHistoryRepository;
 import com.parket.webproject.repository.PayMethodRepository;
 import com.parket.webproject.repository.UserRepository;
-import com.parket.webproject.service.CartService;
-import com.parket.webproject.service.PayHistoryService;
-import com.parket.webproject.service.PayMethodService;
-import com.parket.webproject.service.PayService;
+import com.parket.webproject.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -22,8 +19,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -35,7 +34,9 @@ public class PayController {
     private final PayHistoryService payHistoryService;
     private final PrincipalDetailService principalDetailService;
     private final PayMethodRepository payMethodRepository;
-
+    private final PayHistoryRepository payHistoryRepository;
+    private final NotificationService notificationService;
+    private final OrderService orderService;
 
     @GetMapping("/pay")
     public String pay() {
@@ -57,6 +58,17 @@ public class PayController {
         }
         User user = principal.getUser();
 
+        // 수단결제가 있는지 없는지 체크
+        boolean hasPayMethod = payMethodService.hasPayMethod(user);
+
+        //결제 수단 조회
+        Optional<PayMethod> payMethodOpt = payMethodRepository.findMethodByUser(user);
+        if (payMethodOpt.isPresent()) {
+            model.addAttribute("payMethod", payMethodOpt.get());
+        } else {
+            model.addAttribute("payMethod", null);
+        }
+
         int totalQuantity = selectedItems.stream().mapToInt(Cart::getQuantity).sum();
         long totalPrice = selectedItems.stream()
                 .mapToLong(cart -> cart.getProduct().getPrice() * cart.getQuantity())
@@ -67,6 +79,7 @@ public class PayController {
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("member", user);
         model.addAttribute("cartIdsJson", cartIdsJson);
+        model.addAttribute("hasPayMethod", hasPayMethod);
         return "order/pay";
     }
 
@@ -75,9 +88,6 @@ public class PayController {
     @ResponseBody
     public ResponseEntity<String> checkPayMethod() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal().equals("anonymousUser")) {
-//            return ResponseEntity.status(401).body("UNAUTHORIZED");
-//        }
 
         //로그인 회원
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
@@ -95,35 +105,39 @@ public class PayController {
     // 결제 완료시!!!!!!!!!!
     @PostMapping("/complete")
     public String completePayment(
+            @AuthenticationPrincipal PrincipalDetails principal,
             @RequestParam("cartIds") String cartIdsJson,
-            @AuthenticationPrincipal PrincipalDetails principal, Model model
+            RedirectAttributes redirectAttributes
     ) throws JsonProcessingException {
 
-        ObjectMapper mapper = new ObjectMapper();
+        if (principal == null || principal.getUser() == null) {
+            return "redirect:/login";
+        }
 
+        ObjectMapper mapper = new ObjectMapper();
         List<Integer> cartIds = mapper.readValue(
                 cartIdsJson.replaceAll("\"", ""), new TypeReference<List<Integer>>() {}
         );
 
-        List<Cart> selectedItems = cartService.getSelectedCartItems(cartIds);
         User user = principal.getUser();
-        
-        //주문번호 생성
-        String orderNo = "ORD-" + System.currentTimeMillis();
-        PayMethod payMethod = payMethodRepository.findByUser(user).get(0);
-        payHistoryService.savePayHistory(user, payMethod, selectedItems, orderNo);
 
-        model.addAttribute("orderNo", orderNo);
-//        model.addAttribute("totalQuantity", totalQuantity);
-//        model.addAttribute("totalPrice", totalPrice);
-//        model.addAttribute("orderItems", selectedItems);
+        // 전체 결제 로직 수행
+        OrderResultDTO result = orderService.completePayment(user, cartIds);
 
-        return "order/complete";
+        redirectAttributes.addAttribute("orderNo", result.getOrderNo());
+        redirectAttributes.addFlashAttribute("totalQuantity", result.getTotalQuantity());
+        redirectAttributes.addFlashAttribute("totalPrice", result.getTotalPrice());
+
+        return "redirect:/order/complete";
     }
 
     @GetMapping("/complete")
-    public String completePayment(@AuthenticationPrincipal PrincipalDetails principal) {
-        // 결제 완료 후 PayHistory 저장 로직
+    public String completePayment(@RequestParam("orderNo") String orderNo, Model model) {
+        List<PayHistory> histories = payHistoryRepository.findByOrderNo(orderNo);
+
+        model.addAttribute("orderNo", orderNo);
+        model.addAttribute("histories", histories);
+
         return "order/complete";
     }
 

@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -27,6 +28,7 @@ public class PayHistoryServiceImpl implements PayHistoryService {
                     .orderNo(orderNo)
                     .user(user)
                     .product(cart.getProduct())
+                    .created_at(LocalDateTime.now())
                     .payMethod(payMethod)
                     .build();
             payHistoryRepository.save(history);

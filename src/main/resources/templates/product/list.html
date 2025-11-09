@@ -49,11 +49,11 @@
                                 <p class="price" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + '원'">
                                     <span th:if="${product.isSold}" class="sold">판매 완료</span>
                                 </p>
-                                <span>7,000원</span>
+                                <span th:text="${product.realPrice}">7,000원</span>
                             </div>
                             <div class="btn_box">
                                 <button class="on goCart" type="button">장바구니</button>
-                                <button>구매하기</button>
+                                <button >구매하기</button>
                             </div>
                             <div class="info_box" th:if="${product.conditions != null}">
                                 <i>?</i>
@@ -92,8 +92,9 @@
             </div>
         </div>
     </div>
-    <!--
-    <div class="pop_wrap">
+
+
+    <div class="pop_wrap" id="loginPopup">
       <div class="popup">
         <img src="../img/sub/alert.svg" alt="">
         <h3>로그인이 필요한 서비스입니다.</h3>
@@ -103,7 +104,7 @@
           <button class="btn02">취소</button>
         </div>
       </div>
-    </div>-->
+    </div>
 
     <div class="pop_wrap" id="cartAddPopup">
         <div class="popup">
@@ -116,14 +117,14 @@
                 <a class="btn01" href="/cart/list">장바구니 바로가기</a>
                 <button class="btn02 cancle_btn">취소</button>
             </div>
-            <button class="close_btn" type="button"><img src="../img/sub/close.png"></button>
+<!--            <button class="close_btn" type="button"><img src="../img/sub/close.png"></button>-->
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const popup = document.querySelector('#cartAddPopup');
-            const closeBtn = document.querySelector('.close_btn');
+            // const closeBtns = document.querySelector('.close_btn');
             const cancelBtn = document.querySelector('.cancle_btn');
 
             document.querySelectorAll('.goCart').forEach(button => {
@@ -147,10 +148,14 @@
                         })
                     })
                         .then(res => {
-                            if (res.ok) {
+                            console.log("응답 코드:", res.status);
+                            if (res.status === 401) { // 비회원시
+                                loginPopup.style.display = 'flex';
+                            } else if (res.ok) {
                                 popup.style.display = 'flex';
+                            } else {
+                                alert('장바구니 추가 실패');
                             }
-                            else alert('장바구니 추가 실패');
                         })
                         .catch(err => {
                             console.error('Error:', err);
@@ -159,9 +164,10 @@
                 });
             });
 
-            closeBtn.addEventListener('click', () => {
-                popup.style.display = 'none';
-            });
+
+            // closeBtns.addEventListener('click', () => {
+            //     popup.style.display = 'none';
+            // });
 
             cancelBtn.addEventListener('click', () => {
                 popup.style.display = 'none';

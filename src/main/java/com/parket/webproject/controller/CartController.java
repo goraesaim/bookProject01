@@ -22,6 +22,7 @@ import java.util.List;
 public class CartController {
     private final CartServiceImpl cartService;
 
+    // 장바구니 추가
     @PostMapping("/add")
     @ResponseBody
     public ResponseEntity<String> addToCart( @AuthenticationPrincipal PrincipalDetails principal,
@@ -35,6 +36,7 @@ public class CartController {
         return "cart/list";
     }
 
+    // 장바구니 리스트
     @GetMapping("/list")
     public String cartList(@AuthenticationPrincipal PrincipalDetails principal, Model model) {
         if (principal == null || principal.getUser() == null) {

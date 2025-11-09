@@ -10,6 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class PayMethodServiceImpl implements PayMethodService {
@@ -35,4 +37,11 @@ public class PayMethodServiceImpl implements PayMethodService {
     public boolean hasPayMethod(User user) {
         return payMethodRepository.existsByUser(user);
     }
+
+    @Override
+    public Optional<PayMethod> getPayMethodByUser(User user) {
+        return payMethodRepository.findMethodByUser(user);
+    }
+
+
 }

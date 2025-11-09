@@ -16,14 +16,16 @@
                         <div class="cart__itm__list">
                             <div th:each="item : ${orderItems}" class="cart__list__itm">
                                 <div class="img">
-                                    <img src="../img/main/sample.jpg" alt="" />
+                                    <img th:src="${item.product.bookImageUrl != null} ? ${item.product.bookImageUrl} : '/img/main/sample.jpg'" alt="" />
                                 </div>
                                 <div>
                                     <p th:text="${item.product.title}" class="title"></p>
-                                    <p class="author">저자저자저자</p>
-                                    <span class="price"
-                                          th:text="${#numbers.formatInteger(item.product.price, 3, 'COMMA')} + '원'"></span>
-                                    <span>119,000</span>
+                                    <p class="author">[[${item.product.author}]]</p>
+                                    <div class="price_wrap">
+                                        <p class="price"
+                                           th:text="${#numbers.formatInteger(item.product.price, 3, 'COMMA') + '원'}"></p>
+                                        <span th:text="${item.product.realPrice}"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -37,6 +39,28 @@
                                 <div>
                                     <span>주소</span>
                                 <input type="text" th:value="${member.address}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pay__user__info">
+                            <h5>결제 정보</h5>
+                            <div th:if="${!hasPayMethod}" class="no-paymethod-box">
+                                <img src="../img/sub/pay.png">
+                                <p>등록된 결제수단이 없습니다.</p>
+                                <a href="/mypage/payManagement" class="btn">결제수단 등록하기</a>
+                            </div>
+                            <div th:if="${hasPayMethod}">
+                                <div>
+                                    <span>결제수단</span>
+                                    <input type="text" readonly th:value="${payMethod.methodType}" />
+                                </div>
+                                <div>
+                                    <span>은행</span>
+                                    <input type="text" readonly th:value="${payMethod.bankName}" />
+                                </div>
+                                <div>
+                                    <span>결제수단</span>
+                                    <input type="text" readonly th:value="${payMethod.accountNumber}" />
                                 </div>
                             </div>
                         </div>
@@ -58,7 +82,7 @@
                             </div>
                             <button
                                     id="payBtn"
-                                    type="button"
+                                    type="submit"
                                     name="orderItem"
                                     value="상품ID"
                                     class="cart__list__orderbtn">
@@ -70,58 +94,59 @@
             </div>
         </div>
     </div>
-    <div class="pop_wrap" id="payMethodPop">
-        <div class="popup">
-            <img src="../img/sub/alert.svg" alt="">
-            <h3>결제수단이 없습니다!</h3>
-            <p>현재 사용가능한 결제수단이 없습니다.<br>
-                지금 결제수단을 등록하시겠습니까?
-            </p>
-            <div class="btn_wrap">
-                <a class="btn01" href="/mypage/payManagement">결제수단 등록</a>
-                <button class="btn02 close_btn">취소</button>
-            </div>
-            <button class="close_btn" type="button"><img src="../img/sub/close.png"></button>
-        </div>
-    </div>
+<!--    <div class="pop_wrap" id="payMethodPop">-->
+<!--        <div class="popup">-->
+<!--            <img src="../img/sub/alert.svg" alt="">-->
+<!--            <h3>결제수단이 없습니다!</h3>-->
+<!--            <p>현재 사용가능한 결제수단이 없습니다.<br>-->
+<!--                지금 결제수단을 등록하시겠습니까?-->
+<!--            </p>-->
+<!--            <div class="btn_wrap">-->
+<!--                <a class="btn01" href="/mypage/payManagement">결제수단 등록</a>-->
+<!--                <button class="btn02 close_btn">취소</button>-->
+<!--            </div>-->
+<!--            <button class="close_btn" type="button"><img src="../img/sub/close.png"></button>-->
+<!--        </div>-->
+<!--    </div>-->
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const payBtn = document.querySelector('#payBtn');
-            const popup = document.querySelector('#payMethodPop');
-            const cancelPopupBtn = document.querySelector('.close_btn');
-            const payForm = document.querySelector('#payForm')
-            console.log("🟢 hidden cartIds =", document.querySelector('[name=cartIds]').value);
+    <!-- 결제수단 체크하고 팝업띄우기 -->
+<!--    <script>-->
+<!--        document.addEventListener('DOMContentLoaded', () => {-->
+<!--            const payBtn = document.querySelector('#payBtn');-->
+<!--            const popup = document.querySelector('#payMethodPop');-->
+<!--            const cancelPopupBtn = document.querySelector('.close_btn');-->
+<!--            const payForm = document.querySelector('#payForm')-->
+<!--            console.log("🟢 hidden cartIds =", document.querySelector('[name=cartIds]').value);-->
 
-            // 결제하기 버튼
-            payBtn.addEventListener('click', async (e) => {
-                e.preventDefault();
+<!--            // 결제하기 버튼-->
+<!--            payBtn.addEventListener('click', async (e) => {-->
+<!--                e.preventDefault();-->
 
-                console.log("결제하기 버튼 클릭됨");
+<!--                console.log("결제하기 버튼 클릭됨");-->
 
-                //결제수단 있는지 뭔지 체크
-                const res = await fetch('/order/pay_check', { method: 'POST' });
-                const result = await res.text();
+<!--                //결제수단 있는지 뭔지 체크-->
+<!--                const res = await fetch('/order/pay_check', { method: 'POST' });-->
+<!--                const result = await res.text();-->
 
-                console.log("결제수단 확인 결과:", result);
+<!--                console.log("결제수단 확인 결과:", result);-->
 
-                if (result === 'OK') {
-                    // 결제수단 있으면 결제 진행
-                    console.log("수단 ㅇㅇ");
-                    payForm.submit();
-                } else if (result === 'NO') {
-                    // 결제 수단 없을 때 팝업
-                    popup.style.display = 'flex';
-                } else if (result === 'UNAUTHORIZED') {
-                    alert('로그인이 필요합니다.');
-                    location.href = '/login';
-                }
-            });
+<!--                if (result === 'OK') {-->
+<!--                    // 결제수단 있으면 결제 진행-->
+<!--                    console.log("수단 ㅇㅇ");-->
+<!--                    payForm.submit();-->
+<!--                } else if (result === 'NO') {-->
+<!--                    // 결제 수단 없을 때 팝업-->
+<!--                    popup.style.display = 'flex';-->
+<!--                } else if (result === 'UNAUTHORIZED') {-->
+<!--                    alert('로그인이 필요합니다.');-->
+<!--                    location.href = '/login';-->
+<!--                }-->
+<!--            });-->
 
-            // 창닫기
-            cancelPopupBtn.addEventListener('click', () => {
-                popup.style.display = 'none';
-            });
-        });
-    </script>
+<!--            // 창닫기-->
+<!--            cancelPopupBtn.addEventListener('click', () => {-->
+<!--                popup.style.display = 'none';-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
 </div>
