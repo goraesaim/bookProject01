@@ -40,6 +40,7 @@ public class Product extends BaseEntity {
     @Column(nullable = false)
     private Boolean isSold = false;
 
+<<<<<<< HEAD
     @ColumnDefault(value = "0")
     private int readcount;
 
@@ -50,6 +51,11 @@ public class Product extends BaseEntity {
 
     public void updateReadcount() {
         readcount = readcount + 1;
+=======
+    public void change(Long price, String conditions) {
+        this.price = price;
+        this.conditions = conditions;
+>>>>>>> 400af16a2bdaecdf19a6652e0398320a1aab5f3c
     }
 //    public void change(String title, Long price, String author, String conditions) {
 //        this.title = title;

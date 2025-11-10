@@ -46,6 +46,7 @@ public class ProductServiceImpl implements ProductService {
         }
         return dtos;
     }
+<<<<<<< HEAD
 //
 //    @Override
 //    public ProductDTO findProductById(Long id, Integer mode) {
@@ -72,4 +73,37 @@ public class ProductServiceImpl implements ProductService {
 //        Product product = productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품입니다."));
 //        productRepository.delete(product);
 //    }
+=======
+
+    @Override
+    public List<ProductDTO> findProductsByUserId(Long userId) {
+        List<Product> products = productRepository.findByUserId(userId);
+        List<ProductDTO> dtos = new ArrayList<>();
+        for (Product product : products) {
+            dtos.add(entityToDto(product));
+        }
+
+        return dtos;
+    }
+
+    @Override
+    public ProductDTO findProductById(Long productId) {
+        Product product = productRepository.findById(productId).orElse(null);
+        ProductDTO dto = entityToDto(product);
+        return dto;
+    }
+
+    @Override
+    public void updateProduct(ProductDTO productDTO) {
+        Product product = productRepository.findById(productDTO.getProductId()).orElse(null);
+        product.change(productDTO.getPrice(), productDTO.getConditions());
+        productRepository.save(product);
+    }
+
+    @Override
+    public void deleteProduct(Long productId) {
+        Product product = productRepository.findById(productId).orElse(null);
+        productRepository.delete(product);
+    }
+>>>>>>> 400af16a2bdaecdf19a6652e0398320a1aab5f3c
 }

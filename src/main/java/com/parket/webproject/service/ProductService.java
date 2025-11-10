@@ -8,9 +8,16 @@ import java.util.List;
 public interface ProductService {
     Long insertProduct(ProductDTO productDTO);
     List<ProductDTO> findAllProducts();
+<<<<<<< HEAD
 //    ProductDTO findProductById(Long id, Integer mode);
 //    void updateProduct(ProductDTO productDTO);
 //    void deleteProduct(Long id);
+=======
+    List<ProductDTO> findProductsByUserId(Long userId);
+    ProductDTO findProductById(Long productId);
+    void updateProduct(ProductDTO productDTO);
+    void deleteProduct(Long productId);
+>>>>>>> 400af16a2bdaecdf19a6652e0398320a1aab5f3c
 
     default Product dtoToEntity(ProductDTO productDTO) {
         Product product = Product.builder()
