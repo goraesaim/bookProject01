@@ -2,17 +2,18 @@ package com.parket.webproject.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-<<<<<<< HEAD
-=======
 import com.parket.webproject.cofig.author.PrincipalDetails;
 import com.parket.webproject.domain.User;
->>>>>>> 400af16a2bdaecdf19a6652e0398320a1aab5f3c
 import com.parket.webproject.dto.BookDTO;
 import com.parket.webproject.dto.ProductDTO;
 import com.parket.webproject.service.BookService;
 import com.parket.webproject.service.ProductService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,12 +37,8 @@ public class ProductController {
     }
 
     @PostMapping("/write")
-<<<<<<< HEAD
-    public String registerPost(@RequestParam(required = false) List<String> conditions, ProductDTO productDTO) {
-=======
     public String registerPost(@RequestParam(required = false) List<String> conditions, ProductDTO productDTO, @AuthenticationPrincipal PrincipalDetails principal) {
         // conditions 리스트 → JSON 문자열
->>>>>>> 400af16a2bdaecdf19a6652e0398320a1aab5f3c
         if (conditions != null && !conditions.isEmpty()) {
             try {
                 ObjectMapper objectMapper = new ObjectMapper();
@@ -51,7 +48,7 @@ public class ProductController {
                 e.printStackTrace();
             }
         }
-
+        productDTO.setUsername(principal.getUsername());
         Long productId = productService.insertProduct(productDTO);
         log.info("상품 등록 완료: productId=" + productId);
         return "redirect:/product/list";
@@ -95,35 +92,6 @@ public class ProductController {
         return books;
     }
 
-<<<<<<< HEAD
-
-
-//
-//    // 상품 상세 조회 및 수정 페이지
-//    @GetMapping({"/read", "/modify"})
-//    public void readProduct(@RequestParam("id") Long id,
-//                             @RequestParam(value = "mode", defaultValue = "0") Integer mode,
-//                             Model model) {
-//        ProductDTO productDTO = productService.findProductById(id, mode);
-//        model.addAttribute("product", productDTO);
-//    }
-//
-//    // 상품 수정 처리
-//    @PostMapping("/modify")
-//    public String modifyProduct(ProductDTO productDTO, RedirectAttributes redirectAttributes) {
-//        productService.updateProduct(productDTO);
-//        redirectAttributes.addAttribute("id", productDTO.getProductId());
-//        redirectAttributes.addAttribute("mode", 1);
-//        return "redirect:/product/read";
-//    }
-//
-//    // 상품 삭제 처리
-//    @GetMapping("/remove")
-//    public String removeProduct(@RequestParam("id") Long id) {
-//        productService.deleteProduct(id);
-//        return "redirect:/product/list";
-//    }
-=======
     @GetMapping( "/modify")
     public void readProduct(@RequestParam("productId") Long productId, Model model) {
         log.info("상품 수정 페이지 진입");
@@ -165,6 +133,5 @@ public class ProductController {
         log.info("상품 삭제 완료");
         return isAdmin ? "redirect:/product/list" : "redirect:/mypage/writeList";
     }
->>>>>>> 400af16a2bdaecdf19a6652e0398320a1aab5f3c
 
 }
