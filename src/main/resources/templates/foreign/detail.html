@@ -22,7 +22,7 @@
            </div>-->
             <div class="board_info">
                 <div>
-                    <p><span class="count">23</span> 개의 중고상품</p>
+                    <p><span class="count" th:text="${lists.size()}"></span> 개의 중고상품</p>
                 </div>
                 <div class="sort_btn_wrap">
                     <button class="on" type="button">정확도순</button>
@@ -31,61 +31,18 @@
             </div>
             <div class="use_product_wrap">
                 <ul class="use_product_list animation active">
-                    <li class="itm">
-                        <a href="/foreign/detail">
-                            <div class="img_wrap">
-                                <span class="label label01">국내 도서</span>
-                                <div class="img">
-                                    <img src="../img/main/sample.jpg" alt="">
-                                </div>
-                            </div>
-                            <div class="txt">
-                                <p class="title"><span>[중고] </span>여름의 비행운</p>
-                                <p class="price">7,000원 <span>3,000원</span></p>
-                                <div class="btn_box">
-                                    <button>장바구니</button>
-                                    <button>구매하기</button>
-                                </div>
-                                <div class="info_box">
-                                    <i>?</i>
-                                    <div>찢어짐, 표지없음</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="itm">
+                    <li class="itm" th:each="list : ${lists}">
                         <a href="#">
                             <div class="img_wrap">
                                 <span class="label label01">국내 도서</span>
                                 <div class="img">
-                                    <img src="../img/main/sample.jpg" alt="">
+                                    <img th:src="${list.bookImageUrl}"  alt="">
                                 </div>
                             </div>
                             <div class="txt">
-                                <p class="title"><span>[중고] </span>여름의 비행운 여름의 비행운 여름의 비행운 여름의 비행운 여름의 비행운</p>
-                                <p class="price">7,000원 <span>3,000원</span></p>
-                                <div class="btn_box">
-                                    <button>장바구니</button>
-                                    <button>구매하기</button>
-                                </div>
-                                <div class="info_box">
-                                    <i>?</i>
-                                    <div>찢어짐, 표지없음</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="itm">
-                        <a href="#">
-                            <div class="img_wrap">
-                                <span class="label label02">외국 도서</span>
-                                <div class="img">
-                                    <img src="../img/main/sample.jpg" alt="">
-                                </div>
-                            </div>
-                            <div class="txt">
-                                <p class="title"><span>[중고] </span>여름의 비행운 여름의 비행운 여름의 비행운 여름의 비행운 여름의 비행운</p>
-                                <p class="price">7,000원 <span>3,000원</span></p>
+                                <p class="title" th:text="${list.title}"><span>[중고] </span></p>
+                                <p class="price" th:text="${#numbers.formatDecimal(list.price, 0, 'COMMA', 0, 'POINT')} + '원'">
+                                    <span th:text="${list.realPrice}"></span></p>
                                 <div class="btn_box">
                                     <button>장바구니</button>
                                     <button>구매하기</button>
