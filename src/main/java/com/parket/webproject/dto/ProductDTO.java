@@ -32,6 +32,9 @@ public class ProductDTO {
     // 판매 여부
     private Boolean isSold;
     private String bookImageUrl;
+
+    // 가격 차이
+    private String discount;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
