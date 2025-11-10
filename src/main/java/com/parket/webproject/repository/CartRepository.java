@@ -20,4 +20,7 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
     
     // 체크박스 된 애들
     List<Cart> findByCartIdIn(List<Integer> cartIds);
+
+    // /mypage/writeList의 삭제 버튼 클릭시
+    void deleteByProduct_ProductId(Long productId);
 }
