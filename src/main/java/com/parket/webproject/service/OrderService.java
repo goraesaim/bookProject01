@@ -6,6 +6,5 @@ import com.parket.webproject.dto.OrderResultDTO;
 import java.util.List;
 
 public interface OrderService {
-    OrderResultDTO completePayment(User user, List<Integer> cardIds);
-    OrderResultDTO completeDirectPayment(User user, Long productId, int quantity);
+    OrderResultDTO completeOrder(User user, List<Integer> cartIds, Long productId, int quantity);
 }
