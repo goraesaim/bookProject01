@@ -9,6 +9,8 @@
             <div class="cart_wrap">
                 <form class="flex__form" action="/order/complete" method="post" id="payForm">
                     <input type="hidden" name="cartIds" th:value="${cartIdsJson}"/>
+                    <input type="hidden" name="productId" th:value="${orderItems[0].product.productId}" />
+
                     <input type="hidden" name="userId" th:value="${member.id}" />
                     <input type="hidden" name="totalPrice" th:value="${totalPrice}" />
                     <input type="hidden" name="totalQuantity" th:value="${totalQuantity}" />
@@ -94,59 +96,61 @@
             </div>
         </div>
     </div>
-<!--    <div class="pop_wrap" id="payMethodPop">-->
-<!--        <div class="popup">-->
-<!--            <img src="../img/sub/alert.svg" alt="">-->
-<!--            <h3>결제수단이 없습니다!</h3>-->
-<!--            <p>현재 사용가능한 결제수단이 없습니다.<br>-->
-<!--                지금 결제수단을 등록하시겠습니까?-->
-<!--            </p>-->
-<!--            <div class="btn_wrap">-->
-<!--                <a class="btn01" href="/mypage/payManagement">결제수단 등록</a>-->
-<!--                <button class="btn02 close_btn">취소</button>-->
-<!--            </div>-->
-<!--            <button class="close_btn" type="button"><img src="../img/sub/close.png"></button>-->
-<!--        </div>-->
-<!--    </div>-->
+    <div class="pop_wrap" id="payMethodPop">
+        <div class="popup">
+            <img src="../img/sub/alert.svg" alt="">
+            <h3>결제수단이 없습니다!</h3>
+            <p>현재 사용가능한 결제수단이 없습니다.<br>
+                지금 결제수단을 등록하시겠습니까?
+            </p>
+            <div class="btn_wrap">
+                <a class="btn01" href="/mypage/payManagement">결제수단 등록</a>
+                <button class="btn02 close_btn">취소</button>
+            </div>
+            <button class="close_btn" type="button"><img th:src="@{'/img/sub/pay.png'}" alt="결제">
+            </button>
+        </div>
+    </div>
 
-    <!-- 결제수단 체크하고 팝업띄우기 -->
-<!--    <script>-->
-<!--        document.addEventListener('DOMContentLoaded', () => {-->
-<!--            const payBtn = document.querySelector('#payBtn');-->
-<!--            const popup = document.querySelector('#payMethodPop');-->
-<!--            const cancelPopupBtn = document.querySelector('.close_btn');-->
-<!--            const payForm = document.querySelector('#payForm')-->
-<!--            console.log("🟢 hidden cartIds =", document.querySelector('[name=cartIds]').value);-->
 
-<!--            // 결제하기 버튼-->
-<!--            payBtn.addEventListener('click', async (e) => {-->
-<!--                e.preventDefault();-->
+    <script>
+        //결제수단 체크하고 팝업띄우기
+        document.addEventListener('DOMContentLoaded', () => {
+            const payBtn = document.querySelector('#payBtn');
+            const popup = document.querySelector('#payMethodPop');
+            const cancelPopupBtn = document.querySelector('.close_btn');
+            const payForm = document.querySelector('#payForm')
+            console.log("🟢 hidden cartIds =", document.querySelector('[name=cartIds]').value);
 
-<!--                console.log("결제하기 버튼 클릭됨");-->
+            // 결제하기 버튼
+            payBtn.addEventListener('click', async (e) => {
+                e.preventDefault();
 
-<!--                //결제수단 있는지 뭔지 체크-->
-<!--                const res = await fetch('/order/pay_check', { method: 'POST' });-->
-<!--                const result = await res.text();-->
+                console.log("결제하기 버튼 클릭됨");
 
-<!--                console.log("결제수단 확인 결과:", result);-->
+                //결제수단 있는지 뭔지 체크
+                const res = await fetch('/order/pay_check', { method: 'POST' });
+                const result = await res.text();
 
-<!--                if (result === 'OK') {-->
-<!--                    // 결제수단 있으면 결제 진행-->
-<!--                    console.log("수단 ㅇㅇ");-->
-<!--                    payForm.submit();-->
-<!--                } else if (result === 'NO') {-->
-<!--                    // 결제 수단 없을 때 팝업-->
-<!--                    popup.style.display = 'flex';-->
-<!--                } else if (result === 'UNAUTHORIZED') {-->
-<!--                    alert('로그인이 필요합니다.');-->
-<!--                    location.href = '/login';-->
-<!--                }-->
-<!--            });-->
+                console.log("결제수단 확인 결과:", result);
 
-<!--            // 창닫기-->
-<!--            cancelPopupBtn.addEventListener('click', () => {-->
-<!--                popup.style.display = 'none';-->
-<!--            });-->
-<!--        });-->
-<!--    </script>-->
+                if (result === 'OK') {
+                    // 결제수단 있으면 결제 진행
+                    console.log("수단 ㅇㅇ");
+                    payForm.submit();
+                } else if (result === 'NO') {
+                    // 결제 수단 없을 때 팝업
+                    popup.style.display = 'flex';
+                } else if (result === 'UNAUTHORIZED') {
+                    alert('로그인이 필요합니다.');
+                    location.href = '/login';
+                }
+            });
+
+            // 창닫기
+            cancelPopupBtn.addEventListener('click', () => {
+                popup.style.display = 'none';
+            });
+        });
+    </script>
 </div>

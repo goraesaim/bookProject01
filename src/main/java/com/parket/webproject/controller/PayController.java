@@ -6,7 +6,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.parket.webproject.cofig.author.PrincipalDetailService;
 import com.parket.webproject.cofig.author.PrincipalDetails;
 import com.parket.webproject.domain.*;
+import com.parket.webproject.dto.DirectOrderItemDTO;
 import com.parket.webproject.dto.OrderResultDTO;
+import com.parket.webproject.dto.ProductDTO;
 import com.parket.webproject.repository.PayHistoryRepository;
 import com.parket.webproject.repository.PayMethodRepository;
 import com.parket.webproject.repository.UserRepository;
@@ -21,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,11 +40,14 @@ public class PayController {
     private final PayHistoryRepository payHistoryRepository;
     private final NotificationService notificationService;
     private final OrderService orderService;
+    private final ProductService productService;
 
     @GetMapping("/pay")
     public String pay() {
         return "order/pay";
     }
+
+    //장바구니에서 결제로 넘어갈 때
     @PostMapping("/pay")
     public String orderPay(
             @RequestParam("cartIds") String cartIdsJson,
@@ -83,6 +89,50 @@ public class PayController {
         return "order/pay";
     }
 
+    // 그냥 바로 결제로 넘어갈때
+    @PostMapping("/pay/direct")
+    public String directOrderPay(
+            @RequestParam("productId") Long productId,
+            @RequestParam(value = "quantity", defaultValue = "1") int quantity,
+            @AuthenticationPrincipal PrincipalDetails principal,
+            Model model) {
+        
+        //로그인확인
+        if (principal == null || principal.getUser() == null) {
+            return "redirect:/member/login";
+        }
+        User user = principal.getUser();
+
+        //상품조회
+        ProductDTO product = productService.findProductById(productId);
+        if (product == null) {
+            throw new IllegalArgumentException("상품을 찾을 수 없습니다. ID=" + productId);
+        }
+
+        // 주문 상품 DTO생성
+        DirectOrderItemDTO orderItem = new DirectOrderItemDTO(product, quantity);
+        List<DirectOrderItemDTO> orderItems = List.of(orderItem);
+
+        int totalQuantity = quantity;
+        long totalPrice = product.getPrice() * quantity;
+
+        // 결제 수단 체크
+        boolean hasPayMethod = payMethodService.hasPayMethod(user);
+        Optional<PayMethod> payMethodOpt = payMethodRepository.findMethodByUser(user);
+        model.addAttribute("payMethod", payMethodOpt.orElse(null));
+
+        // 모델 데이터
+        model.addAttribute("orderItems", orderItems);
+        model.addAttribute("totalQuantity", totalQuantity);
+        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("member", user);
+        model.addAttribute("hasPayMethod", hasPayMethod);
+
+        // 기존 결제 페이지 재활용
+        return "order/pay";
+    }
+
+
     //결제수단 등록했는지 안했는지 확인하기
     @PostMapping("/pay_check")
     @ResponseBody
@@ -106,23 +156,45 @@ public class PayController {
     @PostMapping("/complete")
     public String completePayment(
             @AuthenticationPrincipal PrincipalDetails principal,
-            @RequestParam("cartIds") String cartIdsJson,
+            @RequestParam(value = "cartIds", required = false) String cartIdsJson,
+            @RequestParam(value = "productId", required = false) Long productId,
+            @RequestParam(value = "quantity", defaultValue = "1") int quantity,
             RedirectAttributes redirectAttributes
     ) throws JsonProcessingException {
 
         if (principal == null || principal.getUser() == null) {
             return "redirect:/login";
         }
-
-        ObjectMapper mapper = new ObjectMapper();
-        List<Integer> cartIds = mapper.readValue(
-                cartIdsJson.replaceAll("\"", ""), new TypeReference<List<Integer>>() {}
-        );
-
         User user = principal.getUser();
 
-        // 전체 결제 로직 수행
-        OrderResultDTO result = orderService.completePayment(user, cartIds);
+        ObjectMapper mapper = new ObjectMapper();
+        List<Integer> cartIds = new ArrayList<>();
+
+        // 장바구니에서 결제할때
+        if (cartIdsJson != null && !cartIdsJson.isBlank()) {
+            try {
+                if (cartIdsJson.trim().startsWith("[")) {
+                    cartIds = mapper.readValue(cartIdsJson, new TypeReference<List<Integer>>() {});
+                } else {
+                    cartIds.add(Integer.parseInt(cartIdsJson.replaceAll("\"", "").trim()));
+                }
+            } catch (Exception e) {
+                System.out.println("⚠️ cartIds 파싱 실패: " + e.getMessage());
+            }
+        }
+
+        //장바구니 결제
+        if (!cartIds.isEmpty()) {
+            OrderResultDTO result = orderService.completePayment(user, cartIds);
+            redirectAttributes.addAttribute("orderNo", result.getOrderNo());
+            redirectAttributes.addFlashAttribute("totalQuantity", result.getTotalQuantity());
+            redirectAttributes.addFlashAttribute("totalPrice", result.getTotalPrice());
+            return "redirect:/order/complete";
+        }
+
+        // 리스트에서 구매로 바로갈때 ..
+        System.out.println("💡 바로구매 결제 요청");
+        OrderResultDTO result = orderService.completeDirectPayment(user, productId, quantity);
 
         redirectAttributes.addAttribute("orderNo", result.getOrderNo());
         redirectAttributes.addFlashAttribute("totalQuantity", result.getTotalQuantity());
@@ -130,6 +202,8 @@ public class PayController {
 
         return "redirect:/order/complete";
     }
+
+
 
     @GetMapping("/complete")
     public String completePayment(@RequestParam("orderNo") String orderNo, Model model) {

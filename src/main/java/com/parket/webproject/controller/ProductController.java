@@ -51,10 +51,11 @@ public class ProductController {
         return "redirect:/product/list";
     }
 
-    @GetMapping("/list")
-    public void list(Model model) {
+    @GetMapping("/list" )
+    public void list(Model model, @AuthenticationPrincipal PrincipalDetails principal) {
         List<ProductDTO> products = productService.findAllProducts();
         model.addAttribute("products", products);
+        model.addAttribute("principal", principal);
     }
 
     @GetMapping("/select")
