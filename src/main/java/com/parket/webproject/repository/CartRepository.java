@@ -23,4 +23,6 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
 
     // /mypage/writeList의 삭제 버튼 클릭시
     void deleteByProduct_ProductId(Long productId);
+    // 장바구니에 있는지 체크
+    boolean existsByUser_IdAndProduct_ProductId(Long userId, Long productId);
 }

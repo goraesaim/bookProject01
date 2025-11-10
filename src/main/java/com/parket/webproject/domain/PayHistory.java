@@ -2,6 +2,7 @@ package com.parket.webproject.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
@@ -36,7 +37,7 @@ public class PayHistory {
     @JoinColumn(name = "paymentId")
     private PayMethod payMethod;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    @Column(nullable = false)
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     private LocalDateTime created_at;
 }
