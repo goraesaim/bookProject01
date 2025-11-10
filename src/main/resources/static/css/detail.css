@@ -1,0 +1,51 @@
+.detail-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.detail-container h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.detail-container p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.detail-container .content {
+    margin: 20px 0;
+    line-height: 1.6;
+}
+
+.detail-container .btn-box {
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end; /* 버튼을 오른쪽으로 정렬 */
+}
+
+/* a 태그를 버튼처럼 사용할 경우 */
+.detail-container .btn-box .btn {
+    padding: 10px 20px;
+    border: 1px solid #2f7af4;
+    background-color: #fff;
+    color: #2f7af4;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none; /* 밑줄 제거 */
+    display: inline-block;
+    text-align: center;
+}
+
+.detail-container .btn-box .btn:hover {
+    background-color: #2f7af4;
+    color: #fff;
+}
