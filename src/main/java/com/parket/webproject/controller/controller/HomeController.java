@@ -32,10 +32,15 @@ public class HomeController {
         List<ProductDTO> productLists = products.size() > 4 ? products.subList(0, 4) : products;
         for (ProductDTO product : productLists) {
             Long price = product.getPrice();
-            String realPriceStr = product.getRealPrice();
-            Long realPrice = Long.parseLong(realPriceStr.replaceAll("\\D", ""));
-            Long discount = price - realPrice;
-            String discountText = String.format("%,d원", discount);
+            String discountText="";
+            if (product.getRealPrice() != null ) {
+                String realPriceStr = product.getRealPrice();
+                Long realPrice = Long.parseLong(realPriceStr.replaceAll("\\D", ""));
+                Long discount = price - realPrice;
+                discountText = String.format("%,d원", discount);
+            }else {
+                discountText = "";
+            }
             product.setDiscount(discountText);
         }
         model.addAttribute("products", productLists);

@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Table(name = "payMethod")
 @Getter
 @Setter
+@ToString(exclude ={"user"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

@@ -28,13 +28,21 @@ public class SecurityConfig {
                         .requestMatchers("/**").permitAll()
                 )
 
-//                .csrf(httpCsrf -> httpCsrf.disable())
-//                .authorizeHttpRequests(authorizeRequest-> authorizeRequest
-//                        .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-//                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
-//                        .requestMatchers(HttpMethod.GET,"/**").permitAll()
-//                        .requestMatchers(HttpMethod.POST,"/member/register","/loginProcess").permitAll()
-//                        .anyRequest().authenticated())
+                .csrf(httpCsrf -> httpCsrf.disable())
+                .authorizeHttpRequests(authorizeRequest-> authorizeRequest
+                        .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
+                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET,"/**").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/member/register","/loginProcess").permitAll()
+                        // 관리자 페이지 권한
+                        // 공지사항 목록/상세 조회는 모든 사용자 접근 허용
+                        .requestMatchers("/noti/list", "/noti/detail/**").permitAll()
+                        // 작성/수정/삭제 페이지는 ADMIN 권한만 허용
+                        .requestMatchers("/noti/noticeAdd", "/noti/noticeModify/**", "/noti/delete/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/menu/add", "/menu/update").hasAnyAuthority("ADMIN", "MANAGER")
+                        .requestMatchers(HttpMethod.DELETE, "/menu/delete").hasAnyAuthority("ADMIN", "MANAGER")
+                        .anyRequest().authenticated()
+                )
                 .formLogin(formLoginConfig->formLoginConfig
                         .loginPage("/member/login")
                         .loginProcessingUrl("/loginProcess")
@@ -63,3 +71,4 @@ public class SecurityConfig {
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()));
     }
 }
+

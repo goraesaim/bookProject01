@@ -4,9 +4,11 @@ import com.parket.webproject.cofig.author.PrincipalDetails;
 import com.parket.webproject.domain.PayMethod;
 import com.parket.webproject.domain.User;
 import com.parket.webproject.repository.member.MemberRepository;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,11 +20,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/mypage")
 @Log4j2
 public class MyPageController {
+    //코드추가
+    private final PasswordEncoder passwordEncoder; // 로그인 유지용
+    private final HttpSession session;
+    // 여기까지 코드 추가
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final MemberRepository memberRepository;
 
-    public MyPageController(BCryptPasswordEncoder bCryptPasswordEncoder, MemberRepository memberRepository) {
+    public MyPageController(PasswordEncoder passwordEncoder, HttpSession session, BCryptPasswordEncoder bCryptPasswordEncoder, MemberRepository memberRepository) {
+        this.passwordEncoder = passwordEncoder;
+        this.session = session;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.memberRepository = memberRepository;
     }
@@ -80,4 +88,24 @@ public class MyPageController {
         model.addAttribute("payMethod", new PayMethod());
         return "mypage/payManagement";
     }
+    //여기서 부터 코드추가
+    @GetMapping("/withdrawal")
+    public String withdrawalPage() {
+        return "mypage/withdrawal"; // 탈퇴 확인 페이지로 이동
+    }
+
+    @PostMapping("/withdrawal")
+    public String withdrawal(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        User user = principalDetails.getUser();
+
+        // 사용자 삭제
+        memberRepository.deleteById(user.getId());
+
+        // 세션 초기화
+        session.invalidate();
+
+        // 탈퇴 후 메인 페이지로 리다이렉트
+        return "redirect:/?withdrawalSuccess";
+    }
+
 }

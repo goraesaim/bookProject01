@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout.html}">
+
+<head>
+    <title>계정 탈퇴</title>
+    <link rel="stylesheet" th:href="@{/css/mypage.css}">
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div class="sub_page withdrawal_page">
+        <div class="inner">
+            <h3>계정 탈퇴</h3>
+
+            <!-- 탈퇴 성공 시 알림 -->
+            <div th:if="${param.withdrawalSuccess}">
+                <script>
+                    alert('계정이 성공적으로 삭제되었습니다. 이용해주셔서 감사합니다.');
+                    location.href='/'; // ✅ 알림 후 메인으로 이동
+                </script>
+            </div>
+
+            <p>정말로 계정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.</p>
+
+            <form th:action="@{/mypage/withdrawal}" method="post">
+                <button type="submit" class="btn01">네, 탈퇴하겠습니다</button>
+                <button type="button" class="btn02" onclick="history.back()">취소</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

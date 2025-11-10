@@ -1,0 +1,48 @@
+/* 버튼 영역 무조건 보이도록 강제 */
+.btn-wrap {
+    display: flex !important;
+    gap: 10px !important;
+    justify-content: flex-end !important; /* 오른쪽 정렬 */
+    margin-top: 20px !important;
+    position: relative !important;
+    z-index: 9999 !important;
+    background: transparent !important;
+}
+
+/* 공통 버튼 스타일 */
+.btn01, .btn02 {
+    display: inline-block !important;
+    font-size: 15px !important;
+    border-radius: 4px !important;
+    line-height: 25px !important;
+    padding: 10px 20px !important;
+    font-family: 'GmarketSans', sans-serif !important;
+    border: 1px solid #007aff !important;
+    cursor: pointer !important;
+    z-index: 9999 !important;
+}
+
+/* 수정 버튼 */
+.btn01 {
+    color: #007aff !important;
+    background: #fff !important;
+}
+
+/* 취소 버튼 */
+.btn02 {
+    color: #007aff !important;
+    background: #fff !important;
+}
+/* 수정 버튼 hover */
+.btn01:hover {
+    background: #005bbb !important; /* 진한 파랑으로 변경 */
+    color: #fff !important;
+    transition: background 0.3s ease;
+}
+
+/* 취소 버튼 hover */
+.btn02:hover {
+    background: #007aff !important; /* 파랑 배경으로 변경 */
+    color: #fff !important;
+    transition: background 0.3s ease, color 0.3s ease;
+}
