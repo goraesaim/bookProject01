@@ -112,7 +112,8 @@
         </div>
     </div>
 
-
+    <!-- 간편결제 연동 -->
+    <script src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
     <script>
         //결제수단 체크하고 팝업띄우기
         document.addEventListener('DOMContentLoaded', () => {
@@ -151,6 +152,10 @@
             cancelPopupBtn.addEventListener('click', () => {
                 popup.style.display = 'none';
             });
+
+            const IMP = window.IMP;
+            IMP.init("impXXXXXXXX");
+
         });
     </script>
 </div>
