@@ -3,7 +3,9 @@ package com.parket.webproject.controller.controller.mypage;
 import com.parket.webproject.cofig.author.PrincipalDetails;
 import com.parket.webproject.domain.PayMethod;
 import com.parket.webproject.domain.User;
+import com.parket.webproject.dto.ProductDTO;
 import com.parket.webproject.repository.member.MemberRepository;
+import com.parket.webproject.service.ProductService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/mypage")
 @Log4j2
@@ -21,10 +25,12 @@ public class MyPageController {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final MemberRepository memberRepository;
+    private final ProductService productService;
 
-    public MyPageController(BCryptPasswordEncoder bCryptPasswordEncoder, MemberRepository memberRepository) {
+    public MyPageController(BCryptPasswordEncoder bCryptPasswordEncoder, MemberRepository memberRepository, ProductService productService) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.memberRepository = memberRepository;
+        this.productService = productService;
     }
 
     @GetMapping("/info")
@@ -60,23 +66,37 @@ public class MyPageController {
 
 
     @GetMapping("/saleComplete")
-    public String saleComplete() {
-        return "mypage/saleComplete";
+    public void saleComplete(@AuthenticationPrincipal PrincipalDetails principal, Model model) {
+        log.info("판매완료 도서 진입");
+        User user = principal.getUser(); // 로그인한 사용자 정보 가져오기
+        model.addAttribute("user", user);
     }
 
     @GetMapping("/writeList")
-    public String writeList() {
-        return "mypage/writeList";
+    public void writeList(@AuthenticationPrincipal PrincipalDetails principal, Model model) {
+        log.info("작성한 글 진입");
+        User user = principal.getUser(); // 로그인한 사용자 정보 가져오기
+        model.addAttribute("user", user);
+
+        List<ProductDTO> products = productService.findProductsByUserId(user.getId());
+        model.addAttribute("products", products);
+        model.addAttribute("productCount", products.size());
     }
 
     @GetMapping("/orderList")
-    public String orderList() {
-        return "mypage/orderList";
+    public void orderList(@AuthenticationPrincipal PrincipalDetails principal, Model model) {
+        log.info("나의 주문내역 진입");
+        User user = principal.getUser(); // 로그인한 사용자 정보 가져오기
+        model.addAttribute("user", user);
     }
 
     //마이페이지 - 결제수단 등록
     @GetMapping("/payManagement")
-    public String payManagement(Model model) {
+    public String payManagement(@AuthenticationPrincipal PrincipalDetails principal, Model model) {
+        log.info("결제수단 관리 진입");
+        User user = principal.getUser(); // 로그인한 사용자 정보 가져오기
+        model.addAttribute("user", user);
+
         model.addAttribute("payMethod", new PayMethod());
         return "mypage/payManagement";
     }

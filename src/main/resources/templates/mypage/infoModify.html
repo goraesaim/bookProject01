@@ -9,11 +9,11 @@
             <div class="flex__box">
                 <div class="sub__nav__wrap">
                     <div class="sub__nav">
-                        <div class="top">
+                        <a href="/mypage/info" class="top">
                             <p>반갑습니다. <br>
                                 <span th:text="${user.username + '님'}"></span>
                             </p>
-                        </div>
+                        </a>
                         <ul class="sub__nav__list">
                             <li class="sub__nav__itm">
                                 <h3>판매</h3>
@@ -58,6 +58,7 @@
                             </tr>
                         </table>
                         <div class="btn_wrap">
+                            <button onclick="location.href='/mypage/info'" class="btn01">마이페이지</button>
                             <button type="submit" id="submitBtn" class="btn01" disabled>회원정보수정</button>
                         </div>
                     </form>
