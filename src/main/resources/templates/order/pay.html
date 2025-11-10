@@ -47,7 +47,7 @@
                         <div class="pay__user__info">
                             <h5>결제 정보</h5>
                             <div th:if="${!hasPayMethod}" class="no-paymethod-box">
-                                <img src="../img/sub/pay.png">
+                                <img th:src="@{'/img/sub/pay.png'}" alt="결제">
                                 <p>등록된 결제수단이 없습니다.</p>
                                 <a href="/mypage/payManagement" class="btn">결제수단 등록하기</a>
                             </div>
@@ -98,17 +98,17 @@
     </div>
     <div class="pop_wrap" id="payMethodPop">
         <div class="popup">
-            <img src="../img/sub/alert.svg" alt="">
+            <img th:src="@{'/img/sub/alert.svg'}" alt="결제">
             <h3>결제수단이 없습니다!</h3>
             <p>현재 사용가능한 결제수단이 없습니다.<br>
                 지금 결제수단을 등록하시겠습니까?
             </p>
             <div class="btn_wrap">
                 <a class="btn01" href="/mypage/payManagement">결제수단 등록</a>
-                <button class="btn02 close_btn">취소</button>
+                <button class="btn02 cancleBtn">취소</button>
             </div>
-            <button class="close_btn" type="button"><img th:src="@{'/img/sub/pay.png'}" alt="결제">
-            </button>
+           <!-- <button class="close_btn" type="button"><img th:src="@{'/img/sub/pay.png'}" alt="결제">
+            </button>-->
         </div>
     </div>
 
@@ -118,7 +118,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const payBtn = document.querySelector('#payBtn');
             const popup = document.querySelector('#payMethodPop');
-            const cancelPopupBtn = document.querySelector('.close_btn');
+            const cancelPopupBtn = document.querySelector('.cancleBtn');
             const payForm = document.querySelector('#payForm')
             console.log("🟢 hidden cartIds =", document.querySelector('[name=cartIds]').value);
 

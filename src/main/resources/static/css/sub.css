@@ -123,7 +123,7 @@ border: none; background-size: contain; }
 .pop_wrap.type2 .select_list .text{text-align: left;flex: 1;}
 .pop_wrap.type2 .select_list .text .title{font-size: 15px; margin-bottom: 2px;}
 .pop_wrap.type2 .select_list .text .desc{font-size: 12px; color: #999}
-.pop_wrap .popup .close_btn{display: none}
+.pop_wrap.type2 .popup .close_btn{display: none}
 .pop_wrap.type2 #closeBtn2{position: absolute; right: -10px; top:-10px;}
 .pop_wrap.type2 #closeBtn2 button{padding: 0; border: none;}
 .pop_wrap.type2 .popup p{line-height: 1.5; margin-bottom: 0;}
