@@ -25,8 +25,9 @@ public class SecurityConfig {
 
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/authentication/check").permitAll()
                         .requestMatchers("/cart/add").authenticated()
-                        .requestMatchers("/order/**").permitAll()
+                        .requestMatchers("/order/**").authenticated()
                         .requestMatchers("/**").permitAll()
                 )
                 // 로그인 필요한 페이지 401 보내기

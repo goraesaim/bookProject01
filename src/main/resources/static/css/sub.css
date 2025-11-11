@@ -189,6 +189,9 @@ font-size: 16px; background: #fff; color: var(--point-color); margin-top: 20px; 
 .cart_wrap .cart_info .total p{color: var(--point-color); font-size: 19px; font-weight: 800; }
 .cart_wrap .cart_info .total p > span{color: #666;}
 .cart_wrap .cart_info .cart__list__orderbtn{display: block; border-radius: 32px; margin-top: 24px; width: 100%; padding: 16px 0; text-align: center; font-size: 16px; background: var(--point-color); color: #fff; border: none;}
+.cart_wrap .cart_info .easyPayBtn{display: block; border-radius: 32px; margin-top: 24px; width: 100%; padding: 16px 0; text-align: center; font-size: 16px; background: #000; color: #fff; border: none;}
+.cart_wrap .cart_info .pay_btn_wrap button{display: none;}
+.cart_wrap .cart_info .pay_btn_wrap button.active{display: block;}
 
 /*장바구니 테이블*/
 .cart__list {border-top: solid 1.5px black;border-collapse: collapse;width: 100%;font-size: 14px; padding: 30px; }
@@ -218,7 +221,7 @@ font-size: 16px; background: #fff; color: var(--point-color); margin-top: 20px; 
 .cart__list tfoot button{border-radius: 5px;padding: 4px 8px; font-size: 12px;background: #fff; border: 1px solid #ddd; }
 
 /*결제하기*/
-.pay_page .cart__itm__list{padding: 30px; border-top: 2px solid #000;}
+.pay_page .cart__itm__list{padding: 30px; border-top: 1px solid #000;}
 .pay_page .sub_top_ttl{text-align: left;}
 .cart__list__itm{display: flex; gap: 30px; padding:20px 0; border-bottom:1px solid #ddd;}
 .cart__list__itm:last-child{border-bottom: none;}
@@ -242,13 +245,18 @@ flex-direction: column;}
 .no-paymethod-box img{max-width: 80px;}
 .no-paymethod-box p{font-size: 16px; font-family: 'GmarketSans'; color: var(--point-color)}
 .no-paymethod-box a{text-decoration: underline; font-size: 15px; font-family: 'GmarketSans'; }
-
+.pay__user__info .methodBtnBox button{
+    padding: 20px; border-radius: 12px; font-family: 'GmarketSans'; border:1px solid #ddd; font-size: 15px;
+    background:#fff; cursor: pointer;
+}
+.pay__user__info .methodBtnBox button.active{border: 1px solid var(--point-color); color: var(--point-color)}
 /*결제완료창*/
 .cart__itm__list.type2{margin-top: 50px; align-items: center; padding-top: 30px; border-top: 1px solid #000 ; margin-top: 30px;}
 .cart__list__itm.type2{align-items: center;}
 .cart__list__itm .img{border: 1px solid #eee; width: 130px; height: 170px; display: flex; align-items: center; justify-content: center; }
 .cart__list__itm .img > div{width: 90px; height: 120px;}
 .cart__list__itm .img img{width: 100%; height: 100%; object-fit: cover;}
+.cart_info .pay_btn_wrap{flex-direction: column;}
 
 /***** 공지사항 *****/
 .noti_page .btn-wrap{margin-top: 20px; display: flex; gap: 10px; justify-content: end;}
@@ -274,6 +282,7 @@ letter-spacing: 0; font-size: 13px;}
 .noti_page .noti_list .itm .bottom > p > span{font-size:16px; font-weight:400;}
 .noti_page .noti_list .itm .bottom > a{padding: 12px 30px 12px 12px; border: 1px solid #d8d8d8; transition:all .3s; font-size:15px; background:url(../img/file.svg) no-repeat calc(100% - 10px) center / 16px; border-radius:4px;
 text-decoration: none; color:#111; background:url(../img/sub/file.svg) #f8f8f8 no-repeat calc(100% - 10px) center / 16px;}
+
 
 
 /*글쓰기*/
