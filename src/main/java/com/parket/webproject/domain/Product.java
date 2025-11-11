@@ -39,11 +39,8 @@ public class Product extends BaseEntity {
     @Column(length = 500)
     private String bookImageUrl;
 
-    public void change(String title, Long price, String author, String conditions, String publisher) {
-        this.title = title;
+    public void change(Long price, String conditions) {
         this.price = price;
-        this.author = author;
-        this.publisher = publisher;
         this.conditions = conditions;
     }
 }

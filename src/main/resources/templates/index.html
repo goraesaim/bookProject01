@@ -30,12 +30,9 @@
         <div class="section_new">
             <div class="inner">
                 <div class="tit_box animation">
-                    <h1 class="animation">오늘의 책소식</h1>
+                    <h1 class="animation">오늘의 베스트셀러</h1>
                     <ul class="main_tab tab">
                         <li class="on">
-                            <button type="button">전체</button>
-                        </li>
-                        <li>
                             <button type="button" onclick="loadCategory('국내')">국내 도서</button>
                         </li>
                         <li>
@@ -48,13 +45,25 @@
                         <li class="itm swiper-slide"
                             th:classappend="${iter.index == 0} ? ' active' : ''"
                             th:each="book, iter : ${books}">
-                            <a href="#">
+                            <a th:if="${book.category.contains('국베')}"
+                               th:href="@{/domestic/detail(bno=${book.bno})}">
                                 <div class="img">
                                     <img th:src="${book.bookImage}" alt="샘플 책 이미지"/>
                                 </div>
                                 <div class="txt">
-                                    <span th:text="${book.category == '국베' ? '국내 도서' : '해외 도서'}"
-                                          th:class="${book.category == '국베' ? 'label label01' : 'label label02 label'}"></span>
+                                    <span class="label label01">국내 도서</span>
+                                    <h1 class="tit" th:text="${book.title}"></h1>
+                                    <p class="author" th:text="${book.author}"></p>
+                                    <p class="price" th:text="${book.price}"></p>
+                                </div>
+                            </a>
+                            <a th:if="${!book.category.contains('국베')}"
+                               th:href="@{/foreign/detail(bno=${book.bno})}">
+                                <div class="img">
+                                    <img th:src="${book.bookImage}" alt="샘플 책 이미지"/>
+                                </div>
+                                <div class="txt">
+                                    <span class="label label02 label">해외 도서</span>
                                     <h1 class="tit" th:text="${book.title}"></h1>
                                     <p class="author" th:text="${book.author}"></p>
                                     <p class="price" th:text="${book.price}"></p>
@@ -83,7 +92,7 @@
             <div class="inner">
                 <div class="tit_box animation">
                     <div class="flex">
-                        <h1 class="animation">베스트 셀러</h1>
+                        <h1 class="animation">신간 도서</h1>
                         <ul class="main_tab tab">
                             <li class="on">
                                 <button type="button">전체</button>
@@ -107,159 +116,16 @@
                 </div>
                 <div class="best_book_swiper swiper-container animation">
                     <ul class="best_book_list swiper-wrapper">
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <span class="label01 label">국내 도서</span>
+                        <li class="itm swiper-slide" th:each="book : ${newbooks}">
+                            <a th:href="@{/bookNew/detail(bno=${book.bno})}">
                                 <div class="img">
-                                    <img src="img/main/sample02.jpg" alt=""/>
+                                    <img th:src="${book.bookImage}" alt="샘플 책 이미지"/>
                                 </div>
-                                <div class="text">
-                                    <p class="title">마음의 문제</p>
-                                    <p class="author">
-                                        사이드웨이, 사이드웨이, 사이드웨이, 사이드웨이,
-                                        사이드웨이,사이드웨이, 사이드웨이, 사이드웨이
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <span class="label02 label">해외 도서</span>
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt=""/>
-                                </div>
-                                <div class="text">
-                                    <p class="title">
-                                        마음의 문제마음의 문제 마음의 문제 마음의 문제 마음의 문제
-                                        마음의 문제 마음의 문제
-                                    </p>
-                                    <p class="author">
-                                        사이드웨이, 사이드웨이, 사이드웨이, 사이드웨이,
-                                        사이드웨이,사이드웨이, 사이드웨이, 사이드웨이
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <span class="label01 label">국내 도서</span>
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt=""/>
-                                </div>
-                                <div class="text">
-                                    <p class="title">
-                                        마음의 문제마음의 문제 마음의 문제 마음의 문제 마음의 문제
-                                        마음의 문제 마음의 문제
-                                    </p>
-                                    <p class="author">
-                                        사이드웨이, 사이드웨이, 사이드웨이, 사이드웨이,
-                                        사이드웨이,사이드웨이, 사이드웨이, 사이드웨이
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <span class="label02 label">해외 도서</span>
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt=""/>
-                                </div>
-                                <div class="text">
-                                    <p class="title">
-                                        글자수 체크 글자수 체크 글자수 체크 글자수 체크 글자수
-                                        체크 글자
-                                    </p>
-                                    <p class="author">
-                                        사이드웨이, 사이드웨이, 사이드웨이, 사이드웨이,
-                                        사이드웨이,사이드웨이, 사이드웨이, 사이드웨이
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <span class="label02 label">해외 도서</span>
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt=""/>
-                                </div>
-                                <div class="text">
-                                    <p class="title">
-                                        마음의 문제마음의 문제 마음의 문제 마음의 문제 마음의 문제
-                                        마음의 문제 마음의 문제
-                                    </p>
-                                    <p class="author">
-                                        사이드웨이, 사이드웨이, 사이드웨이, 사이드웨이,
-                                        사이드웨이,사이드웨이, 사이드웨이, 사이드웨이
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <span class="label02 label">해외 도서</span>
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt=""/>
-                                </div>
-                                <div class="text">
-                                    <p class="title">글자수 체크</p>
-                                    <p class="author">
-                                        사이드웨이, 사이드웨이, 사이드웨이, 사이드웨이,
-                                        사이드웨이,사이드웨이, 사이드웨이, 사이드웨이
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <span class="label02 label">해외 도서</span>
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt=""/>
-                                </div>
-                                <div class="text">
-                                    <p class="title">
-                                        마음의 문제마음의 문제 마음의 문제 마음의 문제 마음의 문제
-                                        마음의 문제 마음의 문제
-                                    </p>
-                                    <p class="author">
-                                        사이드웨이, 사이드웨이, 사이드웨이, 사이드웨이,
-                                        사이드웨이,사이드웨이, 사이드웨이, 사이드웨이
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="itm">
-                            <a href="#">
-                                <span class="label02 label">해외 도서</span>
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt=""/>
-                                </div>
-                                <div class="text">
-                                    <p class="title">
-                                        마음의 문제마음의 문제 마음의 문제 마음의 문제 마음의 문제
-                                        마음의 문제 마음의 문제
-                                    </p>
-                                    <p class="author">
-                                        사이드웨이, 사이드웨이, 사이드웨이, 사이드웨이,
-                                        사이드웨이,사이드웨이, 사이드웨이, 사이드웨이
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <span class="label02 label">해외 도서</span>
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt=""/>
-                                </div>
-                                <div class="text">
-                                    <p class="title">
-                                        마음의 문제마음의 문제 마음의 문제 마음의 문제 마음의 문제
-                                        마음의 문제 마음의 문제
-                                    </p>
-                                    <p class="author">
-                                        사이드웨이, 사이드웨이, 사이드웨이, 사이드웨이,
-                                        사이드웨이,사이드웨이, 사이드웨이, 사이드웨이
-                                    </p>
+                                <div class="txt">
+                                    <span class="label label01">신간 도서</span>
+                                    <h1 class="tit" th:text="${book.title}"></h1>
+                                    <p class="author" th:text="${book.author}"></p>
+                                    <p class="price" th:text="${book.price}"></p>
                                 </div>
                             </a>
                         </li>
@@ -273,96 +139,34 @@
             <div class="inner">
                 <div class="tit_box animation">
                     <h1 class="">최근 올라온 중고도서</h1>
-                    <a href="#">바로가기</a>
+                    <a href="/product/list">바로가기</a>
                 </div>
                 <ul class="used_list animation">
-                    <li class="itm">
-                        <a href="#">
-                            <div class="img">
-                                <img src="img/main/sample.jpg" alt=""/>
+                    <li class="itm" th:each="product : ${products}" th:attr="data-num=${product.productId}" th:if="${!product.isSold}">
+                        <div class="img">
+                            <img th:src="${product.bookImageUrl != null} ? ${product.bookImageUrl} : '/img/main/sample.jpg'" alt="도서 이미지">
+                        </div>
+
+                        <div class="txt">
+                            <p class="title">
+                                <span>[중고] </span><span th:text="${product.title}">제목</span>
+                            </p>
+                            <p class="price" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + '원'">
+                                <span th:if="${product.isSold}" class="sold">판매 완료</span>
+                            </p>
+                            <p class="desc">
+                                정상판매가보다 <span th:text="${product.discount}"></span> 저렴해요!
+                            </p>
+                            <div class="btn_box">
+                                <button>장바구니</button>
+                                <button>구매하기</button>
                             </div>
-                            <div class="txt">
-                                <p class="title"><span>[중고] </span>여름의 비행운 여름의 비행운 여름의 비행운 여름의 비행운 여름의 비행운 여름의 비행운 여름의 비행운 여름의 비행운 여름의 비행운</p>
-                                <p class="price">7,000원 <span>3,000원</span></p>
-                                <p class="desc">
-                                    정상판매가보다 <span>5,000원</span> 저렴해요!
-                                </p>
-                                <div class="btn_box">
-                                    <button>장바구니</button>
-                                    <button>구매하기</button>
-                                </div>
-                                <div class="info_box">
-                                    <i>?</i>
-                                    <div>찢어짐, 표지없음</div>
-                                </div>
+                            <div class="info_box" th:if="${product.conditions != null}">
+                                <i>?</i>
+                                <div th:text="${product.conditions}">찢어짐, 표지없음</div>
                             </div>
-                        </a>
-                    </li>
-                    <li class="itm">
-                        <a href="#">
-                            <div class="img">
-                                <img src="img/main/sample.jpg" alt=""/>
-                            </div>
-                            <div class="txt">
-                                <p class="title"><span>[중고] </span>여름의 비행운</p>
-                                <p class="price">7,000원 <span>3,000원</span></p>
-                                <p class="desc">
-                                    정상판매가보다 <span>5,000원</span> 저렴해요!
-                                </p>
-                                <div class="btn_box">
-                                    <button>장바구니</button>
-                                    <button>구매하기</button>
-                                </div>
-                                <div class="info_box">
-                                    <i>?</i>
-                                    <div>찢어짐, 표지없음</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="itm">
-                        <a href="#">
-                            <div class="img">
-                                <img src="img/main/sample.jpg" alt=""/>
-                            </div>
-                            <div class="txt">
-                                <p class="title"><span>[중고] </span>여름의 비행운</p>
-                                <p class="price">7,000원 <span>3,000원</span></p>
-                                <p class="desc">
-                                    정상판매가보다 <span>5,000원</span> 저렴해요!
-                                </p>
-                                <div class="btn_box">
-                                    <button>장바구니</button>
-                                    <button>구매하기</button>
-                                </div>
-                                <div class="info_box">
-                                    <i>?</i>
-                                    <div>찢어짐, 표지없음</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="itm">
-                        <a href="#">
-                            <div class="img">
-                                <img src="img/main/sample.jpg" alt=""/>
-                            </div>
-                            <div class="txt">
-                                <p class="title"><span>[중고] </span>여름의 비행운</p>
-                                <p class="price">7,000원 <span>3,000원</span></p>
-                                <p class="desc">
-                                    정상판매가보다 <span>5,000원</span> 저렴해요!
-                                </p>
-                                <div class="btn_box">
-                                    <button>장바구니</button>
-                                    <button>구매하기</button>
-                                </div>
-                                <div class="info_box">
-                                    <i>?</i>
-                                    <div>찢어짐, 표지없음</div>
-                                </div>
-                            </div>
-                        </a>
+                        </div>
+
                     </li>
                 </ul>
             </div>
@@ -373,28 +177,14 @@
             <div class="inner">
                 <div class="tit_box animation">
                     <h1>공지사항</h1>
-                    <a href="#">바로가기</a>
+                    <a href="/noti/list">바로가기</a>
                 </div>
                 <ul class="noti_list animation">
-                    <li class="itm">
+                    <li class="itm" th:each="board : ${noticeList}"
+                        th:onclick="|location.href='@{/noti/detail/{id}(id=${board.idx})}'|">
                         <a href="#">
-                            <h3>거래 관련 사기 주의 안내</h3>
-                            <p class="desc">
-                                거래 관련 사기 주의 안내 거래 관련 사기 주의 안내 거래 관련
-                                사기 주의 안내 거래 관련 사기 주의 안내 거래 관련 사기 주의
-                                안내 거래 관련 사기 주의 안내 거래 관련 사기 주의 안내 거래
-                                관련 사기 주의 안내
-                            </p>
-                        </a>
-                    </li>
-                    <li class="itm">
-                        <a href="#">
-                            <h3>거래 관련 사기 주의 안내</h3>
-                            <p class="desc">
-                                거래 관련 사기 주의 안내 거래 관련 사기 주의 안내 거래 관련
-                                사기 주의 안내 거래 관련 사기 주의 안내 거래 관련 사기 주의
-                                안내 거래 관련 사기 주의 안내 거래 관련 사기 주의 안내 거래
-                                관련 사기 주의 안내
+                            <h3 th:text="${board.title}"></h3>
+                            <p class="desc" th:text="${board.content}">
                             </p>
                         </a>
                     </li>

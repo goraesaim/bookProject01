@@ -5,4 +5,5 @@ import com.parket.webproject.domain.User;
 
 public interface PayService {
     boolean hasPayMethod(User user);
+
 }

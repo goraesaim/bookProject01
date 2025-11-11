@@ -1,0 +1,45 @@
+/* 🔹 mypage.css — 마이페이지 관련 스타일 */
+/* 계정 탈퇴 페이지 제목 */
+
+
+.withdrawal_page h3 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.withdrawal_page p {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.withdrawal_page form {
+    text-align: center;
+}
+
+.withdrawal_page .btn01,
+.withdrawal_page .btn02 {
+    font-size: 16px;
+    padding: 10px 20px;
+    margin: 0 5px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.withdrawal_page .btn01 {
+    background-color: #c0392b;
+    color: white;
+    border: none;
+}
+
+.withdrawal_page .btn02 {
+    background-color: #bdc3c7;
+    color: #333;
+    border: none;
+}
+    .sub__nav__itm a:hover {
+        font-weight: bold;    /* 글자 진하게 */
+        color: #007bff;        /* 파란색 */
+}

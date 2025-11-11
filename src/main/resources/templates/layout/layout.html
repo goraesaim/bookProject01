@@ -60,6 +60,7 @@
                     </li>
                     <li>
                         <a href="/noti/list" class="a_link">공지사항</a>
+
                     </li>
                 </ul>
             </nav>
@@ -77,8 +78,11 @@
                     <a href="/logout">로그아웃</a>
                     <a href="/mypage/info">마이페이지</a>
                 </li>
-                <li sec:authorize="hasAnyAuthority('ADMIN')">
+
+                <!-- 수정 -->
+                <div sec:authorize="hasRole('ADMIN')">
                     <a href="#" class="admin">관리자 페이지</a>
+                </div>
                 </li>
             </ul>
             <ul class="util_box">
@@ -170,7 +174,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="/js/common.js"></script>
-<!--<script src="/js/product.js"></script>-->
 
 <th:block layout:fragment="script"></th:block>
 <!-- FOOTER -->

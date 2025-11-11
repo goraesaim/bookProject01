@@ -10,6 +10,7 @@ import java.util.List;
 public interface ProductService {
     Long insertProduct(ProductDTO productDTO);
     List<ProductDTO> findAllProducts();
+    List<ProductDTO> findProductsByUserId(Long userId);
     ProductDTO findProductById(Long productId);
     void updateProduct(ProductDTO productDTO);
     void deleteProduct(Long productId);
