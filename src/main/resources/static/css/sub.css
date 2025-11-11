@@ -351,14 +351,17 @@ color: #000; text-decoration: none; background:url(../img/sub/file.svg) #f8f8f8 
 .my_page .info__table tr{padding: 10px 0; display: flex; align-items: center;}
 .my_page .info__table tr td{font-size: 17px; width: calc(100% - 150px);}
 .my_page .info__table tr > td:first-child{width: 150px;}
-.my_page .info__table tr td input[type="text"]{padding:20px; border-radius: 12px; width: 100%; font-size: 16px;  border:1px solid #ddd;}
+.my_page .info__table tr td input[type="text"],
+.my_page .info__table tr td input[type="password"]
+{padding:20px; border-radius: 12px; width: 100%; font-size: 16px;  border:1px solid #ddd;}
 .my_page .btn_wrap{margin-top: 20px; justify-content: end;}
 .my_page .board_info{padding: 0; border-bottom: 0; padding: 0; margin: 0; margin-bottom: 30px;}
 .my_page .info__table select{padding: 20px; width: 200px; font-size: 16px; border-radius: 12px; outline: none; border: 1px solid #ddd;
     appearance: none; -webkit-appearance: none;-moz-appearance: none; background: #fff; position: relative;}
-
 .my_page .info__table .select_box{position: relative;     width: fit-content;}
 .my_page .info__table .select_box:after{content: ""; display: block; width: 13px; height: 13px; background: url(../img/sub/free-icon-arrow-down-sign-to-navigate-32195.png); position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background-size: 100% auto; }
+.my_page .info__table tr td input[readonly]{background:#f4f4f4;}
+
 
 /*my__write__list*/
 .my__write__list{display: flex; flex-direction: column; gap: 20px;}
