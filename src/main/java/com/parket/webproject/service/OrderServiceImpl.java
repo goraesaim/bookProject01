@@ -68,7 +68,7 @@ public class OrderServiceImpl implements OrderService {
             cartService.deleteSelected(cartIds);
         }
 
-        // 바로결제
+        // 바로결제 시에!!!!!!!!!
         else if (productId != null) {
             Product product = productRepository.findById(productId)
                     .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다. ID=" + productId));
