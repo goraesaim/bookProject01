@@ -45,7 +45,7 @@
                                 <p class="price" th:text="${#numbers.formatDecimal(list.price, 0, 'COMMA', 0, 'POINT')} + '원'">
                                     <span th:text="${list.realPrice}"></span></p>
                                 <div class="btn_box"
-                                     th:if="${principal == null or product.username != principal.user.username}">
+                                     th:if="${principal == null or list.username != principal.user.username}">
                                     <button class="on goCart" type="button">장바구니</button>
                                     <button class="buyNowBtn" type="button">구매하기</button>
                                 </div>

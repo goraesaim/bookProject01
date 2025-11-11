@@ -39,6 +39,7 @@ public class ForeignController {
         } else if ("a".equals(type)) {
             model.addAttribute("books", bookRepository.findByAuthorSearchAll("%" + bookType + "%","%" + keyword + "%"));
         }
+        model.addAttribute("type", type);
         model.addAttribute("keyword", keyword);
         return "foreign/list";  // templates/foreign/list.html
     }
