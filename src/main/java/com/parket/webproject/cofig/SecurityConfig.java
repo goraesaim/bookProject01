@@ -25,9 +25,16 @@ public class SecurityConfig {
 
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/cart/add").authenticated()
+                        .requestMatchers("/order/**").permitAll()
                         .requestMatchers("/**").permitAll()
                 )
-
+                // 로그인 필요한 페이지 401 보내기
+                .exceptionHandling(exception ->
+                        exception.authenticationEntryPoint((request, response, authException) -> {
+                            response.setStatus(401);
+                        })
+                )
 //                .csrf(httpCsrf -> httpCsrf.disable())
 //                .authorizeHttpRequests(authorizeRequest-> authorizeRequest
 //                        .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
@@ -48,7 +55,7 @@ public class SecurityConfig {
                         .loginProcessingUrl("/loginProcess")
                         .usernameParameter("username")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/")
+                        .defaultSuccessUrl("/", true)
                         .permitAll())
                 .logout(logoutConfig->logoutConfig
                         .logoutUrl("/logout")

@@ -4,6 +4,7 @@ import com.parket.webproject.domain.Product;
 import com.parket.webproject.domain.User;
 import com.parket.webproject.dto.ProductDTO;
 import com.parket.webproject.repository.BookRepository;
+import com.parket.webproject.repository.CartRepository;
 import com.parket.webproject.repository.member.MemberRepository;
 import com.parket.webproject.repository.ProductRepository;
 import lombok.extern.log4j.Log4j2;
@@ -24,6 +25,8 @@ public class ProductServiceImpl implements ProductService {
     private BookRepository bookRepository;
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private CartRepository cartRepository;
 
     @Override
     public Long insertProduct(ProductDTO productDTO) {
@@ -71,6 +74,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(Long productId) {
+        cartRepository.deleteByProduct_ProductId(productId);
         Product product = productRepository.findById(productId).orElse(null);
         productRepository.delete(product);
     }

@@ -17,7 +17,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.List;
@@ -42,7 +41,7 @@ public class ProductController {
         if (conditions != null && !conditions.isEmpty()) {
             try {
                 ObjectMapper objectMapper = new ObjectMapper();
-                String json = objectMapper.writeValueAsString(conditions); // JSON 배열로 변환
+                String json = objectMapper.writeValueAsString(conditions);
                 productDTO.setConditions(json);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -54,37 +53,14 @@ public class ProductController {
         return "redirect:/product/list";
     }
 
-    @PostMapping("/write2")
-    public String registerPost2(@RequestParam(required = false) List<String> conditions, ProductDTO productDTO) {
-        if (conditions != null && !conditions.isEmpty()) {
-            try {
-                ObjectMapper objectMapper = new ObjectMapper();
-                String json = objectMapper.writeValueAsString(conditions); // JSON 배열로 변환
-                productDTO.setConditions(json);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        Long productId = productService.insertProduct(productDTO);
-        log.info("상품 등록 완료: productId=" + productId);
-        return "redirect:/product/list2";
-    }
-
-    @GetMapping("/list")
-    public void list(Model model) {
+    @GetMapping("/list" )
+    public void list(Model model, @AuthenticationPrincipal PrincipalDetails principal) {
         log.info("상품 리스트");
         List<ProductDTO> products = productService.findAllProducts();
         model.addAttribute("products", products);
+        model.addAttribute("principal", principal);
     }
 
-    @GetMapping("/list2")
-    public void list2(Model model) {
-        List<ProductDTO> products = productService.findAllProducts();
-        model.addAttribute("products", products);
-    }
-
-    //Taek 추가본
     @GetMapping("/select")
     @ResponseBody
     public List<BookDTO> submitMessage(@RequestParam("message") String message) throws IOException {
