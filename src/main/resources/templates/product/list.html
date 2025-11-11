@@ -35,6 +35,17 @@
             <a href="/product/write" class="btn01 writebtn" sec:authorize="isAuthenticated()">글쓰기</a>
             <div class="use_product_wrap">
                 <ul class="use_product_list animation active">
+                    <li class="no_item"
+                        th:if="${#lists.isEmpty(products) or #lists.isEmpty(products.?[!isSold])}" style="width: 100%">
+                        <div class="alert_box" th:if="${#lists.isEmpty(cartItems)}" style="text-align: center">
+                            <img src="../img/sub/alert.svg" />
+                            <p>
+                                등록된 중고서적이 없습니다.<br />
+                                다양한 중고서적을 등록해보세요.
+                            </p>
+                        </div>
+                    </li>
+
                     <li class="itm" th:each="product : ${products}" th:attr="data-num=${product.productId}" th:if="${!product.isSold}">
                         <div class="img_wrap">
                             <div class="img">
