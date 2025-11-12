@@ -41,7 +41,7 @@ public class DomesticController {
         } else if ("a".equals(type)) {
             model.addAttribute("books", bookRepository.findByAuthorSearchAll("%" + bookType + "%","%" + keyword + "%"));
         }
-
+        model.addAttribute("type", type);
         model.addAttribute("keyword", keyword);
         return "domestic/list";  // templates/domestic/list.html
     }
