@@ -1,6 +1,7 @@
 package com.parket.webproject.controller.controller.bookNew;
 
 import com.parket.webproject.cofig.author.PrincipalDetails;
+import com.parket.webproject.domain.CrawlBook;
 import com.parket.webproject.domain.Product;
 import com.parket.webproject.dto.BookDTO;
 import com.parket.webproject.dto.ProductDTO;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -29,7 +31,9 @@ public class BookNewController {
 
     @GetMapping("/list")
     public String showDomesticList(Model model) {
-        model.addAttribute("books", bookRepository.findByBookNewAll());
+        List<CrawlBook> newBooks = bookRepository.findByBookNewAll();
+        Collections.reverse(newBooks);
+        model.addAttribute("books", newBooks);
         return "bookNew/list";  // templates/bookNew/list.html
     }
     @GetMapping("/search")

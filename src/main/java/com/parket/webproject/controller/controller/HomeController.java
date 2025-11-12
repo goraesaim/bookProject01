@@ -33,6 +33,7 @@ public class HomeController {
         List<CrawlBook> allBooks = bookRepository.findAll();
         List<CrawlBook> limitedBooks = allBooks.size() > 10 ? allBooks.subList(0, 10) : allBooks;
         List<CrawlBook> newBooks = bookRepository.findByBookNewAll();
+        Collections.reverse(newBooks);
         List<CrawlBook> newBooklists = newBooks.size() > 10 ? newBooks.subList(0, 10) : newBooks;
         List<ProductDTO> products = productService.findAllProducts();
         Collections.reverse(products);
