@@ -47,7 +47,7 @@
                                 <div class="txt">
                                     <h3 class="title" th:text="${product.title}"></h3>
                                     <p class="author" th:text="${product.author}"></p>
-                                    <p class="author" th:text="${product.publisher}"></p>
+                                    <p class="publisher" th:text="${product.publisher}"></p>
                                     <span class="price" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + '원'"></span>
                                 </div>
                                 <span class="state">판매완료</span>

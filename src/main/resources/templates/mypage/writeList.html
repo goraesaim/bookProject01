@@ -47,7 +47,7 @@
                                 <div class="txt">
                                     <h3 class="title">[[${product.title}]]</h3>
                                     <p class="author">[[${product.author}]]</p>
-                                    <p class="author">[[${product.publisher}]]</p>
+                                    <p class="publisher">[[${product.publisher}]]</p>
                                     <div class="price">
                                         <span th:if="${product.isSold}" class="sold">판매 완료</span>
                                         <p class="price" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + '원'"></p>
