@@ -95,7 +95,8 @@
                         <!-- 알람 없을 때 -->
                         <p class="new" th:if="${#lists.isEmpty(notification)}">새 알림이 없습니다.</p>
                         <!-- 알림 있을 때 -->
-                        <p th:each="noti : ${notifications}" th:text="${noti.message}"></p>
+                        <p th:each="noti : ${notifications}" th:text="${noti.message}"
+                           th:onclick="|location.href='/mypage/saleComplete'|" style="cursor: pointer;"></p>
                     </div>
                 </li>
                 <li class="cart-area">
@@ -135,7 +136,9 @@
                 if(data.length===0){
                     boxEl.innerHTML=`<p class="new"> 새 알람이 없습니다.</p>`;
                 }else{
-                    boxEl.innerHTML = data.map(noti=>`<p>${noti.message}</p>`).join(``);
+                    boxEl.innerHTML = data.map(noti=>
+                        `<p class="noti_item" onclick="location.href='/mypage/saleComplete'"
+                            style="cursor:pointer;">${noti.message}</p>`).join(``);
                 }
 
                 countEl.classList.add('new_alarm');

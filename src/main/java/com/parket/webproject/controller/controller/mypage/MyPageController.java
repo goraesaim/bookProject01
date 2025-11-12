@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -101,9 +99,13 @@ public class MyPageController {
         model.addAttribute("user", user);
 
         List<PayHistoryDTO> payhistorys = payHistoryService.findPayHistoryByUserId(user.getId());
-        // 주문번호별 그룹화
-        Map<String, List<PayHistoryDTO>> groupByOrderNo = payhistorys.stream()
-                .collect(Collectors.groupingBy(PayHistoryDTO::getOrderNo));
+        // 최신 주문일 기준으로 정렬
+        payhistorys.sort((a, b) -> b.getCreated_at().compareTo(a.getCreated_at()));
+        // 주문번호별로 그룹화하면서 순서 유지
+        Map<String, List<PayHistoryDTO>> groupByOrderNo = new LinkedHashMap<>();
+        for (PayHistoryDTO dto : payhistorys) {
+            groupByOrderNo.computeIfAbsent(dto.getOrderNo(), k -> new ArrayList<>()).add(dto);
+        }
         model.addAttribute("orderGroup", groupByOrderNo);
 
         // 주문내역 개수
