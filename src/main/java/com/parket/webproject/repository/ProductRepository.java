@@ -10,8 +10,8 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
+    @Query("SELECT p FROM Product p WHERE p.user.id = :userId ORDER BY p.isSold ASC, p.updatedAt DESC, p.createdAt DESC")
     List<Product> findByUserId(Long userId);
-
 
     @Query("SELECT b FROM Product b WHERE b.title LIKE :keyword ORDER BY b.productId ASC")
     List<Product> findByTitleSearchAll(String keyword);

@@ -25,7 +25,7 @@ public class MemberController {
     @Autowired
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @GetMapping("join")
+    @GetMapping("/join")
     public void join(){
 
     }
