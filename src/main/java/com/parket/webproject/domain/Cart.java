@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Table(name = "cart")
 @Getter
 @Setter
+@ToString(exclude ={"product","user"}) // @ManyToOne
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

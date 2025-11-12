@@ -36,6 +36,17 @@
             <a href="/product/write" class="btn01 writebtn" sec:authorize="isAuthenticated()">글쓰기</a>
             <div class="use_product_wrap">
                 <ul class="use_product_list animation active">
+                    <li class="no_item"
+                        th:if="${#lists.isEmpty(products) or #lists.isEmpty(products.?[!isSold])}" style="width: 100%">
+                        <div class="alert_box" th:if="${#lists.isEmpty(cartItems)}" style="text-align: center">
+                            <img src="../img/sub/alert.svg" />
+                            <p>
+                                등록된 중고서적이 없습니다.<br />
+                                다양한 중고서적을 등록해보세요.
+                            </p>
+                        </div>
+                    </li>
+
                     <li class="itm" th:each="product : ${products}" th:attr="data-num=${product.productId}" th:if="${!product.isSold}">
                         <div class="img_wrap">
                             <div class="img">
@@ -176,7 +187,7 @@
             //구매하기 바로가기
             const buyNowBtn = document.querySelectorAll('.buyNowBtn');
             buyNowBtn.forEach(btn => {
-                btn.addEventListener('click', (e) => {
+                btn.addEventListener('click', async (e) => {
                     e.preventDefault();
                     e.stopPropagation();
 
@@ -190,6 +201,17 @@
                     // data-num 속성에서 productId 읽기
                     const productId = item.dataset.num;
                     console.log("구매하기 클릭됨 → productId:", productId);
+
+                    try {
+                        const res = await fetch('/api/authentication/check', { method: 'GET' });
+                        if (res.status === 401) {
+                            // 로그인 안 된 경우
+                            loginPopup.style.display = 'flex';
+                            return;
+                        }
+                    } catch (err) {
+                        console.error('로그인 상태 확인 중 오류:', err);
+                    }
 
                     // form 생성
                     const form = document.createElement('form');

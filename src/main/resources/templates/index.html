@@ -30,12 +30,9 @@
         <div class="section_new">
             <div class="inner">
                 <div class="tit_box animation">
-                    <h1 class="animation">오늘의 책소식</h1>
+                    <h1 class="animation">오늘의 베스트셀러</h1>
                     <ul class="main_tab tab">
                         <li class="on">
-                            <button type="button">전체</button>
-                        </li>
-                        <li>
                             <button type="button" onclick="loadCategory('국내')">국내 도서</button>
                         </li>
                         <li>
@@ -48,13 +45,25 @@
                         <li class="itm swiper-slide"
                             th:classappend="${iter.index == 0} ? ' active' : ''"
                             th:each="book, iter : ${books}">
-                            <a href="#">
+                            <a th:if="${book.category.contains('국베')}"
+                               th:href="@{/domestic/detail(bno=${book.bno})}">
                                 <div class="img">
                                     <img th:src="${book.bookImage}" alt="샘플 책 이미지"/>
                                 </div>
                                 <div class="txt">
-                                    <span th:text="${book.category == '국베' ? '국내 도서' : '해외 도서'}"
-                                          th:class="${book.category == '국베' ? 'label label01' : 'label label02 label'}"></span>
+                                    <span class="label label01">국내 도서</span>
+                                    <h1 class="tit" th:text="${book.title}"></h1>
+                                    <p class="author" th:text="${book.author}"></p>
+                                    <p class="price" th:text="${book.price}"></p>
+                                </div>
+                            </a>
+                            <a th:if="${!book.category.contains('국베')}"
+                               th:href="@{/foreign/detail(bno=${book.bno})}">
+                                <div class="img">
+                                    <img th:src="${book.bookImage}" alt="샘플 책 이미지"/>
+                                </div>
+                                <div class="txt">
+                                    <span class="label label02 label">해외 도서</span>
                                     <h1 class="tit" th:text="${book.title}"></h1>
                                     <p class="author" th:text="${book.author}"></p>
                                     <p class="price" th:text="${book.price}"></p>
@@ -83,7 +92,7 @@
             <div class="inner">
                 <div class="tit_box animation">
                     <div class="flex">
-                        <h1 class="animation">베스트 셀러</h1>
+                        <h1 class="animation">신간 도서</h1>
                         <ul class="main_tab tab">
                             <li class="on">
                                 <button type="button">전체</button>
@@ -107,159 +116,16 @@
                 </div>
                 <div class="best_book_swiper swiper-container animation">
                     <ul class="best_book_list swiper-wrapper">
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <span class="label01 label">국내 도서</span>
+                        <li class="itm swiper-slide" th:each="book : ${newbooks}">
+                            <a th:href="@{/bookNew/detail(bno=${book.bno})}">
                                 <div class="img">
-                                    <img src="img/main/sample02.jpg" alt=""/>
+                                    <img th:src="${book.bookImage}" alt="샘플 책 이미지"/>
                                 </div>
-                                <div class="text">
-                                    <p class="title">마음의 문제</p>
-                                    <p class="author">
-                                        사이드웨이, 사이드웨이, 사이드웨이, 사이드웨이,
-                                        사이드웨이,사이드웨이, 사이드웨이, 사이드웨이
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <span class="label02 label">해외 도서</span>
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt=""/>
-                                </div>
-                                <div class="text">
-                                    <p class="title">
-                                        마음의 문제마음의 문제 마음의 문제 마음의 문제 마음의 문제
-                                        마음의 문제 마음의 문제
-                                    </p>
-                                    <p class="author">
-                                        사이드웨이, 사이드웨이, 사이드웨이, 사이드웨이,
-                                        사이드웨이,사이드웨이, 사이드웨이, 사이드웨이
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <span class="label01 label">국내 도서</span>
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt=""/>
-                                </div>
-                                <div class="text">
-                                    <p class="title">
-                                        마음의 문제마음의 문제 마음의 문제 마음의 문제 마음의 문제
-                                        마음의 문제 마음의 문제
-                                    </p>
-                                    <p class="author">
-                                        사이드웨이, 사이드웨이, 사이드웨이, 사이드웨이,
-                                        사이드웨이,사이드웨이, 사이드웨이, 사이드웨이
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <span class="label02 label">해외 도서</span>
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt=""/>
-                                </div>
-                                <div class="text">
-                                    <p class="title">
-                                        글자수 체크 글자수 체크 글자수 체크 글자수 체크 글자수
-                                        체크 글자
-                                    </p>
-                                    <p class="author">
-                                        사이드웨이, 사이드웨이, 사이드웨이, 사이드웨이,
-                                        사이드웨이,사이드웨이, 사이드웨이, 사이드웨이
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <span class="label02 label">해외 도서</span>
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt=""/>
-                                </div>
-                                <div class="text">
-                                    <p class="title">
-                                        마음의 문제마음의 문제 마음의 문제 마음의 문제 마음의 문제
-                                        마음의 문제 마음의 문제
-                                    </p>
-                                    <p class="author">
-                                        사이드웨이, 사이드웨이, 사이드웨이, 사이드웨이,
-                                        사이드웨이,사이드웨이, 사이드웨이, 사이드웨이
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <span class="label02 label">해외 도서</span>
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt=""/>
-                                </div>
-                                <div class="text">
-                                    <p class="title">글자수 체크</p>
-                                    <p class="author">
-                                        사이드웨이, 사이드웨이, 사이드웨이, 사이드웨이,
-                                        사이드웨이,사이드웨이, 사이드웨이, 사이드웨이
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <span class="label02 label">해외 도서</span>
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt=""/>
-                                </div>
-                                <div class="text">
-                                    <p class="title">
-                                        마음의 문제마음의 문제 마음의 문제 마음의 문제 마음의 문제
-                                        마음의 문제 마음의 문제
-                                    </p>
-                                    <p class="author">
-                                        사이드웨이, 사이드웨이, 사이드웨이, 사이드웨이,
-                                        사이드웨이,사이드웨이, 사이드웨이, 사이드웨이
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="itm">
-                            <a href="#">
-                                <span class="label02 label">해외 도서</span>
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt=""/>
-                                </div>
-                                <div class="text">
-                                    <p class="title">
-                                        마음의 문제마음의 문제 마음의 문제 마음의 문제 마음의 문제
-                                        마음의 문제 마음의 문제
-                                    </p>
-                                    <p class="author">
-                                        사이드웨이, 사이드웨이, 사이드웨이, 사이드웨이,
-                                        사이드웨이,사이드웨이, 사이드웨이, 사이드웨이
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="itm swiper-slide">
-                            <a href="#">
-                                <span class="label02 label">해외 도서</span>
-                                <div class="img">
-                                    <img src="img/main/sample.jpg" alt=""/>
-                                </div>
-                                <div class="text">
-                                    <p class="title">
-                                        마음의 문제마음의 문제 마음의 문제 마음의 문제 마음의 문제
-                                        마음의 문제 마음의 문제
-                                    </p>
-                                    <p class="author">
-                                        사이드웨이, 사이드웨이, 사이드웨이, 사이드웨이,
-                                        사이드웨이,사이드웨이, 사이드웨이, 사이드웨이
-                                    </p>
+                                <div class="txt">
+                                    <span class="label label01">신간 도서</span>
+                                    <h1 class="tit" th:text="${book.title}"></h1>
+                                    <p class="author" th:text="${book.author}"></p>
+                                    <p class="price" th:text="${book.price}"></p>
                                 </div>
                             </a>
                         </li>
@@ -273,96 +139,34 @@
             <div class="inner">
                 <div class="tit_box animation">
                     <h1 class="">최근 올라온 중고도서</h1>
-                    <a href="#">바로가기</a>
+                    <a href="/product/list">바로가기</a>
                 </div>
                 <ul class="used_list animation">
-                    <li class="itm">
-                        <a href="#">
-                            <div class="img">
-                                <img src="img/main/sample.jpg" alt=""/>
+                    <li class="itm" th:each="product : ${products}" th:attr="data-num=${product.productId}" th:if="${!product.isSold}">
+                        <div class="img">
+                            <img th:src="${product.bookImageUrl != null} ? ${product.bookImageUrl} : '/img/main/sample.jpg'" alt="도서 이미지">
+                        </div>
+
+                        <div class="txt">
+                            <p class="title">
+                                <span>[중고] </span><span th:text="${product.title}">제목</span>
+                            </p>
+                            <p class="price" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + '원'">
+                                <span th:if="${product.isSold}" class="sold">판매 완료</span>
+                            </p>
+                            <p class="desc">
+                                정상판매가보다 <span th:text="${product.discount}"></span> 저렴해요!
+                            </p>
+                            <div class="btn_box">
+                                <button class="goCart" type="button">장바구니</button>
+                                <button class="buyNowBtn" type="button">구매하기</button>
                             </div>
-                            <div class="txt">
-                                <p class="title"><span>[중고] </span>여름의 비행운 여름의 비행운 여름의 비행운 여름의 비행운 여름의 비행운 여름의 비행운 여름의 비행운 여름의 비행운 여름의 비행운</p>
-                                <p class="price">7,000원 <span>3,000원</span></p>
-                                <p class="desc">
-                                    정상판매가보다 <span>5,000원</span> 저렴해요!
-                                </p>
-                                <div class="btn_box">
-                                    <button>장바구니</button>
-                                    <button>구매하기</button>
-                                </div>
-                                <div class="info_box">
-                                    <i>?</i>
-                                    <div>찢어짐, 표지없음</div>
-                                </div>
+                            <div class="info_box" th:if="${product.conditions != null}">
+                                <i>?</i>
+                                <div th:text="${product.conditions}">찢어짐, 표지없음</div>
                             </div>
-                        </a>
-                    </li>
-                    <li class="itm">
-                        <a href="#">
-                            <div class="img">
-                                <img src="img/main/sample.jpg" alt=""/>
-                            </div>
-                            <div class="txt">
-                                <p class="title"><span>[중고] </span>여름의 비행운</p>
-                                <p class="price">7,000원 <span>3,000원</span></p>
-                                <p class="desc">
-                                    정상판매가보다 <span>5,000원</span> 저렴해요!
-                                </p>
-                                <div class="btn_box">
-                                    <button>장바구니</button>
-                                    <button>구매하기</button>
-                                </div>
-                                <div class="info_box">
-                                    <i>?</i>
-                                    <div>찢어짐, 표지없음</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="itm">
-                        <a href="#">
-                            <div class="img">
-                                <img src="img/main/sample.jpg" alt=""/>
-                            </div>
-                            <div class="txt">
-                                <p class="title"><span>[중고] </span>여름의 비행운</p>
-                                <p class="price">7,000원 <span>3,000원</span></p>
-                                <p class="desc">
-                                    정상판매가보다 <span>5,000원</span> 저렴해요!
-                                </p>
-                                <div class="btn_box">
-                                    <button>장바구니</button>
-                                    <button>구매하기</button>
-                                </div>
-                                <div class="info_box">
-                                    <i>?</i>
-                                    <div>찢어짐, 표지없음</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="itm">
-                        <a href="#">
-                            <div class="img">
-                                <img src="img/main/sample.jpg" alt=""/>
-                            </div>
-                            <div class="txt">
-                                <p class="title"><span>[중고] </span>여름의 비행운</p>
-                                <p class="price">7,000원 <span>3,000원</span></p>
-                                <p class="desc">
-                                    정상판매가보다 <span>5,000원</span> 저렴해요!
-                                </p>
-                                <div class="btn_box">
-                                    <button>장바구니</button>
-                                    <button>구매하기</button>
-                                </div>
-                                <div class="info_box">
-                                    <i>?</i>
-                                    <div>찢어짐, 표지없음</div>
-                                </div>
-                            </div>
-                        </a>
+                        </div>
+
                     </li>
                 </ul>
             </div>
@@ -373,28 +177,14 @@
             <div class="inner">
                 <div class="tit_box animation">
                     <h1>공지사항</h1>
-                    <a href="#">바로가기</a>
+                    <a href="/noti/list">바로가기</a>
                 </div>
                 <ul class="noti_list animation">
-                    <li class="itm">
+                    <li class="itm" th:each="board : ${noticeList}"
+                        th:onclick="|location.href='@{/noti/detail/{id}(id=${board.idx})}'|">
                         <a href="#">
-                            <h3>거래 관련 사기 주의 안내</h3>
-                            <p class="desc">
-                                거래 관련 사기 주의 안내 거래 관련 사기 주의 안내 거래 관련
-                                사기 주의 안내 거래 관련 사기 주의 안내 거래 관련 사기 주의
-                                안내 거래 관련 사기 주의 안내 거래 관련 사기 주의 안내 거래
-                                관련 사기 주의 안내
-                            </p>
-                        </a>
-                    </li>
-                    <li class="itm">
-                        <a href="#">
-                            <h3>거래 관련 사기 주의 안내</h3>
-                            <p class="desc">
-                                거래 관련 사기 주의 안내 거래 관련 사기 주의 안내 거래 관련
-                                사기 주의 안내 거래 관련 사기 주의 안내 거래 관련 사기 주의
-                                안내 거래 관련 사기 주의 안내 거래 관련 사기 주의 안내 거래
-                                관련 사기 주의 안내
+                            <h3 th:text="${board.title}"></h3>
+                            <p class="desc" th:text="${board.content}">
                             </p>
                         </a>
                     </li>
@@ -403,4 +193,141 @@
         </div>
         <!-- E : 공지사항 상품-->
     </main>
+    <div class="pop_wrap" id="loginPopup">
+        <div class="popup">
+            <img src="../img/sub/alert.svg" alt="">
+            <h3>로그인이 필요한 서비스입니다.</h3>
+            <p>로그인하러 가시겠습니까?</p>
+            <div class="btn_wrap">
+                <a class="btn01 loginBtn" href="/member/login">로그인</a>
+                <a class="btn02 cancle_btn">취소</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="pop_wrap" id="cartAddPopup">
+        <div class="popup">
+            <img src="../img/sub/alert.svg" alt="">
+            <h3>장바구니 담기 완료!</h3>
+            <p>상품이 장바구니에 담겼습니다.<br>
+                장바구니 페이지로 이동하시겠습니까?
+            </p>
+            <div class="btn_wrap">
+                <a class="btn01" href="/cart/list">장바구니 바로가기</a>
+                <button class="btn02 cancle_btn">취소</button>
+            </div>
+            <!--            <button class="close_btn" type="button"><img src="../img/sub/close.png"></button>-->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const popup = document.querySelector('#cartAddPopup');
+            // const closeBtns = document.querySelector('.close_btn');
+            const cancleBtn = document.querySelectorAll('.cancle_btn');
+            const loginPopup = document.querySelector('#loginPopup');
+            const loginBtn = document.querySelector('.login_btn');
+
+            document.querySelectorAll('.goCart').forEach(button => {
+                button.addEventListener('click', (e) => {
+
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    const item = e.target.closest('.itm');
+                    if (!item) return console.error('item not found');
+
+                    const productId = item.dataset.num;
+
+                    //console.log("보낼 productId:", productId, "userId:", userId);
+
+                    fetch('/cart/add', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            productId: productId
+                        }),
+                        redirect: "manual"
+                    })
+                        .then(res => {
+                            console.log("응답 코드:", res.status);
+                            if (res.status === 401 ) { // 비회원시
+                                loginPopup.style.display = 'flex';
+
+                            } else if (res.ok) {
+                                popup.style.display = 'flex';
+                            } else {
+                                alert('이미 장바구니에 존재합니다.');
+                            }
+                        })
+                        .catch(err => {
+                            console.error('Error:', err);
+                            alert('에러');
+                        });
+                });
+            });
+
+
+            //구매하기 바로가기
+            const buyNowBtn = document.querySelectorAll('.buyNowBtn');
+            buyNowBtn.forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    // 상품 li.itm 요소 찾기
+                    const item = e.target.closest('.itm');
+                    if (!item) {
+                        console.error('상품 정보를 찾을 수 없습니다.');
+                        return;
+                    }
+
+                    // data-num 속성에서 productId 읽기
+                    const productId = item.dataset.num;
+                    console.log("구매하기 클릭됨 → productId:", productId);
+
+                    try {
+                        const res = await fetch('/api/authentication/check', { method: 'GET' });
+                        if (res.status === 401) {
+                            // 로그인 안 된 경우
+                            loginPopup.style.display = 'flex';
+                            return;
+                        }
+                    } catch (err) {
+                        console.error('로그인 상태 확인 중 오류:', err);
+                    }
+
+                    // form 생성
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = '/order/pay';
+
+                    // input 생성
+                    const inputProduct = document.createElement('input');
+                    inputProduct.type = 'hidden';
+                    inputProduct.name = 'productId';
+                    inputProduct.value = productId;
+                    form.appendChild(inputProduct);
+
+                    const inputQty = document.createElement('input');
+                    inputQty.type = 'hidden';
+                    inputQty.name = 'quantity';
+                    inputQty.value = 1;
+                    form.appendChild(inputQty);
+
+                    document.body.appendChild(form);
+                    form.submit();
+                });
+            });
+
+            //팝업 닫기
+            document.querySelectorAll('.cancle_btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    btn.closest('.pop_wrap').style.display = 'none';
+                });
+            });
+
+        });
+    </script>
+
 </div>

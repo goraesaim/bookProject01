@@ -66,6 +66,13 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="pay__user__info">
+                            <h5>결제 방법</h5>
+                            <div class="methodBtnBox">
+                                <button type="button" class="active">일반결제</button>
+                                <button type="button">간편결제</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="cart_info_wrap">
                         <div class="cart_info">
@@ -82,14 +89,17 @@
                                 <span>최종 결제금액</span>
                                 <p data-th-text="${#numbers.formatInteger(totalPrice, 3, 'COMMA') + '원'}">3,0000 <span>원</span></p>
                             </div>
-                            <button
-                                    id="payBtn"
-                                    type="submit"
-                                    name="orderItem"
-                                    value="상품ID"
-                                    class="cart__list__orderbtn">
-                                결제하기
-                            </button>
+                            <div class="pay_btn_wrap">
+                                <button
+                                        id="payBtn"
+                                        type="submit"
+                                        name="orderItem"
+                                        value="상품ID"
+                                        class="cart__list__orderbtn active">
+                                    결제하기
+                                </button>
+                                <button id="easyPayBtn" type="button" class="btn easyPayBtn">간편결제</button>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -121,6 +131,11 @@
             const popup = document.querySelector('#payMethodPop');
             const cancelPopupBtn = document.querySelector('.cancleBtn');
             const payForm = document.querySelector('#payForm')
+            const easyPayBtn = document.querySelector('#easyPayBtn')
+            const methodBtns = document.querySelectorAll('.methodBtnBox button');
+            const payBtnWraps = document.querySelectorAll('.pay_btn_wrap button');
+
+
             console.log("🟢 hidden cartIds =", document.querySelector('[name=cartIds]').value);
 
             // 결제하기 버튼
@@ -148,14 +163,47 @@
                 }
             });
 
+            // 간편결제
+            easyPayBtn.addEventListener('click', () => {
+                const IMP = window.IMP;
+                IMP.init("imp19424728"); // 테스트용 코드
+
+                IMP.request_pay({
+                    pg: "html5_inicis", // 카드 결제 기본 테스트
+                    pay_method: "card",
+                    merchant_uid: "ORD-" + new Date().getTime(),
+                    name: "책콕 중고도서 간편결제",
+                    amount: document.querySelector('[name=totalPrice]').value,
+                    buyer_name: document.querySelector('[name=userId]').value,
+                    buyer_addr: document.querySelector('[name=address]')?.value || "",
+                }, function (rsp) {
+                    if (rsp.success) {
+                        console.log("간편결제 성공:", rsp);
+                        payForm.submit(); // 기존 결제 성공페이지 이동 ..
+                    } else {
+                        alert('결제가 취소되었습니다.');
+                        console.error(rsp.error_msg);
+                    }
+                });
+            });
+
+            methodBtns.forEach((btn, i) => {
+                btn.addEventListener('click', () => {
+                    // 전체 active 제거
+                    methodBtns.forEach(b => b.classList.remove('active'));
+                    payBtnWraps.forEach(w => w.classList.remove('active'));
+
+                    // 클릭한 인덱스만 active
+                    btn.classList.add('active');
+                    if (payBtnWraps[i]) payBtnWraps[i].classList.add('active');
+                });
+            });
+
+
             // 창닫기
             cancelPopupBtn.addEventListener('click', () => {
                 popup.style.display = 'none';
             });
-
-            const IMP = window.IMP;
-            IMP.init("impXXXXXXXX");
-
         });
     </script>
 </div>

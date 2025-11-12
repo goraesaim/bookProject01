@@ -1,76 +1,56 @@
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
       layout:decorate="~{layout/layout.html}">
+
+<head>
+    <!-- 페이지별 CSS 적용 -->
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/noti.css}">
+    </th:block>
+</head>
+
 <div layout:fragment="content">
     <div class="sub_page noti_page">
         <div class="inner">
             <div class="sub_top_ttl">
-                <h3>공지사항</h3>
+                <h3>공지사항 목록</h3>
             </div>
-            <div class="board_search">
-                <form action="">
-                    <div class="search_con">
-                        <div class="select_box">
-                            <select>
-                                <option>전체</option>
-                                <option>제목</option>
-                                <option>저자</option>
-                            </select>
-                        </div>
-                        <input type="text" value="키워드를 입력해주세요.">
-                        <input type="submit" value="">
-                    </div>
-                </form>
+
+            <!-- 작성 버튼 (ADMIN 권한만) -->
+            <div class="btn-box">
+                <div sec:authorize="hasRole('ADMIN')">
+                    <button class="btn" th:onclick="'location.href=\'/noti/noticeAdd\';'">작성</button>
+                </div>
             </div>
+
+            <!-- 공지사항 리스트 -->
             <ul class="noti_list">
-                <li class="itm" onclick="location.href='/noti/detail'">
+                <li th:each="board : ${noticeList}"
+                    th:onclick="|location.href='@{/noti/detail/{id}(id=${board.idx})}'|"
+                    class="itm">
                     <div class="top">
-                        <span>No.1</span> <span>2025-11-03</span>
+                        <span th:text="'No.' + ${board.idx}"></span>
+                        <span th:text="${board.indate}"></span>
                     </div>
-                    <p class="title">공지사항공지사항</p>
+                    <p class="title" th:text="${board.title}"></p>
                     <div class="bottom">
                         <p>
-                            <span>조회수</span> <span>1</span>
+                            <span>조회수</span>
+                            <span th:text="${board.count}"></span>
                         </p>
-                        <a href="#">첨부파일</a>
-                    </div>
-                </li>
-                <li class="itm">
-                    <div class="top">
-                        <span>No.1</span> <span>2025-11-03</span>
-                    </div>
-                    <p class="title">공지사항공지사항</p>
-                    <div class="bottom">
-                        <p>
-                            <span>조회수</span> <span>1</span>
+                        <!--이미지파일 글자 출력 하지 안도록 하는 코드 -->
+                        <!-- <a th:if="${board.ofile != null}" th:text="${board.ofile}"></a> -->
+                        <!-- 업로드 이미지 썸네일 -->
+                        <p th:if="${board.sfile != null}">
+                            <img th:src="@{/uploads/{file}(file=${board.sfile})}"
+                                 alt="첨부 이미지"
+                                 style="max-width:100px;"/>
                         </p>
-                        <a href="#">첨부파일</a>
-                    </div>
-                </li>
-                <li class="itm">
-                    <div class="top">
-                        <span>No.1</span> <span>2025-11-03</span>
-                    </div>
-                    <p class="title">공지사항공지사항</p>
-                    <div class="bottom">
-                        <p>
-                            <span>조회수</span> <span>1</span>
-                        </p>
-                        <a href="#">첨부파일</a>
-                    </div>
-                </li>
-                <li class="itm">
-                    <div class="top">
-                        <span>No.1</span> <span>2025-11-03</span>
-                    </div>
-                    <p class="title">공지사항공지사항</p>
-                    <div class="bottom">
-                        <p>
-                            <span>조회수</span> <span>1</span>
-                        </p>
-                        <a href="#">첨부파일</a>
                     </div>
                 </li>
             </ul>
         </div>
     </div>
 </div>
+</html>

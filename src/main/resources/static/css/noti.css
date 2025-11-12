@@ -1,0 +1,42 @@
+/* 글쓰기 버튼 스타일 */
+a.btnAddNotice {
+    display: inline-block;
+    padding: 10px 25px;
+    border: 1px solid #2f7af4;
+    color: #2f7af4;
+    background-color: #fff;
+    border-radius: 1px;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 10px 0;
+}
+
+a.btnAddNotice:hover {
+    background-color: #2f7af4;
+    color: #fff;
+}
+/* 공지사항 페이지 버튼 스타일 */
+.btn-box {
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-box .btn {
+    padding: 10px 20px;
+    border: 1px solid #2f7af4;
+    background-color: #fff;
+    color: #2f7af4;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer; /* 마우스 포인터 변경 */
+    transition: all 0.3s ease;
+}
+
+.btn-box .btn:hover {
+    background-color: #2f7af4;
+    color: #fff;
+}
