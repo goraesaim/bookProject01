@@ -32,10 +32,10 @@
                 <div class="tit_box animation">
                     <h1 class="animation">오늘의 베스트셀러</h1>
                     <ul class="main_tab tab">
-                        <li class="on">
+                        <li class="on" id="domBtn">
                             <button type="button" onclick="loadCategory('국내')">국내 도서</button>
                         </li>
-                        <li>
+                        <li id="forBtn">
                             <button type="button" onclick="loadCategory('해외')">해외 도서</button>
                         </li>
                     </ul>
@@ -93,17 +93,17 @@
                 <div class="tit_box animation">
                     <div class="flex">
                         <h1 class="animation">신간 도서</h1>
-                        <ul class="main_tab tab">
-                            <li class="on">
-                                <button type="button">전체</button>
-                            </li>
-                            <li>
-                                <button type="button">국내도서</button>
-                            </li>
-                            <li>
-                                <button type="button">해외도서</button>
-                            </li>
-                        </ul>
+<!--                        <ul class="main_tab tab">-->
+<!--                            <li class="on">-->
+<!--                                <button type="button">전체</button>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <button type="button">국내도서</button>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <button type="button">해외도서</button>-->
+<!--                            </li>-->
+<!--                        </ul>-->
                     </div>
                     <div class="navigation">
                         <a href="#" class="prev">
@@ -327,6 +327,15 @@
                 });
             });
 
+            // 버튼 색상 바꾸기 위함
+            document.getElementById("domBtn").addEventListener("click", () => {
+                document.getElementById("domBtn").classList.add("on");
+                document.getElementById("forBtn").classList.remove("on");
+            });
+            document.getElementById("forBtn").addEventListener("click", () => {
+                document.getElementById("forBtn").classList.add("on");
+                document.getElementById("domBtn").classList.remove("on");
+            });
         });
     </script>
 

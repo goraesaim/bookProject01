@@ -40,7 +40,7 @@ public class BookNewController {
             model.addAttribute("books", bookRepository.findByAuthorSearchAll("%" + bookType + "%","%" + keyword + "%"));
         }
 
-
+        model.addAttribute("type", type);
         model.addAttribute("keyword", keyword);
         return "bookNew/list";  // templates/bookNew/list.html
     }
