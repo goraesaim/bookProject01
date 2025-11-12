@@ -66,7 +66,7 @@
                                 <span>[[${product.realPrice}]]</span>
                             </div>
                             <div class="btn_box"
-                                 th:if="${principal == null or product.username != principal.user.username}">
+                                 th:if="${principal == null or !product.username.equals(principal.user.username)}">
                                 <button class="on goCart" type="button">장바구니</button>
                                 <button class="buyNowBtn" type="button">구매하기</button>
                             </div>
