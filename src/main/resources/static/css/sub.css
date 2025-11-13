@@ -259,6 +259,7 @@ flex-direction: column;}
 .cart_info .pay_btn_wrap{flex-direction: column;}
 
 /***** 공지사항 *****/
+.noti_page{min-height: 100vh; background: #f4f4f4;}
 .noti_page .btn-wrap{margin-top: 20px; display: flex; gap: 10px; justify-content: end;}
 .noti_page .btn-wrap button{display: inline-block; font-size: 15px; border-radius: 4px; line-height: 25px; padding:10px; font-family: 'GmarketSans';}
 .noti_page .btn-wrap .btn01{color: #fff; border:1px solid var(--point-color); background: var(--point-color);}
@@ -287,7 +288,7 @@ text-decoration: none; color:#111; background:url(../img/sub/file.svg) #f8f8f8 n
 
 /*글쓰기*/
 .noti_page.write{background: #F5F5F5; min-height: 90vh}
-.noti_page .frm-box{ max-width: 800px; width: 100%; margin: 0 auto}
+.noti_page .frm-box{  width: 100%; margin: 0 auto}
 .noti_page .frm_wrap{background:#fff; padding: 50px; width:100%; box-sizing: border-box;}
 .noti_page .wfrm table{width:100%;}
 .noti_page .wfrm table tr{padding: 10px 0; display: flex; align-items: center;}
@@ -296,11 +297,11 @@ text-decoration: none; color:#111; background:url(../img/sub/file.svg) #f8f8f8 n
 .noti_page .wfrm table td.flex input[type="button"]{line-height: 44px; padding: 0 12px;
 border:1px solid var(--point-color); color: var(--point-color); background:none; border-radius: 4px}
 
-.noti_page .wfrm table tr td:first-child{width:100px;}
+.noti_page .wfrm table tr td:first-child{width:150px;}
 .noti_page .wfrm table tr td{width:calc(100% - 100px) ; font-size: 16px;}
 .noti_page .wfrm table tr td input[type="text"]{width:100%; padding:12px; border:1px solid #b8b8b8; border-radius:4px;}
 .noti_page .wfrm table tr td textarea{width:100%; padding:12px; border:1px solid #b8b8b8; border-radius:4px;
-height:200px; resize:none;}
+height:200px; resize:none; font-family: 'Pretendard';}
 .noti_page .wfrm table tr td input[readonly]{background:#f4f4f4; border:none;}
 .noti_page .wfrm table tr td input[readonly]:focus{border:none; outline: none;}
 .noti_page .wfrm table tr td.state {display: flex; gap: 10px; flex-wrap: wrap;}
