@@ -9,6 +9,7 @@ import com.parket.webproject.repository.member.MemberRepository;
 import com.parket.webproject.service.PayHistoryService;
 import com.parket.webproject.service.PayMethodService;
 import com.parket.webproject.service.ProductService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -131,5 +132,19 @@ public class MyPageController {
         model.addAttribute("payMethod", payMethod);
 
         return "mypage/payManagement";
+    }
+
+
+    @PostMapping("/withdrawal")
+    public String withdrawAccount(HttpServletRequest request, @AuthenticationPrincipal PrincipalDetails principal) {
+        User user = principal.getUser();
+
+        memberRepository.delete(user);
+        request.getSession().invalidate();
+        return "redirect:/?withdrawalSuccess=true";
+    }
+    @GetMapping("/withdrawal")
+    public String withdrawalPage() {
+        return "mypage/withdrawal"; // join.html 파일이 mypage 폴더 안에 있으면 경로 맞춰주세요
     }
 }
