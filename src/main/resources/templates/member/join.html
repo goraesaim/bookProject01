@@ -42,7 +42,8 @@
 <div layout:fragment="script">
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-
+            let isIdValid = false;
+            let isPwValid = false;
             const usernameInput = document.getElementById("username");
             const checkBtn = document.getElementById("checkBtn");
             const checkMessage = document.getElementById("checkMessage");
@@ -66,9 +67,15 @@
                         if (data.exists) {
                             checkMessage.textContent = "이미 사용 중인 아이디입니다.";
                             checkMessage.style.color = "red";
+                            submitBtn.disabled = true;
                         } else {
                             checkMessage.textContent = "사용 가능한 아이디입니다.";
                             checkMessage.style.color = "green";
+                            isIdValid=true;
+                            if (isPwValid){
+                                submitBtn.disabled = false;
+                            }
+
                         }
                         checkMessage.style.display = "block";
                     })
@@ -88,7 +95,10 @@
 
                 if (password.value === confirmPassword.value) {
                     message.style.display = "none";
-                    submitBtn.disabled = false;
+                    isPwValid=true;
+                    if (isIdValid){
+                        submitBtn.disabled = false;
+                    }
                 } else {
                     message.style.display = "block";
                     submitBtn.disabled = true;
