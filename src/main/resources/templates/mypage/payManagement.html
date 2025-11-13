@@ -1,12 +1,15 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout.html}">
 <div layout:fragment="content">
+
     <div class="sub_page my_page">
         <div class="inner">
             <div class="sub_top_ttl">
                 <h3>마이페이지</h3>
             </div>
+
             <div class="flex__box">
+
                 <div class="sub__nav__wrap">
                     <div class="sub__nav">
                         <a href="/mypage/info" class="top">
@@ -14,60 +17,82 @@
                                 <span th:text="${user.username + '님'}"></span>
                             </p>
                         </a>
+
                         <ul class="sub__nav__list">
                             <li class="sub__nav__itm">
                                 <h3>판매</h3>
                                 <a href="/mypage/writeList">작성한 글</a>
-                                <a href="/mypage/saleComplete" >판매 완료 도서</a>
+                                <a href="/mypage/saleComplete">판매 완료 도서</a>
                             </li>
+
                             <li class="sub__nav__itm">
                                 <h3>구매</h3>
-                                <a href="/mypage/orderList" >나의 주문내역</a>
+                                <a href="/mypage/orderList">나의 주문내역</a>
                                 <a href="/mypage/payManagement" class="on">결제수단관리</a>
                             </li>
+
                             <li class="sub__nav__itm">
                                 <a href="/mypage/withdrawal">계정탈퇴</a>
                             </li>
                         </ul>
                     </div>
                 </div>
+
                 <div class="con">
                     <div class="board_info">
                         <h3 class="mypage__sub__tit type2">결제수단관리</h3>
                     </div>
+
                     <form action="/payMethod/register" method="post">
+                        <input type="hidden" name="id" th:value="${payMethod.paymentId}" />
+
                         <table class="info__table">
                             <tr>
                                 <td>결제수단</td>
                                 <td>
                                     <div class="select_box">
                                         <select name="methodType" required>
-                                            <option>계좌이체</option>
-                                            <option>카드결제</option>
+                                            <option value="계좌이체"
+                                                    th:selected="${payMethod.methodType == '계좌이체'}">
+                                                계좌이체
+                                            </option>
+                                            <option value="카드결제"
+                                                    th:selected="${payMethod.methodType == '카드결제'}">
+                                                카드결제
+                                            </option>
                                         </select>
                                     </div>
                                 </td>
                             </tr>
+
                             <tr>
                                 <td>은행</td>
                                 <td>
                                     <div class="select_box">
                                         <select name="bankName" required>
-                                            <option>부산은행</option>
-                                            <option>하나은행</option>
-                                            <option>기업은행</option>
-                                            <option>카카오뱅크</option>
+                                            <option value="부산은행" th:selected="${payMethod.bankName == '부산은행'}">부산은행</option>
+                                            <option value="하나은행" th:selected="${payMethod.bankName == '하나은행'}">하나은행</option>
+                                            <option value="기업은행" th:selected="${payMethod.bankName == '기업은행'}">기업은행</option>
+                                            <option value="카카오뱅크" th:selected="${payMethod.bankName == '카카오뱅크'}">카카오뱅크</option>
                                         </select>
                                     </div>
                                 </td>
                             </tr>
+
                             <tr>
                                 <td>계좌번호</td>
-                                <td><input type="text" placeholder="계좌번호를 입력해주세요" name="accountNumber"></td>
+                                <td>
+                                    <input type="text" name="accountNumber"
+                                           th:value="${payMethod.accountNumber}"
+                                           placeholder="계좌번호를 입력해주세요">
+                                </td>
                             </tr>
                         </table>
+
                         <div class="btn_wrap">
-                            <button type="submit" class="btn01">결제수단 등록</button>
+                            <button type="submit" class="btn01"
+                                    th:text="${payMethod.paymentId != null ? '결제수단 수정' : '결제수단 등록'}">
+                            </button>
                         </div>
                     </form>
                 </div>

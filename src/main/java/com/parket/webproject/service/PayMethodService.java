@@ -6,7 +6,7 @@ import com.parket.webproject.domain.User;
 import java.util.Optional;
 
 public interface PayMethodService {
-    String registerPayMethod(PayMethod payMethod);
+    PayMethod saveOrUpdatePayMethod(User user, PayMethod payMethod);
     boolean hasPayMethod(User user);
     Optional<PayMethod> getPayMethodByUser(User user);
 }

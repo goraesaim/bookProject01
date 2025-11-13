@@ -7,6 +7,7 @@ import com.parket.webproject.dto.PayHistoryDTO;
 import com.parket.webproject.dto.ProductDTO;
 import com.parket.webproject.repository.member.MemberRepository;
 import com.parket.webproject.service.PayHistoryService;
+import com.parket.webproject.service.PayMethodService;
 import com.parket.webproject.service.ProductService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,12 +31,14 @@ public class MyPageController {
     private final MemberRepository memberRepository;
     private final ProductService productService;
     private final PayHistoryService payHistoryService;
+    private final PayMethodService payMethodService;
 
-    public MyPageController(BCryptPasswordEncoder bCryptPasswordEncoder, MemberRepository memberRepository, ProductService productService, PayHistoryService payHistoryService) {
+    public MyPageController(BCryptPasswordEncoder bCryptPasswordEncoder, MemberRepository memberRepository, ProductService productService, PayHistoryService payHistoryService, PayMethodService payMethodService) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.memberRepository = memberRepository;
         this.productService = productService;
         this.payHistoryService = payHistoryService;
+        this.payMethodService = payMethodService;
     }
 
     @GetMapping("/info")
@@ -118,11 +121,15 @@ public class MyPageController {
     //마이페이지 - 결제수단 등록
     @GetMapping("/payManagement")
     public String payManagement(@AuthenticationPrincipal PrincipalDetails principal, Model model) {
-        log.info("결제수단 관리 진입");
-        User user = principal.getUser(); // 로그인한 사용자 정보 가져오기
+        User user = principal.getUser();
         model.addAttribute("user", user);
 
-        model.addAttribute("payMethod", new PayMethod());
+        // 결제수단 가져오기
+        Optional<PayMethod> payMethodOpt = payMethodService.getPayMethodByUser(user);
+        PayMethod payMethod = payMethodOpt.orElse(new PayMethod());
+
+        model.addAttribute("payMethod", payMethod);
+
         return "mypage/payManagement";
     }
 }

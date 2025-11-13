@@ -17,19 +17,26 @@ import java.util.Optional;
 public class PayMethodServiceImpl implements PayMethodService {
 
     private final PayMethodRepository payMethodRepository;
-
+    
+    //결제 수단 등록 및 수정!!!!!!!!!!!!!
     @Override
-    public String registerPayMethod(@ModelAttribute PayMethod payMethod) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-        User user = principalDetails.getUser();
+    public PayMethod saveOrUpdatePayMethod(User user, PayMethod form) {
+        Optional<PayMethod> existing = payMethodRepository.findMethodByUser(user);
 
-        // 로그인 유저 연결
-        payMethod.setUser(user);
-        payMethodRepository.save(payMethod);
+        PayMethod target;
 
-        // 등록 완료 후 다시 장바구니
-        return "redirect:/cart/list";
+        if (existing.isPresent()) {
+            // 수정 모드
+            target = existing.get();
+            target.setMethodType(form.getMethodType());
+            target.setBankName(form.getBankName());
+            target.setAccountNumber(form.getAccountNumber());
+        } else {
+            // 등록 모드
+            form.setUser(user);
+            target = form;
+        }
+        return payMethodRepository.save(target);
     }
 
     // 결제하기 버튼 - 결제수단 있는지 없는지 확인
