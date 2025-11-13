@@ -1,12 +1,15 @@
 package com.parket.webproject.controller.controller.member;
 
 
+import com.parket.webproject.cofig.author.PrincipalDetails;
 import com.parket.webproject.domain.User;
 import com.parket.webproject.repository.member.MemberRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -71,5 +74,19 @@ public class MemberController {
     @GetMapping("/complete")
     public String complete() {
         return "member/complete";
+    }
+
+
+    @PostMapping("/withdrawal")
+    public String withdrawAccount(HttpServletRequest request, @AuthenticationPrincipal PrincipalDetails principal) {
+        User user = principal.getUser();
+
+        memberRepository.delete(user);
+        request.getSession().invalidate();
+        return "redirect:/?withdrawalSuccess=true";
+    }
+    @GetMapping("/withdrawal")
+    public String withdrawalPage() {
+        return "mypage/withdrawal"; // join.html 파일이 mypage 폴더 안에 있으면 경로 맞춰주세요
     }
 }
