@@ -267,14 +267,13 @@ flex-direction: column;}
 .noti_page .btn-wrap .btn03{color: var(--point-color); border:1px solid var(--point-color); background: #fff;}
 /*카드 리스트*/
 .noti_page .noti_list{display: flex; gap:20px; flex-wrap:wrap; margin-top: 30px;}
-.noti_page .noti_list .itm{width: calc((100% - 40px) / 3); background:#fff; border:1px solid #ddd; cursor: pointer; padding:30px; border:1px solid #D8D8D8;
-border-radius:4px; background:#fff; transition:all .3s;}
-.noti_page .noti_list .itm:hover{border:1px solid #0045C9; }
+
+.noti_page .noti_list .itm{width: calc((100% - 40px) / 3); border:1px solid #ddd;}
 .noti_page .noti_list .itm .top{display: flex; flex-wrap: wrap; align-items:center; gap:4px}
 .noti_page .noti_list .itm .top > span{background:#F8F8F8; color:#555; display: inline-flex;
 padding: 0.3rem 0.8rem;border-radius: 0.6rem;font-weight: 400;line-height: 1.5;
 letter-spacing: 0; font-size: 13px;}
-.noti_page .noti_list .itm .title{margin-top:12px; font-size:19px; margin-bottom:60px; text-overflow: ellipsis;
+.noti_page .noti_list .itm .title{font-size:19px; margin:20px 0;text-overflow: ellipsis;
   overflow: hidden;display: -webkit-box;
   -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-height: 1.5em;; min-height:3em;}
 .noti_page .noti_list .itm:hover .title{color:#0045C9}
@@ -283,7 +282,12 @@ letter-spacing: 0; font-size: 13px;}
 .noti_page .noti_list .itm .bottom > p > span{font-size:16px; font-weight:400;}
 .noti_page .noti_list .itm .bottom > a{padding: 12px 30px 12px 12px; border: 1px solid #d8d8d8; transition:all .3s; font-size:15px; background:url(../img/file.svg) no-repeat calc(100% - 10px) center / 16px; border-radius:4px;
 text-decoration: none; color:#111; background:url(../img/sub/file.svg) #f8f8f8 no-repeat calc(100% - 10px) center / 16px;}
-
+.noti_page .noti_list .thumb{width: 100%; height: 250px;}
+.noti_page .noti_list .thumb img{width: 100%; height: 100%; object-fit: cover;}
+.noti_page .noti_list .no_thumb{background: #fff; display: flex; align-items: center; justify-content: center}
+.noti_page .noti_list .no_thumb h1{font-family: 'SeoulNotice'; font-size: 30px; color: #ddd;}
+.noti_page .noti_list .itm .txt{width: 100%; background:#fff; border-top:1px solid #ddd; cursor: pointer; padding:30px;
+    border-radius:0px; background:#fff; transition:all .3s;}
 
 
 /*글쓰기*/
