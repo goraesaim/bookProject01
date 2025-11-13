@@ -8,17 +8,13 @@ layout:decorate="~{layout/layout}">
 
 <div layout:fragment="content">
     <div class="sub_page noti_page write">
-        <div class="frm-box">
-            <div class="frm_wrap">
-                <div class="info">
-                    <div class="top">
-                        <h3>공지사항 작성</h3>
-                    </div>
-                </div>
-
-                <form th:action="@{/noti/noticeAdd}" method="post" enctype="multipart/form-data" class="wfrm">
-                    <table>
-                        <tbody>
+        <div class="inner">
+            <div class="sub_top_ttl">
+                <h3>글작성</h3>
+            </div>
+            <form th:action="@{/noti/noticeAdd}" method="post" enctype="multipart/form-data" class="wfrm">
+                <div class="frm-box">
+                    <table class="">
                         <tr>
                             <td>제목</td>
                             <td><input type="text" name="title" placeholder="제목을 입력해주세요" required></td>
@@ -31,15 +27,48 @@ layout:decorate="~{layout/layout}">
                             <td>첨부파일</td>
                             <td><input type="file" name="file"></td>
                         </tr>
-                        </tbody>
                     </table>
+                </div>
+                <div class="btn-wrap">
+                    <button type="submit" class="btn01">작성</button>
+                    <button type="button" class="btn02" th:onclick="|location.href='@{/noti/list}'|">목록</button>
+                </div>
+            </form>
 
-                    <div class="btn-wrap">
-                        <button type="submit" class="btn01">작성</button>
-                        <button type="button" class="btn02" th:onclick="|location.href='@{/noti/list}'|">목록</button>
-                    </div>
-                </form>
-            </div>
+            <!--희정님 원본-->
+            <!--        <div class="frm-box">
+                        <div class="frm_wrap">
+                            <div class="info">
+                                <div class="top">
+                                    <h3>공지사항 작성</h3>
+                                </div>
+                            </div>
+
+                            <form th:action="@{/noti/noticeAdd}" method="post" enctype="multipart/form-data" class="wfrm">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td>제목</td>
+                                        <td><input type="text" name="title" placeholder="제목을 입력해주세요" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td>내용</td>
+                                        <td><textarea name="content" placeholder="내용을 입력해주세요" required></textarea></td>
+                                    </tr>
+                                    <tr>
+                                        <td>첨부파일</td>
+                                        <td><input type="file" name="file"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="btn-wrap">
+                                    <button type="submit" class="btn01">작성</button>
+                                    <button type="button" class="btn02" th:onclick="|location.href='@{/noti/list}'|">목록</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>-->
         </div>
     </div>
 </div>
