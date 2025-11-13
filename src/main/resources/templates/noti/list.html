@@ -14,7 +14,7 @@
     <div class="sub_page noti_page">
         <div class="inner">
             <div class="sub_top_ttl">
-                <h3>공지사항 목록</h3>
+                <h3>공지사항</h3>
             </div>
 
             <!-- 작성 버튼 (ADMIN 권한만) -->
@@ -42,10 +42,12 @@
                         <!--이미지파일 글자 출력 하지 안도록 하는 코드 -->
                         <!-- <a th:if="${board.ofile != null}" th:text="${board.ofile}"></a> -->
                         <!-- 업로드 이미지 썸네일 -->
-                        <p th:if="${board.sfile != null}">
-                            <img th:src="@{/uploads/{file}(file=${board.sfile})}"
-                                 alt="첨부 이미지"
-                                 style="max-width:100px;"/>
+                        <p th:if="${board.sfile != null}" >
+<!--                            <img th:src="@{/uploads/{file}(file=${board.sfile})}"-->
+<!--                                 alt="첨부 이미지"-->
+<!--                                 style="max-width:100px;"/>-->
+                            <span>첨부파일</span>
+                            <img th:src="@{/img/sub/file.svg}">
                         </p>
                     </div>
                 </li>
