@@ -125,6 +125,68 @@
     }
     window.addEventListener('scroll', handleScroll);
     handleScroll();
+
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.fromTo(".visu .img",
+        { width: "50%", borderRadius: "12px" },
+        {
+            width: "100%",
+            ease: "none",
+            borderRadius: "0px",
+            scrollTrigger: {
+                trigger: ".visu",
+                start: "top top",
+                end: "+=500",
+                scrub: true,
+                pin: true
+            }
+        }
+    );
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: ".visu02",
+            start: "top top",
+            end: "+=200%",
+            scrub: 1,
+            pin: true,
+        }
+    });
+
+    tl.to(".visu02 .txt1", {
+        y: "-100%",
+        duration: 2,
+        ease: "power2.out"
+    }, 0);
+
+    tl.to(".visu02 .txt2", {
+        y: "100%",
+        duration: 2,
+        ease: "power2.out"
+    }, 0);
+
+    tl.fromTo(".visu02 .img",
+        {
+            width: "100vw",
+            height: "100vh",
+            maxWidth: "100vw",
+            opacity: 1,
+            borderRadius: "0px"
+        },
+        {
+            width: "90vw",
+            height: "500px",
+            maxWidth: "1224px",
+            borderRadius: "20px",
+            ease: "power3.out",
+            duration: 1.5
+        },
+        0.4
+    );
+
+    tl.to(".visu02 .txt3", {
+        opacity: 1,
+        duration: 1.2
+    }, 1.3);
 })();
 
 // 메인 비쥬얼 애니메이션
