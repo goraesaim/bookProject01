@@ -53,7 +53,7 @@
     //베스트셀러 슬라이더
     const bestBookSwiper = createSwiper('.best_book_swiper', {
         slidesPerView: 'auto',
-        spaceBetween: 20,
+        spaceBetween: 10,
         slidesPerGroup: 1,
         autoplay: {
             delay: 3000,
@@ -126,6 +126,7 @@
     window.addEventListener('scroll', handleScroll);
     handleScroll();
 
+    // 메인 비쥬얼 애니메이션
     gsap.registerPlugin(ScrollTrigger);
     gsap.fromTo(".visu .img",
         { width: "50%", borderRadius: "12px" },
