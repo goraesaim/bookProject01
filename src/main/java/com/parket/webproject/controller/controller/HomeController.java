@@ -36,7 +36,7 @@ public class HomeController {
         Collections.reverse(newBooks);
         List<CrawlBook> newBooklists = newBooks.size() > 10 ? newBooks.subList(0, 10) : newBooks;
         List<ProductDTO> products = productService.findAllProducts();
-        Collections.reverse(products);
+//        Collections.reverse(products);
         Long userId = null;
         if (principal != null && principal.getUser() != null) {
             userId = principal.getUser().getId();

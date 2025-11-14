@@ -9,6 +9,7 @@ import com.parket.webproject.repository.member.MemberRepository;
 import com.parket.webproject.repository.ProductRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> findAllProducts() {
-        List<Product> products = productRepository.findAll();
+        List<Product> products = productRepository.findAll(Sort.by(Sort.Order.desc("createdAt")));
         List<ProductDTO> dtos = new ArrayList<>();
         for (Product product : products) {
             dtos.add(entityToDto(product));
