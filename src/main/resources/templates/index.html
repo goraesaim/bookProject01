@@ -2,29 +2,45 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout.html}">
 <th:block layout:fragment="script">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/16.1.3/smooth-scroll.min.js" integrity="sha512-HYG9E+RmbXS7oy529Nk8byKFw5jqM3R1zzvoV2JnltsIGkK/AhZSzciYCNxDMOXEbYO9w6MJ6SpuYgm5PJPpeQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/js/main.js"></script>
 </th:block>
 <div layout:fragment="content">
     <main class="main">
         <div class="visu">
-            <div class="inner">
-                <div class="blur bl01"></div>
-                <div class="blur bl02"></div>
-                <div class="blur bl03"></div>
-                <div class="txt">
-                    <span>다 읽은 책이, 누군가의 첫 페이지가 됩니다.</span>
-                    <h1>
-                        팔고 사고, 읽고 또 돌려보는 <br/>
-                        우리만의 책 순환 플랫폼.
-                    </h1>
-                </div>
-                <div class="img">
-                    <img src="/img/main/mainVisu01.png" class="visuObj1"/>
-                    <img src="/img/main/mainVisu02.png" class="visuObj2"/>
-                    <img src="/img/main/mainVisu03.png" class="visuObj3"/>
-                </div>
+            <div class="blur bl01"></div>
+            <div class="blur bl02"></div>
+            <div class="blur bl03"></div>
+            <!-- 첫 텍스트 -->
+            <div class="txt txt-1">
+                <span>팔고 사고, 읽고 또 돌려보는</span>
+                <p>우리만의 책 순환 플랫폼.</p>
+            </div>
+
+            <!-- 이미지 -->
+            <div class="img">
+                <img src="/img/main/book.jpg" alt="">
+            </div>
+
+        </div>
+
+        <div class="visu02">
+            <div class="txt1">
+                당신의 마지막 페이지가,
+            </div>
+            <div class="img">
+                <img src="/img/main/book2.jpg" alt="">
+            </div>
+            <div class="txt2">
+                누군가의 첫 페이지로 이어집니다.
+            </div>
+            <div class="txt3">
+                책이 새로운 독자를 만나 다시 흐르는 곳.
+                <img src="/img/main/naming.svg" alt="">
             </div>
         </div>
+
         <!-- S : 신상 리스트 -->
         <!-- 국내도서는 label01 / 해외도서는 label02 -->
         <div class="section_new">
