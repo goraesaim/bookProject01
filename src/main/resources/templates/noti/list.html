@@ -1,75 +1,58 @@
-<!DOCTYPE html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
       layout:decorate="~{layout/layout.html}">
 
 <head>
-    <meta charset="UTF-8">
-    <title>공지사항 목록</title>
-
     <!-- 페이지별 CSS 적용 -->
     <th:block layout:fragment="css">
         <link rel="stylesheet" type="text/css" th:href="@{/css/noti.css}">
     </th:block>
 </head>
 
-<body>
 <div layout:fragment="content">
     <div class="sub_page noti_page">
         <div class="inner">
-
-            <!-- 페이지 상단 제목 -->
             <div class="sub_top_ttl">
                 <h3>공지사항</h3>
             </div>
 
-            <!-- 작성 버튼 (ADMIN 권한만 보이게) -->
+            <!-- 작성 버튼 (ADMIN 권한만) -->
             <div class="btn-box">
                 <div sec:authorize="hasRole('ADMIN')">
-                    <button class="btn" th:onclick="'location.href=\'/noti/noticeAdd\''">작성</button>
+                    <button class="btn" th:onclick="'location.href=\'/noti/noticeAdd\';'">작성</button>
                 </div>
             </div>
 
             <!-- 공지사항 리스트 -->
             <ul class="noti_list">
                 <li th:each="board : ${noticeList}"
-                    class="itm"
-                    th:onclick="|location.href='@{/noti/detail/{id}(id=${board.idx})}'|">
-                    <!-- 업로드 이미지 썸네일 (첨부파일 있을 때만 표시) -->
-                    <div class="thumb" th:if="${board.sfile != null}">
-                        <img th:src="@{/uploads/{file}(file=${board.sfile})}"
-                             alt="첨부 이미지">
+                    th:onclick="|location.href='@{/noti/detail/{id}(id=${board.idx})}'|"
+                    class="itm">
+                    <div class="top">
+                        <span th:text="'No.' + ${board.idx}"></span>
+                        <span th:text="${board.indate}"></span>
                     </div>
-
-                    <!-- 첨부파일이 없을 때는 아이콘만 표시 -->
-                    <div class="thumb no_thumb" th:if="${board.sfile == null}">
-                        <h1>책콕</h1>
+                    <p class="title" th:text="${board.title}"></p>
+                    <div class="bottom">
+                        <p>
+                            <span>조회수</span>
+                            <span th:text="${board.count}"></span>
+                        </p>
+                        <!--이미지파일 글자 출력 하지 안도록 하는 코드 -->
+                        <!-- <a th:if="${board.ofile != null}" th:text="${board.ofile}"></a> -->
+                        <!-- 업로드 이미지 썸네일 -->
+                        <p th:if="${board.sfile != null}" >
+<!--                            <img th:src="@{/uploads/{file}(file=${board.sfile})}"-->
+<!--                                 alt="첨부 이미지"-->
+<!--                                 style="max-width:100px;"/>-->
+                            <span>첨부파일</span>
+                            <img th:src="@{/img/sub/file.svg}">
+                        </p>
                     </div>
-
-                    <div class="txt">
-                        <div class="top">
-                            <span th:text="'No.' + ${board.idx}"></span>
-                            <span th:text="${#temporals.format(board.indate, 'yyyy-MM-dd')}"></span>
-                        </div>
-
-                        <!-- 제목 -->
-                        <p class="title" th:text="${board.title}"></p>
-
-                        <div class="bottom">
-                            <p>
-                                <span>조회수</span>
-                                <span th:text="${board.count}"></span>
-                            </p>
-
-                        </div>
-                    </div>
-
                 </li>
             </ul>
         </div>
     </div>
 </div>
-</body>
 </html>
